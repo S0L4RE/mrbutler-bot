@@ -1,11 +1,13 @@
 #! /usr/bin/env python
 
+import hashlib
 import logging
-import random
 import os
+import random
 import sys
+import tempfile
+import urllib.request
 
-import datetime
 import discord
 
 stdout_logger = logging.StreamHandler(sys.stdout)
@@ -32,6 +34,8 @@ if discord_admin is None:
 
 client = discord.Client()
 
+
+audio_data = {}
 
 @client.event
 async def on_message(message):
@@ -70,8 +74,17 @@ async def on_message(message):
         return
 
     if message.content.startswith('!djkhaled'):
+        data_file = audio_data.get("djkhaled", None)
+        if data_file is None:
+            return
+
+        temp = tempfile.TemporaryFile(mode="w+b")
+        temp.write(data_file)
+        temp.seek(0)
+
         voice = await client.join_voice_channel(message.author.voice_channel)
-        player = voice.create_ffmpeg_player('./static/djkhaled.wav')
+        voice.encoder_options(sample_rate=48000, channels=2)
+        player = voice.create_ffmpeg_player(temp, pipe=True, stderr=open('/dev/null', 'w'))
         player.volume = 0.3
         player.start()
 
@@ -98,6 +111,15 @@ async def on_ready():
     logger.log(logging.INFO, client.user.name)
     logger.log(logging.INFO, client.user.id)
     logger.log(logging.INFO, '---')
+    logger.log(logging.INFO, "Downloading audio...")
+
+    url = "https://urda.github.io/discord-mr-butler/static/djkhaled.wav"
+    url_sha256 = "42b195ef28ecebcceed88faac89f805ad1369d7e19db55268e57adaf018a85d0"
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    if hashlib.sha256(data).hexdigest() == url_sha256:
+        audio_data['djkhaled'] = data
+        logger.log(logging.INFO, "Downloaded DK KHALED")
 
 
 if __name__ == '__main__':
