@@ -33,9 +33,8 @@ if discord_admin is None:
     exit(-2)
 
 client = discord.Client()
-
-
 audio_data = {}
+
 
 @client.event
 async def on_message(message):
@@ -119,7 +118,9 @@ async def on_ready():
     data = response.read()
     if hashlib.sha256(data).hexdigest() == url_sha256:
         audio_data['djkhaled'] = data
-        logger.log(logging.INFO, "Downloaded DK KHALED")
+        logger.log(logging.INFO, "Downloaded DJ KHALED")
+    else:
+        logger.log(logging.WARNING, "Failed to download DJ KHALED")
 
 
 if __name__ == '__main__':
