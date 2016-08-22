@@ -81,6 +81,15 @@ async def on_message(message):
         await voice.disconnect()
         return
 
+    if message.content.startswith('!purge'):
+        if message.author.id != discord_admin:
+            msg = "You are not in the sudo'ers file {}".format(message.author.mention)
+            await client.send_message(message.author, msg)
+            return
+
+        await client.purge_from(message.channel)
+        await client.send_message(message.channel, "Purged")
+
 
 @client.event
 async def on_ready():
