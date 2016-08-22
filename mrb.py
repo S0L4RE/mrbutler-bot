@@ -81,16 +81,20 @@ async def on_message(message):
         temp.write(data_file)
         temp.seek(0)
 
-        voice = await client.join_voice_channel(message.author.voice_channel)
-        voice.encoder_options(sample_rate=48000, channels=2)
-        player = voice.create_ffmpeg_player(temp, use_avconv=True, pipe=True, stderr=open('/dev/null', 'w'))
-        player.volume = 0.3
-        player.start()
+        try:
+            voice = await client.join_voice_channel(message.author.voice_channel)
+            voice.encoder_options(sample_rate=48000, channels=2)
+            player = voice.create_ffmpeg_player(temp, use_avconv=True, pipe=True, stderr=open('/dev/null', 'w'))
+            player.volume = 0.3
+            player.start()
 
-        while player.is_playing():
-            pass
+            while player.is_playing():
+                pass
+        except discord.DiscordException:
+            await client.send_message(message.channel, "Something went wrong `:(`")
+        finally:
+            await voice.disconnect()
 
-        await voice.disconnect()
         return
 
     if message.content.startswith('!purge'):
