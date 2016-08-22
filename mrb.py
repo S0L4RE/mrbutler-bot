@@ -17,7 +17,7 @@ logger.setLevel(logging.DEBUG)
 logger.addHandler(stdout_logger)
 
 discord_token_key = "MRB_DISCORD_TOKEN"
-discord_token = os.getenv('MRB_DISCORD_TOKEN', None)
+discord_token = os.getenv(discord_token_key, None)
 if discord_token is None:
     print("Could not load discord token!")
     print("Did you set '{}' ?".format(discord_token_key))
