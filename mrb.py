@@ -59,6 +59,18 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
         return
 
+    if message.content.startswith('!djkhaled'):
+        voice = await client.join_voice_channel(message.author.voice_channel)
+        player = voice.create_ffmpeg_player('./static/djkhaled.wav')
+        player.volume = 0.3
+        player.start()
+
+        while player.is_playing():
+            pass
+
+        await voice.disconnect()
+        return
+
 
 @client.event
 async def on_ready():
