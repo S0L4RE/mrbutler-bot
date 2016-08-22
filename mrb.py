@@ -5,10 +5,11 @@ import random
 import os
 import sys
 
+import datetime
 import discord
 
 stdout_logger = logging.StreamHandler(sys.stdout)
-stdout_logger.setFormatter(logging.Formatter('%(asctime)s %(message)s'))
+stdout_logger.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
 stdout_logger.setLevel(logging.DEBUG)
 
 logger = logging.getLogger('discord')
