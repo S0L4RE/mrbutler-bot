@@ -38,6 +38,9 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.author.id != discord_admin:
+        return
+
     if message.content.startswith('!help'):
         commands = (
             "I understand the following commands:\n\n"
