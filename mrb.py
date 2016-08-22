@@ -23,6 +23,13 @@ if discord_token is None:
     print("Did you set '{}' ?".format(discord_token_key))
     exit(-1)
 
+discord_admin_key = "MRB_ADMIN_ID"
+discord_admin = os.getenv(discord_admin_key, None)
+if discord_admin is None:
+    print("Could not load discord token!")
+    print("Did you set '{}' ?".format(discord_token_key))
+    exit(-2)
+
 client = discord.Client()
 
 
