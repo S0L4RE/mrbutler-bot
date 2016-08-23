@@ -85,7 +85,7 @@ async def on_message(message):
 
         try:
             voice.encoder_options(sample_rate=48000, channels=2)
-            player = voice.create_ffmpeg_player(temp, use_avconv=True, pipe=True, stderr=open('/dev/null', 'w'))
+            player = voice.create_ffmpeg_player(temp, pipe=True, stderr=open('/dev/null', 'w'))
             player.volume = 0.3
             player.start()
 
