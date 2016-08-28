@@ -14,10 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from .dice import roll
 from .environment import MrbEnvironment
 
 __all__ = [
     'MrbEnvironment',
+    'roll',
 ]
 
 __version__ = "0.1.2"

@@ -1,0 +1,78 @@
+"""
+Copyright 2016 Peter Urda
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+from random import randint
+from typing import List
+
+
+def _poor_mans_try_parse(input_string: str) -> bool:
+    try:
+        _ = int(input_string)
+        return True
+    except ValueError:
+        return False
+
+
+def roll_dice(count: int, sides: int) -> List[int]:
+    result = []
+
+    for die in range(count):
+        result.append(randint(1, sides))
+
+    return result
+
+
+def roll(input_string: str='') -> List[int]:
+    delimiter = 'd'
+    dice_limit = 10
+    side_limit = 20
+    invalid_format_msg = "Expected format `NdM`! For example, 2d20"
+
+    # Verify there is only one delimiter on input
+    if input_string.count(delimiter) != 1:
+        raise ValueError(invalid_format_msg)
+
+    # Split to get [number of dice, sides per dice]
+    input_split = input_string.split(delimiter)
+    if len(input_split) != 2:
+        raise ValueError(invalid_format_msg)
+
+    # If any of these fail to parse out, bail out
+    if not any(_poor_mans_try_parse(x) for x in input_split):
+        raise ValueError(invalid_format_msg)
+
+    # Parse values to ints
+    number_of_dice = int(input_split[0])
+    sides_per_die = int(input_split[1])
+
+    # Verify everything is above zero
+    if any(x < 0 for x in [number_of_dice, sides_per_die]):
+        raise ValueError("You can't input negative numbers!")
+
+    # Raise exception on too many dice
+    if number_of_dice > dice_limit:
+        raise ValueError(
+            "You can't roll more than {} dice at once!".format(dice_limit)
+        )
+
+    # Raise exception on too many sides
+    if sides_per_die > side_limit:
+        raise ValueError(
+            "You can't roll a die with more than {} sides!".format(side_limit)
+        )
+
+    # So we have valid input, within logical bounds. Roll em!
+    return roll_dice(count=number_of_dice, sides=sides_per_die)
