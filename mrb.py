@@ -1,13 +1,9 @@
 #! /usr/bin/env python
 
-import hashlib
 import logging
 import os
 import random
 import sys
-import tempfile
-import urllib.request
-from urllib.error import URLError
 
 import discord
 
