@@ -7,6 +7,7 @@ import random
 import sys
 import tempfile
 import urllib.request
+from urllib.error import URLError
 
 import discord
 
@@ -122,15 +123,20 @@ async def on_ready():
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, "Downloading audio...")
 
-    url = "https://urda.github.io/mr.butler/static/djkhaled.wav"
-    url_sha256 = "42b195ef28ecebcceed88faac89f805ad1369d7e19db55268e57adaf018a85d0"
-    response = urllib.request.urlopen(url)
-    data = response.read()
-    if hashlib.sha256(data).hexdigest() == url_sha256:
-        audio_data['djkhaled'] = data
-        logger.log(logging.INFO, "Downloaded DJ KHALED")
-    else:
-        logger.log(logging.WARNING, "Failed to download DJ KHALED")
+    try:
+        url = "https://urda.github.io/mr.butler/static/djkhaled.wav"
+        url_sha256 = "42b195ef28ecebcceed88faac89f805ad1369d7e19db55268e57adaf018a85d0"
+        response = urllib.request.urlopen(url)
+        data = response.read()
+        if hashlib.sha256(data).hexdigest() == url_sha256:
+            audio_data['djkhaled'] = data
+            logger.log(logging.INFO, "Downloaded DJ KHALED")
+        else:
+            logger.log(logging.ERROR, "Failed to download DJ KHALED")
+            logger.log(logging.ERROR, "Checksum FAIL")
+    except URLError as e:
+        logger.log(logging.ERROR, "Failed to download DJ KHALED")
+        logger.log(logging.ERROR, e.reason)
 
     logger.log(logging.INFO, '---')
 
