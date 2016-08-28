@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 
 import logging
-import os
 import random
 import sys
 
 import discord
 
-version = "0.1.1"
+import mrb
+from mrb import MrbEnvironment
 
 stdout_logger = logging.StreamHandler(sys.stdout)
 stdout_logger.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
@@ -17,19 +17,14 @@ logger = logging.getLogger('discord')
 logger.setLevel(logging.INFO)
 logger.addHandler(stdout_logger)
 
-discord_token_key = "MRB_DISCORD_TOKEN"
-discord_token = os.getenv(discord_token_key, None)
-if discord_token is None:
-    print("Could not load discord token!")
-    print("Did you set '{}' ?".format(discord_token_key))
-    exit(-1)
+# Get the env details
+bot_env = MrbEnvironment()
 
-discord_admin_key = "MRB_ADMIN_ID"
-discord_admin = os.getenv(discord_admin_key, None)
-if discord_admin is None:
-    print("Could not load discord token!")
-    print("Did you set '{}' ?".format(discord_token_key))
-    exit(-2)
+for check_env_key, check_env_value in bot_env.environment.items():
+    if check_env_value is None:
+        print("Could not load required environment variable!")
+        print("Did you set '{}' ?".format(check_env_key))
+        exit(-1)
 
 client = discord.Client()
 audio_data = {}
@@ -41,7 +36,7 @@ async def on_message(message):
         return
 
     # This prevents anyone except for the bot's admin from running commands
-    if message.author.id != discord_admin:
+    if message.author.id != bot_env.DiscordAdminId:
         return
 
     if message.content.startswith('!help'):
@@ -54,7 +49,7 @@ async def on_message(message):
             "!hello ------ I'll say hello to you!\n"
             "```\n"
             "Mr. Butler, version `{0}`, at your service."
-        ).format(version)
+        ).format(mrb.__version__)
 
         await client.send_message(message.author, commands)
         return
@@ -93,7 +88,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('!purge'):
-        if message.author.id != discord_admin:
+        if message.author.id != bot_env.DiscordAdminId:
             msg = "You are not in the sudo'ers file {}".format(message.author.mention)
             await client.send_message(message.author, msg)
             return
@@ -110,10 +105,14 @@ async def on_ready():
     logger.log(logging.INFO, client.user.id)
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'ENV VARS:')
-    logger.log(logging.INFO, '{0:.<25} {1}'.format(discord_token_key + " ", discord_token))
-    logger.log(logging.INFO, '{0:.<25} {1}'.format(discord_admin_key + " ", discord_admin))
+
+    for env_key, env_value in bot_env.environment.items():
+        logger.log(logging.INFO, '{0:.<25} {1}'.format(env_key + " ", env_value))
+
+    logger.log(logging.INFO, '---')
+    logger.log(logging.INFO, "Version: '{}'".format(mrb.__version__))
     logger.log(logging.INFO, '---')
 
 
 if __name__ == '__main__':
-    client.run(discord_token)
+    client.run(bot_env.DiscordToken)
