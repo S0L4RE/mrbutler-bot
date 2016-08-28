@@ -24,4 +24,4 @@ dev-run: # Run the dev docker container
 
 .PHONY: prod-push
 prod-push: # Push this sucker to prod!
-	heroku container:push worker
+	heroku container:push worker --app mrbutler
