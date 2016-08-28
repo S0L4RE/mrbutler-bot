@@ -22,19 +22,6 @@ dev-run: # Run the dev docker container
 	docker run dev-bot
 
 
-.PHONY: prod-build
-prod-build: # Build the prod docker container
-	docker build \
-	--build-arg MRB_DISCORD_TOKEN=${MRB_DISCORD_TOKEN_PROD} \
-	--build-arg MRB_ADMIN_ID=${MRB_ADMIN_ID} \
-	-t prod-bot .
-
-
 .PHONY: prod-push
 prod-push: # Push this sucker to prod!
 	heroku container:push worker
-
-
-.PHONY: prod-run
-prod-run: # Run the PROD docker container
-	docker run prod-bot
