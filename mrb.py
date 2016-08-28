@@ -68,15 +68,22 @@ async def on_message(message):
         # If a message is longer than 15 characters, don't trust it!
         # len('!roll 10d20') = 11, 15 is more than enough.
         safe_length = 15
-        invalid_format_msg = "Expected format `NdM`! For example, 2d20"
+        invalid_format_msg = "Expected format `NdM`! For example, `2d20`"
         invalid_pm_template = "I didn't understand that {0}. {1}"
+        log_message_template = "Caught exception from user {0} --- {1}"
 
         if len(message.content) > safe_length:
             msg = invalid_pm_template.format(
                 message.author.mention,
                 invalid_format_msg,
             )
-            logger.log(logging.WARNING, "Caught exception: {}".format(msg))
+            logger.log(
+                logging.WARNING,
+                log_message_template.format(
+                    message.author,
+                    msg,
+                ),
+            )
             await client.send_message(message.author, msg)
             return
 
@@ -88,7 +95,13 @@ async def on_message(message):
                 message.author.mention,
                 invalid_format_msg,
             )
-            logger.log(logging.WARNING, "Caught exception: {}".format(msg))
+            logger.log(
+                logging.WARNING,
+                log_message_template.format(
+                    message.author,
+                    msg,
+                ),
+            )
             await client.send_message(message.author, msg)
             return
 
@@ -106,7 +119,13 @@ async def on_message(message):
 
         except ValueError as e:
             msg = invalid_pm_template.format(message.author.mention, e)
-            logger.log(logging.WARNING, "Caught exception: {}".format(msg))
+            logger.log(
+                logging.WARNING,
+                log_message_template.format(
+                    message.author,
+                    msg,
+                ),
+            )
             await client.send_message(message.author, msg)
             return
 
