@@ -97,13 +97,11 @@ async def on_message(message):
         try:
             roll_result = mrb.roll(roll_string_input[1])
 
-            msg = (
-                "{0} rolled:\n\n"
-                "```\n"
-                "{1}\n"
-                "```\n"
-                "For a total of `{2}`"
-            ).format(message.author.mention, roll_result, sum(roll_result))
+            msg = "{0} rolled `{1}` for a total of `{2}`".format(
+                message.author.mention,
+                roll_result,
+                sum(roll_result),
+            )
 
             await client.send_message(message.channel, msg)
             return
