@@ -145,12 +145,13 @@ async def on_message(message):
 
     if message.content.startswith('!djkhaled'):
         if message.author.id != bot_env.DiscordAdminId:
-            msg = "You are not in the sudo'ers file {}".format(message.author.mention)
-            await client.send_message(message.author, msg)
+            await client.send_message(
+                message.author,
+                "https://youtu.be/Jo-0ytcEXKg",
+            )
             return
 
         voice = await client.join_voice_channel(message.author.voice_channel)
-
         try:
             with open("/mrb/media/djkhaled.wav", "rb") as f:
                 voice.encoder_options(sample_rate=48000, channels=2)
