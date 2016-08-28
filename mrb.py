@@ -11,7 +11,7 @@ from urllib.error import URLError
 
 import discord
 
-version = "0.1"
+version = "0.1.1"
 
 stdout_logger = logging.StreamHandler(sys.stdout)
 stdout_logger.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
@@ -44,6 +44,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    # This prevents anyone except for the bot's admin from running commands
     if message.author.id != discord_admin:
         return
 
@@ -77,24 +78,17 @@ async def on_message(message):
         return
 
     if message.content.startswith('!djkhaled'):
-        data_file = audio_data.get("djkhaled", None)
-        if data_file is None:
-            return
-
-        temp = tempfile.TemporaryFile(mode="w+b")
-        temp.write(data_file)
-        temp.seek(0)
-
         voice = await client.join_voice_channel(message.author.voice_channel)
 
         try:
-            voice.encoder_options(sample_rate=48000, channels=2)
-            player = voice.create_ffmpeg_player(temp, pipe=True, stderr=open('/dev/null', 'w'))
-            player.volume = 0.3
-            player.start()
+            with open("/mrb/media/djkhaled.wav", "rb") as f:
+                voice.encoder_options(sample_rate=48000, channels=2)
+                player = voice.create_ffmpeg_player(f, pipe=True, stderr=open('/dev/null', 'w'))
+                player.volume = 0.2
+                player.start()
 
-            while player.is_playing():
-                pass
+                while player.is_playing():
+                    pass
         except discord.DiscordException:
             await client.send_message(message.channel, "Something went wrong `:(`")
         finally:
@@ -122,24 +116,6 @@ async def on_ready():
     logger.log(logging.INFO, 'ENV VARS:')
     logger.log(logging.INFO, '{0:.<25} {1}'.format(discord_token_key + " ", discord_token))
     logger.log(logging.INFO, '{0:.<25} {1}'.format(discord_admin_key + " ", discord_admin))
-    logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, "Downloading audio...")
-
-    try:
-        url = "https://urda.github.io/mr.butler/static/djkhaled.wav"
-        url_sha256 = "42b195ef28ecebcceed88faac89f805ad1369d7e19db55268e57adaf018a85d0"
-        response = urllib.request.urlopen(url)
-        data = response.read()
-        if hashlib.sha256(data).hexdigest() == url_sha256:
-            audio_data['djkhaled'] = data
-            logger.log(logging.INFO, "Downloaded DJ KHALED")
-        else:
-            logger.log(logging.ERROR, "Failed to download DJ KHALED")
-            logger.log(logging.ERROR, "Checksum FAIL")
-    except URLError as e:
-        logger.log(logging.ERROR, "Failed to download DJ KHALED")
-        logger.log(logging.ERROR, e.reason)
-
     logger.log(logging.INFO, '---')
 
 

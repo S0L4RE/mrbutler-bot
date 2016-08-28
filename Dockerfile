@@ -23,6 +23,8 @@ ARG MRB_DISCORD_TOKEN
 ENV MRB_ADMIN_ID ${MRB_ADMIN_ID}
 ENV MRB_DISCORD_TOKEN ${MRB_DISCORD_TOKEN}
 
+ADD media/ ${MRB_ROOT}/media/
+
 ADD mrb.py ${MRB_ROOT}
 
 CMD ["/usr/bin/python3", "./mrb.py"]
