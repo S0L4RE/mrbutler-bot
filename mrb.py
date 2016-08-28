@@ -11,6 +11,8 @@ from urllib.error import URLError
 
 import discord
 
+version = "0.1"
+
 stdout_logger = logging.StreamHandler(sys.stdout)
 stdout_logger.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
 stdout_logger.setLevel(logging.DEBUG)
@@ -54,8 +56,8 @@ async def on_message(message):
             "!help ------- I'll send you this command list.\n"
             "!hello ------ I'll say hello to you!\n"
             "```\n"
-            "Mr. Butler, at your service."
-        )
+            "Mr. Butler, version `{0}`, at your service."
+        ).format(version)
 
         await client.send_message(message.author, commands)
         return
