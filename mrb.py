@@ -72,26 +72,24 @@ async def on_message(message):
         invalid_pm_template = "I didn't understand that {0}. {1}"
 
         if len(message.content) > safe_length:
-            await client.send_message(
-                message.author,
-                invalid_pm_template.format(
-                    message.author.mention,
-                    invalid_format_msg,
-                ),
+            msg = invalid_pm_template.format(
+                message.author.mention,
+                invalid_format_msg,
             )
+            logger.log(logging.WARNING, "Caught exception: {}".format(msg))
+            await client.send_message(message.author, msg)
             return
 
         roll_string_input = message.content.split(' ')
 
         # If we couldn't get input to try and roll, return
         if len(roll_string_input) < 2:
-            await client.send_message(
-                message.author,
-                invalid_pm_template.format(
-                    message.author.mention,
-                    invalid_format_msg,
-                ),
+            msg = invalid_pm_template.format(
+                message.author.mention,
+                invalid_format_msg,
             )
+            logger.log(logging.WARNING, "Caught exception: {}".format(msg))
+            await client.send_message(message.author, msg)
             return
 
         try:
@@ -107,13 +105,9 @@ async def on_message(message):
             return
 
         except ValueError as e:
-            await client.send_message(
-                message.author,
-                invalid_pm_template.format(
-                    message.author.mention,
-                    e,
-                )
-            )
+            msg = invalid_pm_template.format(message.author.mention, e)
+            logger.log(logging.WARNING, "Caught exception: {}".format(msg))
+            await client.send_message(message.author, msg)
             return
 
     if message.content.startswith('!hello'):
