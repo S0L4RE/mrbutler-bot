@@ -16,7 +16,7 @@ stdout_logger.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(mess
 stdout_logger.setLevel(logging.DEBUG)
 
 logger = logging.getLogger('discord')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logger.addHandler(stdout_logger)
 
 discord_token_key = "MRB_DISCORD_TOKEN"
