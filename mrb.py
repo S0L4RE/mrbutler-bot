@@ -48,9 +48,10 @@ async def on_message(message):
         commands = (
             "I understand the following commands:\n\n"
             "```\n"
-            "!d20 ----- I'll roll a D20 die.\n"
-            "!help ---- I'll send you this command list.\n"
-            "!hello --- I'll say hello to you!\n"
+            "!d20 -------- I'll roll a D20 die.\n"
+            "!djkhaled --- I'll remind you that you're smart"
+            "!help ------- I'll send you this command list.\n"
+            "!hello ------ I'll say hello to you!\n"
             "```\n"
             "Mr. Butler, at your service."
         )
