@@ -117,7 +117,7 @@ async def on_ready():
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, "Downloading audio...")
 
-    url = "https://urda.github.io/discord-mr-butler/static/djkhaled.wav"
+    url = "https://urda.github.io/mr.butler/static/djkhaled.wav"
     url_sha256 = "42b195ef28ecebcceed88faac89f805ad1369d7e19db55268e57adaf018a85d0"
     response = urllib.request.urlopen(url)
     data = response.read()
