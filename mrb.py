@@ -111,7 +111,7 @@ async def on_message(message):
 
             msg = "{0} rolled".format(message.author.mention)
 
-            if roll_result > 1:
+            if len(roll_result) > 1:
                 msg = "{0} `{1}` for a total of `{2}`".format(
                     msg,
                     roll_result,
