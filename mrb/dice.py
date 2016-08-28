@@ -39,7 +39,7 @@ def roll(input_string: str='') -> List[int]:
     delimiter = 'd'
     dice_limit = 10
     side_limit = 20
-    invalid_format_msg = "Expected format `NdM`! For example, 2d20"
+    invalid_format_msg = "Expected format `NdM`! For example, `2d20`"
 
     # Verify there is only one delimiter on input
     if input_string.count(delimiter) != 1:
