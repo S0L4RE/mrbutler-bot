@@ -59,7 +59,7 @@ def roll(input_string: str='') -> List[int]:
     sides_per_die = int(input_split[1])
 
     # Verify everything is above zero
-    if any(x < 0 for x in [number_of_dice, sides_per_die]):
+    if any(x <= 0 for x in [number_of_dice, sides_per_die]):
         raise ValueError("You can't input negative numbers!")
 
     # Raise exception on too many dice
