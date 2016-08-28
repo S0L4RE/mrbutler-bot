@@ -115,6 +115,10 @@ async def on_ready():
     logger.log(logging.INFO, client.user.name)
     logger.log(logging.INFO, client.user.id)
     logger.log(logging.INFO, '---')
+    logger.log(logging.INFO, 'ENV VARS:')
+    logger.log(logging.INFO, '{0:.<25} {1}'.format(discord_token_key + " ", discord_token))
+    logger.log(logging.INFO, '{0:.<25} {1}'.format(discord_admin_key + " ", discord_admin))
+    logger.log(logging.INFO, '---')
     logger.log(logging.INFO, "Downloading audio...")
 
     url = "https://urda.github.io/mr.butler/static/djkhaled.wav"
@@ -126,6 +130,8 @@ async def on_ready():
         logger.log(logging.INFO, "Downloaded DJ KHALED")
     else:
         logger.log(logging.WARNING, "Failed to download DJ KHALED")
+
+    logger.log(logging.INFO, '---')
 
 
 if __name__ == '__main__':
