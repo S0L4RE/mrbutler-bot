@@ -51,7 +51,7 @@ def roll(input_string: str='') -> List[int]:
         raise ValueError(invalid_format_msg)
 
     # If any of these fail to parse out, bail out
-    if not any(_poor_mans_try_parse(x) for x in input_split):
+    if not all(_poor_mans_try_parse(x) for x in input_split):
         raise ValueError(invalid_format_msg)
 
     # Parse values to ints
