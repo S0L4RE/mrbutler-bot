@@ -17,13 +17,11 @@ limitations under the License.
 """
 
 import logging
-import random
 import sys
 
 import discord
 
 import mrb
-from mrb import MrbEnvironment
 
 stdout_logger = logging.StreamHandler(sys.stdout)
 stdout_logger.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
@@ -34,7 +32,7 @@ logger.setLevel(logging.INFO)
 logger.addHandler(stdout_logger)
 
 # Get the env details
-bot_env = MrbEnvironment()
+bot_env = mrb.MrbEnvironment()
 
 for check_env_key, check_env_value in bot_env.environment.items():
     if check_env_value is None:
@@ -58,12 +56,67 @@ async def on_message(message):
             "!djkhaled --- I'll remind you that you're smart\n"
             "!help ------- I'll send you this command list.\n"
             "!hello ------ I'll say hello to you!\n"
+            "!roll NdM --- I'll roll 'N' number of dice with 'M' sides\n"
             "```\n"
             "Mr. Butler, version `{0}`, at your service."
         ).format(mrb.__version__)
 
         await client.send_message(message.author, commands)
         return
+
+    if message.content.startswith('!roll'):
+        # If a message is longer than 15 characters, don't trust it!
+        # len('!roll 10d20') = 11, 15 is more than enough.
+        safe_length = 15
+        invalid_format_msg = "Expected format `NdM`! For example, 2d20"
+        invalid_pm_template = "I didn't understand that {0}. {1}"
+
+        if len(message.content) > safe_length:
+            await client.send_message(
+                message.author,
+                invalid_pm_template.format(
+                    message.author.mention,
+                    invalid_format_msg,
+                ),
+            )
+            return
+
+        roll_string_input = message.content.split(' ')
+
+        # If we couldn't get input to try and roll, return
+        if len(roll_string_input) < 2:
+            await client.send_message(
+                message.author,
+                invalid_pm_template.format(
+                    message.author.mention,
+                    invalid_format_msg,
+                ),
+            )
+            return
+
+        try:
+            roll_result = mrb.roll(roll_string_input[1])
+
+            msg = (
+                "{0} rolled:\n\n"
+                "```\n"
+                "{1}\n"
+                "```\n"
+                "For a total of `{2}`"
+            ).format(message.author.mention, roll_result, sum(roll_result))
+
+            await client.send_message(message.channel, msg)
+            return
+
+        except ValueError as e:
+            await client.send_message(
+                message.author,
+                invalid_pm_template.format(
+                    message.author.mention,
+                    e,
+                )
+            )
+            return
 
     if message.content.startswith('!hello'):
         msg = 'Hello {0.author.mention}'.format(message)
