@@ -69,13 +69,14 @@ async def on_message(message):
         # len('!roll 10d20') = 11, 15 is more than enough.
         safe_length = 15
         invalid_format_msg = "Expected format `NdM`! For example, `2d20`"
+        invalid_too_long = "That message was too long and will not be parsed. {}".format(invalid_format_msg)
         invalid_pm_template = "I didn't understand that {0}. {1}"
         log_message_template = "Caught exception from user {0} --- {1}"
 
         if len(message.content) > safe_length:
             msg = invalid_pm_template.format(
                 message.author.mention,
-                invalid_format_msg,
+                invalid_too_long,
             )
             logger.log(
                 logging.WARNING,
