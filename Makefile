@@ -30,6 +30,11 @@ prod-build: # Build the prod docker container
 	-t prod-bot .
 
 
+.PHONY: prod-push
+prod-push: # Push this sucker to prod!
+	heroku container:push worker
+
+
 .PHONY: prod-run
 prod-run: # Run the PROD docker container
 	docker run prod-bot
