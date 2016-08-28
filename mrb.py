@@ -51,15 +51,10 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # This prevents anyone except for the bot's admin from running commands
-    if message.author.id != bot_env.DiscordAdminId:
-        return
-
     if message.content.startswith('!help'):
         commands = (
             "I understand the following commands:\n\n"
             "```\n"
-            "!d20 -------- I'll roll a D20 die.\n"
             "!djkhaled --- I'll remind you that you're smart\n"
             "!help ------- I'll send you this command list.\n"
             "!hello ------ I'll say hello to you!\n"
@@ -75,16 +70,12 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
         return
 
-    if message.content.startswith('!d20'):
-        roll = random.randrange(1, 21)
-        msg = '{0} rolled a {1}'.format(
-            message.author.mention,
-            roll,
-        )
-        await client.send_message(message.channel, msg)
-        return
-
     if message.content.startswith('!djkhaled'):
+        if message.author.id != bot_env.DiscordAdminId:
+            msg = "You are not in the sudo'ers file {}".format(message.author.mention)
+            await client.send_message(message.author, msg)
+            return
+
         voice = await client.join_voice_channel(message.author.voice_channel)
 
         try:
