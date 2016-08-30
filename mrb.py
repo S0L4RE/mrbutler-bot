@@ -154,16 +154,9 @@ async def on_message(message):
 
         voice = await client.join_voice_channel(message.author.voice_channel)
         try:
-            with open("/mrb/media/djkhaled.wav", "rb") as f:
-                voice.encoder_options(sample_rate=48000, channels=2)
-                player = voice.create_ffmpeg_player(f, pipe=True, stderr=open('/dev/null', 'w'))
-                player.volume = 0.2
-                player.start()
-
-                while player.is_playing():
-                    pass
+            mrb.run_audio_file("/mrb/media/djkhaled.wav", voice, 0.2)
         except discord.DiscordException:
-            await client.send_message(message.channel, "Something went wrong `:(`")
+            logger.log(logging.ERROR, "Failed to run D J KHALED")
         finally:
             await voice.disconnect()
 
@@ -177,14 +170,7 @@ async def on_message(message):
 
         voice = await client.join_voice_channel(message.author.voice_channel)
         try:
-            with open("/mrb/media/runorcurse.wav", "rb") as f:
-                voice.encoder_options(sample_rate=48000, channels=2)
-                player = voice.create_ffmpeg_player(f, pipe=True, stderr=open('/dev/null', 'w'))
-                player.volume = 0.7
-                player.start()
-
-                while player.is_playing():
-                    pass
+            mrb.run_audio_file("/mrb/media/runorcurse.wav", voice, 0.7)
         except discord.DiscordException:
             logger.log(logging.ERROR, "Failed to run or curse the road")
         finally:

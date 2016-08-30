@@ -14,14 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio import run_audio_file
-from .dice import roll
-from .environment import MrbEnvironment
+from discord import VoiceClient
 
-__all__ = [
-    'MrbEnvironment',
-    'run_audio_file',
-    'roll',
-]
 
-__version__ = "0.1.8"
+def run_audio_file(file_path: str, voice_channel: VoiceClient, volume: float):
+    with open(file_path, "rb") as f:
+        voice_channel.encoder_options(sample_rate=48000)
+        player = voice_channel.create_ffmpeg_player(f, pipe=True, stderr=open('/dev/null', 'w'))
+        player.volume = volume
+        player.start()
+
+        while player.is_playing():
+            pass
