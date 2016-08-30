@@ -53,6 +53,7 @@ async def on_message(message):
         commands = (
             "I understand the following commands:\n\n"
             "```\n"
+            "!collar ------- Did you spot a pro player? Call this.\n"
             "!djkhaled ----- I'll remind you that you're smart\n"
             "!help --------- I'll send you this command list.\n"
             "!hello -------- I'll say hello to you!\n"
@@ -142,6 +143,25 @@ async def on_message(message):
     if message.content.startswith('!hello'):
         msg = 'Hello {0.author.mention}'.format(message)
         await client.send_message(message.channel, msg)
+        return
+
+    if message.content.startswith('!collar'):
+        logger.log(
+            logging.INFO,
+            "User ran mic spam 'runorcurse': {0} --- {1}".format(
+                message.author,
+                message.author.id,
+            ),
+        )
+
+        voice = await client.join_voice_channel(message.author.voice_channel)
+        try:
+            mrb.run_audio_file("/mrb/media/collar.wav", voice, 0.5)
+        except discord.DiscordException:
+            logger.log(logging.ERROR, "Failed to run or curse the road")
+        finally:
+            await voice.disconnect()
+
         return
 
     if message.content.startswith('!djkhaled'):
