@@ -5,8 +5,8 @@ help: # Show this help screen
 	awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
-.PHONY: dev
-dev: dev-build dev-run # Build AND run the dev docker container
+.PHONY: dev-all
+dev-all: dev-build dev-run # Build AND run the dev docker container
 
 
 .PHONY: dev-build
