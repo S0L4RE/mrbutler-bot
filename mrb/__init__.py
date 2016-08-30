@@ -16,12 +16,12 @@ limitations under the License.
 
 from .audio import run_audio_file
 from .dice import roll
-from .environment import MrbEnvironment
+from .environment import Environment
 
 __all__ = [
-    'MrbEnvironment',
+    'Environment',
     'run_audio_file',
     'roll',
 ]
 
-__version__ = "0.1.11"
+__version__ = "0.1.12"

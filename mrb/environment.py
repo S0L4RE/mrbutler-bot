@@ -18,7 +18,7 @@ import os
 from collections import OrderedDict
 
 
-class MrbEnvironment(object):
+class Environment(object):
     _DISCORD_ADMIN_ID_KEY_NAME = 'MRB_ADMIN_ID'
     _DISCORD_TOKEN_KEY_NAME = 'MRB_DISCORD_TOKEN'
 

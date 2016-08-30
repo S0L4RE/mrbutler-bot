@@ -32,7 +32,7 @@ logger.setLevel(logging.INFO)
 logger.addHandler(stdout_logger)
 
 # Get the env details
-bot_env = mrb.MrbEnvironment()
+bot_env = mrb.Environment()
 
 for check_env_key, check_env_value in bot_env.environment.items():
     if check_env_value is None:
