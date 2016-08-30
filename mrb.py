@@ -53,10 +53,10 @@ async def on_message(message):
         commands = (
             "I understand the following commands:\n\n"
             "```\n"
-            "!djkhaled --- I'll remind you that you're smart\n"
-            "!help ------- I'll send you this command list.\n"
-            "!hello ------ I'll say hello to you!\n"
-            "!roll NdM --- I'll roll 'N' number of dice with 'M' sides\n"
+            "!djkhaled ----- I'll remind you that you're smart\n"
+            "!help --------- I'll send you this command list.\n"
+            "!hello -------- I'll say hello to you!\n"
+            "!roll NdM ----- I'll roll 'N' number of dice with 'M' sides\n"
             "```\n"
             "Mr. Butler, version `{0}`, at your service."
         ).format(mrb.__version__)
