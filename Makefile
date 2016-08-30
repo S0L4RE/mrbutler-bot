@@ -32,6 +32,11 @@ test-clean: # Clean up test artificats
 	rm -rf ./.cache ./tests/.cache/ ./htmlcov .coverage
 
 
+.PHONY: test-pylint
+test-pylint: # Run pylint against the project
+	pylint --rcfile=./.pylintrc --reports=y --output-format=text mrb
+
+
 .PHONY: test-unit
 test-unit: # Run only unit tests
 	py.test --cov mrb --cov-report html ./tests/unit
