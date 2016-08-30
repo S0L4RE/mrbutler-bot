@@ -168,6 +168,27 @@ async def on_message(message):
 
         return
 
+    if message.content.startswith('!runorcurse'):
+        if message.author.id != bot_env.DiscordAdminId:
+            return
+
+        voice = await client.join_voice_channel(message.author.voice_channel)
+        try:
+            with open("/mrb/media/runorcurse.wav", "rb") as f:
+                voice.encoder_options(sample_rate=48000, channels=2)
+                player = voice.create_ffmpeg_player(f, pipe=True, stderr=open('/dev/null', 'w'))
+                player.volume = 0.7
+                player.start()
+
+                while player.is_playing():
+                    pass
+        except discord.DiscordException:
+            logger.log(logging.ERROR, "Failed to run or curse the road")
+        finally:
+            await voice.disconnect()
+
+        return
+
     if message.content.startswith('!purge'):
         if message.author.id != bot_env.DiscordAdminId:
             msg = "You are not in the sudo'ers file {}".format(message.author.mention)
