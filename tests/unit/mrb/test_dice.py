@@ -16,7 +16,11 @@ limitations under the License.
 
 from unittest import TestCase
 
-from mrb.dice import poor_mans_try_parse
+from mrb import roll
+from mrb.dice import (
+    poor_mans_try_parse,
+    roll_dice,
+)
 
 
 class TestDice(TestCase):
