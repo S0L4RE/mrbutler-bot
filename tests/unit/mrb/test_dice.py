@@ -15,6 +15,7 @@ limitations under the License.
 """
 
 from unittest import TestCase
+from unittest.mock import patch
 
 from mrb import roll
 from mrb.dice import (
@@ -116,6 +117,18 @@ class TestRoll(TestCase):
             str(roll_exception.exception),
             self.expected_base_message,
         )
+
+    @patch('mrb.dice.roll_dice')
+    def test_roll_call(self, roll_dice_patched):
+        full_roll = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        full_roll_sum = 45
+        roll_dice_patched.return_value = list(full_roll)
+
+        actual = roll("9d10")
+
+        self.assertEqual(roll_dice_patched.call_count, 1)
+        self.assertCountEqual(actual, full_roll)
+        self.assertEqual(sum(actual), full_roll_sum)
 
     def test_side_limit(self):
         with self.assertRaises(ValueError) as roll_exception:
