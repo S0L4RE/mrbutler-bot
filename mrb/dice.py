@@ -44,7 +44,7 @@ def roll_dice(count: int, sides: int) -> List[int]:
 
     result = []
 
-    for die in range(count):
+    for _ in range(count):
         result.append(randint(1, sides))
 
     return result
