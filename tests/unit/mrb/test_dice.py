@@ -32,3 +32,19 @@ class TestDice(TestCase):
 
         self.assertFalse(poor_mans_try_parse("invalid"))
         self.assertFalse(poor_mans_try_parse("one"))
+
+    def test_roll_dice(self):
+        test_data = [
+            (1, 6),
+            (5, 10),
+            (10, 20),
+            (20, 100),
+        ]
+
+        for dice_to_roll, dice_side_count in test_data:
+            rolls = roll_dice(dice_to_roll, dice_side_count)
+            self.assertEqual(len(rolls), dice_to_roll)
+
+            for roll_result in rolls:
+                self.assertGreaterEqual(roll_result, 1)
+                self.assertLessEqual(roll_result, dice_side_count)
