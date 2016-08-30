@@ -170,8 +170,10 @@ async def on_message(message):
         return
 
     if message.content.startswith('!runorcurse'):
-        if message.author.id != bot_env.DiscordAdminId:
-            return
+        logger.log(
+            logging.INFO,
+            "User ran mic spam 'runorcurse': {}".format(message.author),
+        )
 
         voice = await client.join_voice_channel(message.author.voice_channel)
         try:
