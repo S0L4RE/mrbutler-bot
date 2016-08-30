@@ -19,6 +19,10 @@ from collections import OrderedDict
 
 
 class Environment(object):
+    """
+    Class to collect required environment variables for Mr. Butler
+    """
+
     _DISCORD_ADMIN_ID_KEY_NAME = 'MRB_ADMIN_ID'
     _DISCORD_TOKEN_KEY_NAME = 'MRB_DISCORD_TOKEN'
 
@@ -28,6 +32,11 @@ class Environment(object):
 
     @property
     def environment(self) -> OrderedDict:
+        """
+        Convenience property to get an ordered dictionary
+        of all environment settings
+        """
+
         return OrderedDict([
             (self._DISCORD_ADMIN_ID_KEY_NAME, self.discord_admin_id),
             (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
