@@ -16,13 +16,40 @@ limitations under the License.
 
 from collections import OrderedDict
 from unittest import TestCase
+from unittest.mock import patch
 
 from mrb import Environment
 
 
 class TestEnvironment(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.env = Environment()
+        cls.expected_env_length = 2
+
+    def test_admin_id(self):
+        self.assertEqual(
+            self.env._DISCORD_ADMIN_ID_KEY_NAME,
+            'MRB_ADMIN_ID',
+        )
+
+    def test_token_key(self):
+        self.assertEqual(
+            self.env._DISCORD_TOKEN_KEY_NAME,
+            'MRB_DISCORD_TOKEN',
+        )
+
+    @patch('os.getenv')
+    def test_getenv_calls(self, os_getenv_patched):
+        os_getenv_patched.return_value = None
+        _ = Environment()
+        self.assertEqual(os_getenv_patched.call_count, self.expected_env_length)
+
+    def test_environment_property_length(self):
+        self.assertEqual(len(self.env.environment), self.expected_env_length)
+
     def test_environment_property_type(self):
-        actual = Environment().environment
+        actual = self.env.environment
         expected = OrderedDict
 
         self.assertIsInstance(
