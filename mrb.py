@@ -165,7 +165,10 @@ async def on_message(message):
     if message.content.startswith('!runorcurse'):
         logger.log(
             logging.INFO,
-            "User ran mic spam 'runorcurse': {}".format(message.author),
+            "User ran mic spam 'runorcurse': {0} --- {1}".format(
+                message.author,
+                message.author.id,
+            ),
         )
 
         voice = await client.join_voice_channel(message.author.voice_channel)
