@@ -57,6 +57,7 @@ async def on_message(message):
             "!help --------- I'll send you this command list.\n"
             "!hello -------- I'll say hello to you!\n"
             "!roll NdM ----- I'll roll 'N' number of dice with 'M' sides\n"
+            "!runorcurse --- Is it better to run or curse the road?\n"
             "```\n"
             "Mr. Butler, version `{0}`, at your service."
         ).format(mrb.__version__)
