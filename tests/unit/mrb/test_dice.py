@@ -26,13 +26,15 @@ from mrb.dice import (
 
 class TestDice(TestCase):
     def test_poor_mans_try_parse(self):
-        self.assertTrue(poor_mans_try_parse("-1"))
-        self.assertTrue(poor_mans_try_parse("0"))
-        self.assertTrue(poor_mans_try_parse("1"))
-        self.assertTrue(poor_mans_try_parse("01"))
+        test_data = ["-1", "0", "1", "01"]
 
-        self.assertFalse(poor_mans_try_parse("invalid"))
-        self.assertFalse(poor_mans_try_parse("one"))
+        for input_string in test_data:
+            self.assertTrue(poor_mans_try_parse(input_string))
+
+        test_data = ["invalid", "one"]
+
+        for input_string in test_data:
+            self.assertFalse(poor_mans_try_parse(input_string))
 
     def test_roll_dice(self):
         test_data = [
