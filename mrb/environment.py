@@ -23,12 +23,12 @@ class Environment(object):
     _DISCORD_TOKEN_KEY_NAME = 'MRB_DISCORD_TOKEN'
 
     def __init__(self):
-        self.DiscordAdminId = os.getenv(self._DISCORD_ADMIN_ID_KEY_NAME, None)
-        self.DiscordToken = os.getenv(self._DISCORD_TOKEN_KEY_NAME, None)
+        self.discord_admin_id = os.getenv(self._DISCORD_ADMIN_ID_KEY_NAME, None)
+        self.discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME, None)
 
     @property
     def environment(self) -> OrderedDict:
         return OrderedDict([
-            (self._DISCORD_ADMIN_ID_KEY_NAME, self.DiscordAdminId),
-            (self._DISCORD_TOKEN_KEY_NAME, self.DiscordToken),
+            (self._DISCORD_ADMIN_ID_KEY_NAME, self.discord_admin_id),
+            (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
         ])

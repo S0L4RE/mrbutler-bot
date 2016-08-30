@@ -165,7 +165,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('!djkhaled'):
-        if message.author.id != bot_env.DiscordAdminId:
+        if message.author.id != bot_env.discord_admin_id:
             await client.send_message(
                 message.author,
                 "https://youtu.be/Jo-0ytcEXKg",
@@ -202,7 +202,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('!purge'):
-        if message.author.id != bot_env.DiscordAdminId:
+        if message.author.id != bot_env.discord_admin_id:
             msg = "You are not in the sudo'ers file {}".format(message.author.mention)
             await client.send_message(message.author, msg)
             return
@@ -229,4 +229,4 @@ async def on_ready():
 
 
 if __name__ == '__main__':
-    client.run(bot_env.DiscordToken)
+    client.run(bot_env.discord_token)
