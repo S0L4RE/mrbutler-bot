@@ -19,7 +19,6 @@ from discord import VoiceClient
 
 def run_audio_file(file_path: str, voice_channel: VoiceClient, volume: float):
     with open(file_path, "rb") as f:
-        voice_channel.encoder_options(sample_rate=48000)
         player = voice_channel.create_ffmpeg_player(f, pipe=True, stderr=open('/dev/null', 'w'))
         player.volume = volume
         player.start()
