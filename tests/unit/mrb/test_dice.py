@@ -93,21 +93,16 @@ class TestRoll(TestCase):
         )
 
     def test_negative_ints(self):
-        with self.assertRaises(ValueError) as roll_exception_left:
-            roll("-1d20")
+        test_data = ["-1d20", "1d-20"]
 
-        with self.assertRaises(ValueError) as roll_exception_right:
-            roll("1d-20")
+        for input_string in test_data:
+            with self.assertRaises(ValueError) as roll_exception:
+                roll(input_string)
 
-        self.assertEqual(
-            str(roll_exception_left.exception),
-            self.expected_non_positive_message,
-        )
-
-        self.assertEqual(
-            str(roll_exception_right.exception),
-            self.expected_non_positive_message,
-        )
+            self.assertEqual(
+                str(roll_exception.exception),
+                self.expected_non_positive_message,
+            )
 
     def test_parse_int_fail(self):
         with self.assertRaises(ValueError) as roll_exception:
