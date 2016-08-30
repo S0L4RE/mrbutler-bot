@@ -18,7 +18,7 @@ from random import randint
 from typing import List
 
 
-def _poor_mans_try_parse(input_string: str) -> bool:
+def poor_mans_try_parse(input_string: str) -> bool:
     """
     Give any string, determine if the string can be converted to an `int`.
 
@@ -78,7 +78,7 @@ def roll(input_string: str='') -> List[int]:
         raise ValueError(invalid_format_msg)
 
     # If any of these fail to parse out, bail out
-    if not all(_poor_mans_try_parse(x) for x in input_split):
+    if not all(poor_mans_try_parse(x) for x in input_split):
         raise ValueError(invalid_format_msg)
 
     # Parse values to ints

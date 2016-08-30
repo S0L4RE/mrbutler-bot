@@ -16,15 +16,15 @@ limitations under the License.
 
 from unittest import TestCase
 
-from mrb.dice import _poor_mans_try_parse
+from mrb.dice import poor_mans_try_parse
 
 
 class TestDice(TestCase):
     def test_poor_mans_try_parse(self):
-        self.assertTrue(_poor_mans_try_parse("-1"))
-        self.assertTrue(_poor_mans_try_parse("0"))
-        self.assertTrue(_poor_mans_try_parse("1"))
-        self.assertTrue(_poor_mans_try_parse("01"))
+        self.assertTrue(poor_mans_try_parse("-1"))
+        self.assertTrue(poor_mans_try_parse("0"))
+        self.assertTrue(poor_mans_try_parse("1"))
+        self.assertTrue(poor_mans_try_parse("01"))
 
-        self.assertFalse(_poor_mans_try_parse("invalid"))
-        self.assertFalse(_poor_mans_try_parse("one"))
+        self.assertFalse(poor_mans_try_parse("invalid"))
+        self.assertFalse(poor_mans_try_parse("one"))
