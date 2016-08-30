@@ -13,3 +13,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
+from collections import OrderedDict
+from unittest import TestCase
+
+from mrb import Environment
+
+
+class TestEnvironment(TestCase):
+    def test_environment_property_type(self):
+        actual = Environment().environment
+        expected = OrderedDict
+
+        self.assertIsInstance(
+            actual,
+            expected,
+            msg="Expected a {0}, instead got a {1}".format(
+                expected,
+                type(actual),
+            )
+        )

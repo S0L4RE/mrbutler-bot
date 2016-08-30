@@ -25,3 +25,13 @@ dev-run: # Run the dev docker container
 .PHONY: prod-push
 prod-push: # Push this sucker to prod!
 	heroku container:push worker
+
+
+.PHONY: test-clean
+test-clean: # Clean up test artificats
+	rm -rf ./.cache ./tests/.cache/ ./htmlcov .coverage
+
+
+.PHONY: test-unit
+test-unit: # Run only unit tests
+	py.test --cov mrb --cov-report html ./tests/unit
