@@ -74,8 +74,6 @@ def roll(input_string: str='') -> List[int]:
 
     # Split to get [number of dice, sides per dice]
     input_split = input_string.split(delimiter)
-    if len(input_split) != 2:
-        raise ValueError(invalid_format_msg)
 
     # If any of these fail to parse out, bail out
     if not all(poor_mans_try_parse(x) for x in input_split):
