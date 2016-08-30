@@ -145,27 +145,18 @@ class TestRoll(TestCase):
         )
 
     def test_zero_values(self):
-        with self.assertRaises(ValueError) as roll_exception_zero_left:
-            roll("0d20")
-
-        with self.assertRaises(ValueError) as roll_exception_zero_right:
-            roll("10d0")
-
-        with self.assertRaises(ValueError) as roll_exception_zero_left_pad:
-            roll("000d20")
-
-        with self.assertRaises(ValueError) as roll_exception_zero_right_pad:
-            roll("10d000")
-
-        check_list = [
-            roll_exception_zero_left,
-            roll_exception_zero_left_pad,
-            roll_exception_zero_right,
-            roll_exception_zero_right_pad,
+        data_set = [
+            "0d20",
+            "10d0",
+            "000d20",
+            "10d000",
         ]
 
-        for exception in check_list:
+        for input_string in data_set:
+            with self.assertRaises(ValueError) as roll_exception:
+                roll(input_string)
+
             self.assertEqual(
-                str(exception.exception),
+                str(roll_exception.exception),
                 self.expected_non_positive_message,
             )
