@@ -48,3 +48,111 @@ class TestDice(TestCase):
             for roll_result in rolls:
                 self.assertGreaterEqual(roll_result, 1)
                 self.assertLessEqual(roll_result, dice_side_count)
+
+
+class TestRoll(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.expected_dice_limit = 10
+        cls.expected_side_limit = 20
+
+        cls.expected_base_message = "Expected format `NdM`! For example, `2d20`"
+        cls.expected_dice_limit_message = \
+            "You can't roll more than {} dice at once!".format(
+                cls.expected_dice_limit
+            )
+        cls.expected_non_positive_message = \
+            "You can't input non-positive numbers!"
+        cls.expected_side_limit_message = \
+            "You can't roll a die with more than {} sides!".format(
+                cls.expected_side_limit
+            )
+
+    def test_dice_limit(self):
+        with self.assertRaises(ValueError) as roll_exception:
+            roll(
+                "{0}d{1}".format(
+                    self.expected_dice_limit + 1,
+                    self.expected_side_limit,
+                )
+            )
+
+        self.assertEqual(
+            str(roll_exception.exception),
+            self.expected_dice_limit_message,
+        )
+
+    def test_missing_delimiter(self):
+        with self.assertRaises(ValueError) as roll_exception:
+            roll("missing_info")
+
+        self.assertEqual(
+            str(roll_exception.exception),
+            self.expected_base_message,
+        )
+
+    def test_negative_ints(self):
+        with self.assertRaises(ValueError) as roll_exception_left:
+            roll("-1d20")
+
+        with self.assertRaises(ValueError) as roll_exception_right:
+            roll("1d-20")
+
+        self.assertEqual(
+            str(roll_exception_left.exception),
+            self.expected_non_positive_message,
+        )
+
+        self.assertEqual(
+            str(roll_exception_right.exception),
+            self.expected_non_positive_message,
+        )
+
+    def test_parse_int_fail(self):
+        with self.assertRaises(ValueError) as roll_exception:
+            roll("NotANumber_d20")
+
+        self.assertEqual(
+            str(roll_exception.exception),
+            self.expected_base_message,
+        )
+
+    def test_side_limit(self):
+        with self.assertRaises(ValueError) as roll_exception:
+            roll(
+                "{0}d{1}".format(
+                    self.expected_dice_limit,
+                    self.expected_side_limit + 1,
+                )
+            )
+
+        self.assertEqual(
+            str(roll_exception.exception),
+            self.expected_side_limit_message,
+        )
+
+    def test_zero_values(self):
+        with self.assertRaises(ValueError) as roll_exception_zero_left:
+            roll("0d20")
+
+        with self.assertRaises(ValueError) as roll_exception_zero_right:
+            roll("10d0")
+
+        with self.assertRaises(ValueError) as roll_exception_zero_left_pad:
+            roll("000d20")
+
+        with self.assertRaises(ValueError) as roll_exception_zero_right_pad:
+            roll("10d000")
+
+        check_list = [
+            roll_exception_zero_left,
+            roll_exception_zero_left_pad,
+            roll_exception_zero_right,
+            roll_exception_zero_right_pad,
+        ]
+
+        for exception in check_list:
+            self.assertEqual(
+                str(exception.exception),
+                self.expected_non_positive_message,
+            )
