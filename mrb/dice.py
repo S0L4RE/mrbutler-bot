@@ -19,6 +19,13 @@ from typing import List
 
 
 def _poor_mans_try_parse(input_string: str) -> bool:
+    """
+    Give any string, determine if the string can be converted to an `int`.
+
+    :param input_string: The input string to parse
+    :return: `True` if int(input_string) succeeds, `False` otherwise.
+    """
+
     try:
         _ = int(input_string)
         return True
@@ -27,6 +34,14 @@ def _poor_mans_try_parse(input_string: str) -> bool:
 
 
 def roll_dice(count: int, sides: int) -> List[int]:
+    """
+    Roll a give type of die or dice.
+
+    :param count: The number of dice to roll
+    :param sides: The number of sides per die
+    :return: A list of integers representing the rolled dice
+    """
+
     result = []
 
     for die in range(count):
@@ -36,6 +51,18 @@ def roll_dice(count: int, sides: int) -> List[int]:
 
 
 def roll(input_string: str='') -> List[int]:
+    """
+    Given an arbitrary input string, parse out and perform a "roll" of dice.
+
+    For example, inputting "2d20" would roll TWO dice with TWENTY sides
+    each.
+
+    :raises: `ValueError` on parse failure. Will contain a readable message.
+
+    :param input_string: The string to parse
+    :return: A list of integers representing the rolled dice
+    """
+
     delimiter = 'd'
     dice_limit = 10
     side_limit = 20
