@@ -145,14 +145,14 @@ class TestRoll(TestCase):
         )
 
     def test_zero_values(self):
-        data_set = [
+        test_data = [
             "0d20",
             "10d0",
             "000d20",
             "10d000",
         ]
 
-        for input_string in data_set:
+        for input_string in test_data:
             with self.assertRaises(ValueError) as roll_exception:
                 roll(input_string)
 
