@@ -71,6 +71,23 @@ class TestAudioFunctions(TestCase):
             stderr=file_open_objects[1],
         )
 
+    def test_ffmpeg_player_starts(self):
+        with patch(self.mock_open_reference, self.mocked_open):
+            run_audio_file(self.expected_file_path, self.voice_client)
+
+        self.assertEqual(self.player.start.call_count, 1)
+
+    def test_ffmpeg_player_waits_to_finish(self):
+        side_effects = [True, True, True, False]
+
+        self.player.is_playing = MagicMock(side_effect=side_effects)
+        self.voice_client.create_ffmpeg_player = MagicMock(return_value=self.player)
+
+        with patch(self.mock_open_reference, self.mocked_open):
+            run_audio_file(self.expected_file_path, self.voice_client)
+
+        self.assertEqual(self.player.is_playing.call_count, len(side_effects))
+
     def test_ffmpeg_volume_custom(self):
         expected_volume = 0.5
 
