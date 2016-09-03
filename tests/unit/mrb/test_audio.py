@@ -13,3 +13,41 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
+from unittest import TestCase
+from unittest.mock import (
+    mock_open,
+    patch,
+    MagicMock,
+)
+
+from discord import VoiceClient
+from discord.voice_client import StreamPlayer
+
+from mrb import run_audio_file
+
+
+class TestAudioFunctions(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.expected_file_path = "/foo/bar/file.ext"
+
+    def test_file_opened(self):
+        expected_calls = [
+            [self.expected_file_path, 'rb'],
+            ['/dev/null', 'w'],
+        ]
+
+        mocked_open = mock_open(read_data='')
+
+        player = MagicMock(spec=StreamPlayer)  # type: StreamPlayer
+        player.is_playing = MagicMock(return_value=False)
+
+        voice_client = MagicMock(spec=VoiceClient)  # type: VoiceClient
+        voice_client.create_ffmpeg_player = MagicMock(return_value=player)
+
+        with patch('mrb.audio.open', mocked_open):
+            run_audio_file(self.expected_file_path, voice_client)
+
+        for expected_call in expected_calls:
+            mocked_open.assert_any_call(*expected_call)
