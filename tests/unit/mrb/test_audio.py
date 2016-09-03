@@ -42,18 +42,6 @@ class TestAudioFunctions(TestCase):
         self.voice_client = MagicMock(spec=VoiceClient)
         self.voice_client.create_ffmpeg_player = MagicMock(return_value=self.player)
 
-    def test_file_opened(self):
-        expected_calls = [
-            [self.expected_file_path, 'rb'],
-            ['/dev/null', 'w'],
-        ]
-
-        with patch(self.mock_open_reference, self.mocked_open):
-            run_audio_file(self.expected_file_path, self.voice_client)
-
-        for expected_call in expected_calls:
-            self.mocked_open.assert_any_call(*expected_call)
-
     def test_ffmpeg_opened(self):
         file_open_objects = [
             mock_open().return_value,
@@ -101,3 +89,15 @@ class TestAudioFunctions(TestCase):
             run_audio_file(self.expected_file_path, self.voice_client)
 
         self.assertEqual(self.player.volume, 1.0)
+
+    def test_file_opened(self):
+        expected_calls = [
+            [self.expected_file_path, 'rb'],
+            ['/dev/null', 'w'],
+        ]
+
+        with patch(self.mock_open_reference, self.mocked_open):
+            run_audio_file(self.expected_file_path, self.voice_client)
+
+        for expected_call in expected_calls:
+            self.mocked_open.assert_any_call(*expected_call)
