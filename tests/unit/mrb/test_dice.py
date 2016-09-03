@@ -59,7 +59,8 @@ class TestRoll(TestCase):
         cls.expected_dice_limit = 10
         cls.expected_side_limit = 20
 
-        cls.expected_base_message = "Expected format `NdM`! For example, `2d20`"
+        cls.expected_base_message = \
+            "Expected format `NdM`! For example, `2d20`"
         cls.expected_dice_limit_message = \
             "You can't roll more than {} dice at once!".format(
                 cls.expected_dice_limit

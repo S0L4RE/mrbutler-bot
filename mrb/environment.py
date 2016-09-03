@@ -27,8 +27,14 @@ class Environment(object):
     _DISCORD_TOKEN_KEY_NAME = 'MRB_DISCORD_TOKEN'
 
     def __init__(self):
-        self.discord_admin_id = os.getenv(self._DISCORD_ADMIN_ID_KEY_NAME, None)
-        self.discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME, None)
+        self.discord_admin_id = os.getenv(
+            self._DISCORD_ADMIN_ID_KEY_NAME,
+            None,
+        )
+        self.discord_token = os.getenv(
+            self._DISCORD_TOKEN_KEY_NAME,
+            None,
+        )
 
     @property
     def environment(self) -> OrderedDict:

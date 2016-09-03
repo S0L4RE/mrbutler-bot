@@ -39,8 +39,10 @@ class TestAudioFunctions(TestCase):
         self.player = MagicMock(spec=StreamPlayer)
         self.player.is_playing = MagicMock(return_value=False)
 
-        self.voice_client = MagicMock(spec=VoiceClient)
-        self.voice_client.create_ffmpeg_player = MagicMock(return_value=self.player)
+        self.voice_client = MagicMock(spec=VoiceClient)  # type: VoiceClient
+        self.voice_client.create_ffmpeg_player = MagicMock(
+            return_value=self.player
+        )
 
     def test_ffmpeg_opened(self):
         file_open_objects = [
@@ -53,6 +55,7 @@ class TestAudioFunctions(TestCase):
         with patch(self.mock_open_reference, self.mocked_open):
             run_audio_file(self.expected_file_path, self.voice_client)
 
+        # noinspection PyUnresolvedReferences
         self.voice_client.create_ffmpeg_player.assert_called_with(
             file_open_objects[0],
             pipe=True,
@@ -69,7 +72,9 @@ class TestAudioFunctions(TestCase):
         side_effects = [True, True, True, False]
 
         self.player.is_playing = MagicMock(side_effect=side_effects)
-        self.voice_client.create_ffmpeg_player = MagicMock(return_value=self.player)
+        self.voice_client.create_ffmpeg_player = MagicMock(
+            return_value=self.player
+        )
 
         with patch(self.mock_open_reference, self.mocked_open):
             run_audio_file(self.expected_file_path, self.voice_client)
@@ -80,7 +85,11 @@ class TestAudioFunctions(TestCase):
         expected_volume = 0.5
 
         with patch(self.mock_open_reference, self.mocked_open):
-            run_audio_file(self.expected_file_path, self.voice_client, expected_volume)
+            run_audio_file(
+                self.expected_file_path,
+                self.voice_client,
+                expected_volume,
+            )
 
         self.assertEqual(self.player.volume, expected_volume)
 

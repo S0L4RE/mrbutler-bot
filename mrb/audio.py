@@ -17,7 +17,11 @@ limitations under the License.
 from discord import VoiceClient
 
 
-def run_audio_file(file_path: str, voice_channel: VoiceClient, volume: float=1.0):
+def run_audio_file(
+        file_path: str,
+        voice_channel:
+        VoiceClient, volume: float=1.0
+):
     """
     Play a given audio file over a given voice client.
 

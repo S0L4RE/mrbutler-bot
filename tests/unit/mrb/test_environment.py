@@ -43,7 +43,10 @@ class TestEnvironment(TestCase):
     def test_getenv_calls(self, os_getenv_patched):
         os_getenv_patched.return_value = None
         _ = Environment()
-        self.assertEqual(os_getenv_patched.call_count, self.expected_env_length)
+        self.assertEqual(
+            os_getenv_patched.call_count,
+            self.expected_env_length,
+        )
 
     def test_environment_property_length(self):
         self.assertEqual(len(self.env.environment), self.expected_env_length)

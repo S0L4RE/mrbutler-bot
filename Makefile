@@ -32,6 +32,11 @@ test-clean: # Clean up test artificats
 	rm -rf ./.cache ./tests/.cache/ ./htmlcov .coverage
 
 
+.PHONY: test-pep8
+test-pep8: # Run pep8 against project files
+	pep8 --verbose ./mrb/* ./tests/*
+
+
 .PHONY: test-pylint
 test-pylint: # Run pylint against the project
 	pylint --rcfile=./.pylintrc --reports=y --output-format=text mrb
