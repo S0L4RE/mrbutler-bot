@@ -53,3 +53,20 @@ class TestAudioFunctions(TestCase):
 
         for expected_call in expected_calls:
             self.mocked_open.assert_any_call(*expected_call)
+
+    def test_ffmpeg_opened(self):
+        file_open_objects = [
+            mock_open().return_value,
+            mock_open().return_value,
+        ]
+
+        self.mocked_open.side_effect = file_open_objects
+
+        with patch(self.mock_open_reference, self.mocked_open):
+            run_audio_file(self.expected_file_path, self.voice_client)
+
+        self.voice_client.create_ffmpeg_player.assert_called_with(
+            file_open_objects[0],
+            pipe=True,
+            stderr=file_open_objects[1],
+        )
