@@ -42,6 +42,10 @@ test-pylint: # Run pylint against the project
 	pylint --rcfile=./.pylintrc --reports=y --output-format=text mrb
 
 
+.PHONY: test-travis
+test-travis: test-pep8 test-pylint test-unit # Run the full Travis CI testing suite
+
+
 .PHONY: test-unit
 test-unit: # Run only unit tests
 	py.test --cov mrb --cov-report html ./tests/unit
