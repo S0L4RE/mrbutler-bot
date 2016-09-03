@@ -31,14 +31,15 @@ class TestAudioFunctions(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.expected_file_path = "/foo/bar/file.ext"
+        cls.mock_open_reference = "mrb.audio.open"
 
     def setUp(self):
         self.mocked_open = mock_open()
 
-        self.player = MagicMock(spec=StreamPlayer)  # type: StreamPlayer
+        self.player = MagicMock(spec=StreamPlayer)
         self.player.is_playing = MagicMock(return_value=False)
 
-        self.voice_client = MagicMock(spec=VoiceClient)  # type: VoiceClient
+        self.voice_client = MagicMock(spec=VoiceClient)
         self.voice_client.create_ffmpeg_player = MagicMock(return_value=self.player)
 
     def test_file_opened(self):
