@@ -70,3 +70,17 @@ class TestAudioFunctions(TestCase):
             pipe=True,
             stderr=file_open_objects[1],
         )
+
+    def test_ffmpeg_volume_custom(self):
+        expected_volume = 0.5
+
+        with patch(self.mock_open_reference, self.mocked_open):
+            run_audio_file(self.expected_file_path, self.voice_client, expected_volume)
+
+        self.assertEqual(self.player.volume, expected_volume)
+
+    def test_ffmpeg_volume_default(self):
+        with patch(self.mock_open_reference, self.mocked_open):
+            run_audio_file(self.expected_file_path, self.voice_client)
+
+        self.assertEqual(self.player.volume, 1.0)
