@@ -48,7 +48,7 @@ class TestAudioFunctions(TestCase):
             ['/dev/null', 'w'],
         ]
 
-        with patch('mrb.audio.open', self.mocked_open):
+        with patch(self.mock_open_reference, self.mocked_open):
             run_audio_file(self.expected_file_path, self.voice_client)
 
         for expected_call in expected_calls:
