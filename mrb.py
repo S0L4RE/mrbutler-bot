@@ -95,6 +95,7 @@ async def on_message(message):
                 ),
             )
             await client.send_message(message.author, msg)
+            await client.delete_message(message)
             return
 
         roll_string_input = message.content.split(' ')
@@ -113,6 +114,7 @@ async def on_message(message):
                 ),
             )
             await client.send_message(message.author, msg)
+            await client.delete_message(message)
             return
 
         try:
@@ -133,6 +135,7 @@ async def on_message(message):
                 )
 
             await client.send_message(message.channel, msg)
+            await client.delete_message(message)
             return
 
         except ValueError as e:
@@ -169,6 +172,7 @@ async def on_message(message):
         finally:
             await voice.disconnect()
 
+        await client.delete_message(message)
         return
 
     if message.content.startswith('!djkhaled'):
@@ -187,6 +191,7 @@ async def on_message(message):
         finally:
             await voice.disconnect()
 
+        await client.delete_message(message)
         return
 
     if message.content.startswith('!runorcurse'):
@@ -206,6 +211,7 @@ async def on_message(message):
         finally:
             await voice.disconnect()
 
+        await client.delete_message(message)
         return
 
     if message.content.startswith('!purge'):
