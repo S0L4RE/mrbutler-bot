@@ -42,6 +42,7 @@ for check_env_key, check_env_value in bot_env.environment.items():
 
 client = discord.Client()
 audio_data = {}
+player = mrb.Player()
 
 
 @client.event
@@ -231,14 +232,20 @@ async def on_ready():
     logger.log(logging.INFO, 'Logged in as')
     logger.log(logging.INFO, client.user.name)
     logger.log(logging.INFO, client.user.id)
+
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'ENV VARS:')
-
     for env_key, env_value in bot_env.environment.items():
         logger.log(logging.INFO, '{0:.<25} {1}'.format(env_key + " ", env_value))
 
     logger.log(logging.INFO, '---')
+    logger.log(logging.INFO, 'SOUNDS LOADED:')
+    for sound_name, sound_file in player.sound_files.items():
+        logger.log(logging.INFO, "{0:.<15} {1}".format(sound_name, sound_file))
+
+    logger.log(logging.INFO, '---')
     logger.log(logging.INFO, "Version: '{}'".format(mrb.__version__))
+
     logger.log(logging.INFO, '---')
 
 
