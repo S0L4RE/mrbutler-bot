@@ -31,7 +31,7 @@ class TestAudioFunctions(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.expected_file_path = "/foo/bar/file.ext"
-        cls.mock_open_reference = "mrb.audio.open"
+        cls.mock_open_reference = "mrb.audio.player.open"
 
     def setUp(self):
         self.mocked_open = mock_open()
