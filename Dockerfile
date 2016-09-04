@@ -18,14 +18,12 @@ ADD requirements.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 
 ARG MRB_ADMIN_ID
-ARG MRB_DISCORD_TOKEN
-
 ENV MRB_ADMIN_ID ${MRB_ADMIN_ID}
+ARG MRB_DISCORD_TOKEN
 ENV MRB_DISCORD_TOKEN ${MRB_DISCORD_TOKEN}
 
-ADD media/ ${MRB_ROOT}/media/
 ADD mrb/ ${MRB_ROOT}/mrb/
 
-ADD mrb.py ${MRB_ROOT}
+ADD bot.py ${MRB_ROOT}
 
-CMD ["/usr/bin/python3", "./mrb.py"]
+CMD ["/usr/bin/python3", "./bot.py"]
