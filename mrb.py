@@ -174,7 +174,7 @@ async def on_message(message):
 
         voice = await client.join_voice_channel(message.author.voice_channel)
         try:
-            await player.play(requested, voice)
+            player.play(requested, voice)
         except discord.DiscordException:
             logger.log(logging.ERROR, "Failed to run '{}'".format(requested))
         finally:
