@@ -17,11 +17,7 @@ limitations under the License.
 from unittest import TestCase
 from unittest.mock import patch
 
-from mrb import roll
-from mrb.dice import (
-    poor_mans_try_parse,
-    roll_dice,
-)
+from mrb import Dice
 
 
 class TestDice(TestCase):
@@ -29,12 +25,12 @@ class TestDice(TestCase):
         test_data = ["-1", "0", "1", "01"]
 
         for input_string in test_data:
-            self.assertTrue(poor_mans_try_parse(input_string))
+            self.assertTrue(Dice.poor_mans_try_parse(input_string))
 
         test_data = ["invalid", "one"]
 
         for input_string in test_data:
-            self.assertFalse(poor_mans_try_parse(input_string))
+            self.assertFalse(Dice.poor_mans_try_parse(input_string))
 
     def test_roll_dice(self):
         test_data = [
@@ -45,7 +41,7 @@ class TestDice(TestCase):
         ]
 
         for dice_to_roll, dice_side_count in test_data:
-            rolls = roll_dice(dice_to_roll, dice_side_count)
+            rolls = Dice.roll_dice(dice_to_roll, dice_side_count)
             self.assertEqual(len(rolls), dice_to_roll)
 
             for roll_result in rolls:
@@ -74,7 +70,7 @@ class TestRoll(TestCase):
 
     def test_dice_limit(self):
         with self.assertRaises(ValueError) as roll_exception:
-            roll(
+            Dice.roll(
                 "{0}d{1}".format(
                     self.expected_dice_limit + 1,
                     self.expected_side_limit,
@@ -88,7 +84,7 @@ class TestRoll(TestCase):
 
     def test_missing_delimiter(self):
         with self.assertRaises(ValueError) as roll_exception:
-            roll("missing_info")
+            Dice.roll("missing_info")
 
         self.assertEqual(
             str(roll_exception.exception),
@@ -100,7 +96,7 @@ class TestRoll(TestCase):
 
         for input_string in test_data:
             with self.assertRaises(ValueError) as roll_exception:
-                roll(input_string)
+                Dice.roll(input_string)
 
             self.assertEqual(
                 str(roll_exception.exception),
@@ -109,20 +105,20 @@ class TestRoll(TestCase):
 
     def test_parse_int_fail(self):
         with self.assertRaises(ValueError) as roll_exception:
-            roll("NotANumber_d20")
+            Dice.roll("NotANumber_d20")
 
         self.assertEqual(
             str(roll_exception.exception),
             self.expected_base_message,
         )
 
-    @patch('mrb.dice.roll_dice')
+    @patch('mrb.dice.Dice.roll_dice')
     def test_roll_call(self, roll_dice_patched):
         full_roll = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         full_roll_sum = 45
         roll_dice_patched.return_value = list(full_roll)
 
-        actual = roll("9d10")
+        actual = Dice.roll("9d10")
 
         self.assertEqual(roll_dice_patched.call_count, 1)
         self.assertCountEqual(actual, full_roll)
@@ -130,7 +126,7 @@ class TestRoll(TestCase):
 
     def test_side_limit(self):
         with self.assertRaises(ValueError) as roll_exception:
-            roll(
+            Dice.roll(
                 "{0}d{1}".format(
                     self.expected_dice_limit,
                     self.expected_side_limit + 1,
@@ -152,7 +148,7 @@ class TestRoll(TestCase):
 
         for input_string in test_data:
             with self.assertRaises(ValueError) as roll_exception:
-                roll(input_string)
+                Dice.roll(input_string)
 
             self.assertEqual(
                 str(roll_exception.exception),

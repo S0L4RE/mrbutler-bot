@@ -15,13 +15,13 @@ limitations under the License.
 """
 
 from .audio import run_audio_file
-from .dice import roll
+from .dice import Dice
 from .environment import Environment
 
 __all__ = [
+    'Dice',
     'Environment',
     'run_audio_file',
-    'roll',
 ]
 
-__version__ = "0.1.13"
+__version__ = "0.1.14"
