@@ -190,11 +190,23 @@ async def on_message(message):
     if message.content.startswith('!play'):
         requested = message.content[len('!play'):].strip()
 
-        if requested not in player.sound_names:
-            # Error state
-            return
-
         await client.delete_message(message)
+
+        if requested not in player.sound_names:
+            msg = "I could not find `{0}` in my sound list {1}".format(
+                requested,
+                message.author.mention,
+            )
+            logger.log(
+                logging.WARNING,
+                "Caught exception from user {0} - {1} --- {2}".format(
+                    message.author,
+                    message.author.id,
+                    msg,
+                ),
+            )
+            await client.send_message(message.author, msg)
+            return
 
         logger.log(logging.INFO, "{0} - {1} ran audio '{2}'".format(
             message.author,
