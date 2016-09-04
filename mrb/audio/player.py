@@ -14,8 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import hashlib
+import copy
 import os
+from typing import (
+    Dict,
+    List,
+)
 
 from discord import VoiceClient
 
@@ -49,34 +53,23 @@ def run_audio_file(
 
 class Player(object):
     def __init__(self):
-        # noinspection SpellCheckingInspection
-        self.hash_checks = {
-            'collar':
-                'b71e8ab0c3920370847543ef0e80a588f06b399dcd2857ee2fb1ee4e2ddb32f6',
-            'djkhaled':
-                '42b195ef28ecebcceed88faac89f805ad1369d7e19db55268e57adaf018a85d0',
-            'runorcurse':
-                'e3d98cdeca8c414e1361893d530514640e82f9cdfc735069b6f0557c4ad1dac8',
-        }
-
-        self.sound_files = {}
+        self._sound_files = {}
 
         path = "{}/sounds/".format(
             os.path.dirname(os.path.abspath(__file__))
         )
 
         for entry in os.scandir(path):
-            if not entry.is_file() or entry.name not in self.hash_checks:
+            if not entry.is_file():
                 continue
 
             with open(entry.path, "rb") as sound_file:
-                data = sound_file.read()
-                if hashlib.sha256(data).hexdigest() != self.hash_checks[entry.name]:
-                    continue
+                self._sound_files[entry.name] = sound_file.read()
 
-                self.sound_files[entry.name] = data
+    @property
+    def sounds(self) -> List[str]:
+        return list(self._sound_files.keys())
 
-
-if __name__ == '__main__':
-    x = Player()
-    _ = 1
+    @property
+    def sound_files(self) -> Dict[str, bytes]:
+        return copy.deepcopy(self._sound_files)
