@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     && rm -rfv /var/lib/apt/lists/*
 
-ENV MRB_ROOT /mrb
+ENV MRB_ROOT /app
 ENV PYTHONPATH ${PYTHONPATH}:/usr/bin
 WORKDIR ${MRB_ROOT}
 
