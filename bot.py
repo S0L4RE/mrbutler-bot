@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import asyncio
 import logging
 import sys
 from typing import List
@@ -214,7 +215,51 @@ async def on_message(message):
             requested,
         ))
 
-        voice = await client.join_voice_channel(message.author.voice_channel)
+        if message.author.voice_channel is None:
+            msg = "You need to be connected to a voice channel!".format(
+                requested,
+                message.author.mention,
+            )
+            logger.log(
+                logging.WARNING,
+                "Caught exception from user {0} - {1} --- {2}".format(
+                    message.author,
+                    message.author.id,
+                    msg,
+                ),
+            )
+            await client.send_message(message.author, msg)
+            return
+
+        try:
+            voice = await client.join_voice_channel(message.author.voice_channel)
+        except asyncio.TimeoutError:
+            logger.log(
+                logging.ERROR,
+                (
+                    "Audio connection timed out for '{0}' "
+                    "on server '{1} --- {2}' on channel '{3}'. "
+                    "Called by user '{4} --- {5}'"
+                ).format(
+                    requested,
+                    message.server.id,
+                    message.server.name,
+                    message.author.voice_channel,
+                    message.author.id,
+                    message.author,
+                )
+            )
+            msg = (
+                "I was unable to connect to your voice channel `{0}` "
+                "on discord server `{1}`. "
+                "I may not have permission to connect to it!"
+            ).format(
+                message.author.voice_channel,
+                message.server.name,
+            )
+            await client.send_message(message.author, msg)
+            return
+
         try:
             player.play(requested, voice)
         except discord.DiscordException:
