@@ -79,9 +79,9 @@ class Player(object):
         return OrderedDict(sorted(self._sound_files.items()))
 
     def play(
-        self,
-        audio_name_to_play: str,
-        voice_client: VoiceClient,
+            self,
+            audio_name_to_play: str,
+            voice_client: VoiceClient,
     ):
         """
         Play a given audio file over a given voice client.
