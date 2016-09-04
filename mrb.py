@@ -157,63 +157,29 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
         return
 
-    if message.content.startswith('!collar'):
-        logger.log(
-            logging.INFO,
-            "User ran mic spam 'runorcurse': {0} --- {1}".format(
-                message.author,
-                message.author.id,
-            ),
-        )
+    if message.content.startswith('!play'):
+        requested = message.content[len('!play'):].strip()
 
-        voice = await client.join_voice_channel(message.author.voice_channel)
-        try:
-            mrb.run_audio_file("/mrb/media/collar.wav", voice, 0.5)
-        except discord.DiscordException:
-            logger.log(logging.ERROR, "Failed to run or curse the road")
-        finally:
-            await voice.disconnect()
-
-        await client.delete_message(message)
-        return
-
-    if message.content.startswith('!djkhaled'):
-        if message.author.id != bot_env.discord_admin_id:
-            await client.send_message(
-                message.author,
-                "https://youtu.be/Jo-0ytcEXKg",
-            )
+        if requested not in player.sound_names:
+            # Error state
             return
 
-        voice = await client.join_voice_channel(message.author.voice_channel)
-        try:
-            mrb.run_audio_file("/mrb/media/djkhaled.wav", voice, 0.2)
-        except discord.DiscordException:
-            logger.log(logging.ERROR, "Failed to run D J KHALED")
-        finally:
-            await voice.disconnect()
-
         await client.delete_message(message)
-        return
 
-    if message.content.startswith('!runorcurse'):
-        logger.log(
-            logging.INFO,
-            "User ran mic spam 'runorcurse': {0} --- {1}".format(
-                message.author,
-                message.author.id,
-            ),
-        )
+        logger.log(logging.INFO, "{0} - {1} ran audio '{2}'".format(
+            message.author,
+            message.author.id,
+            requested,
+        ))
 
         voice = await client.join_voice_channel(message.author.voice_channel)
         try:
-            mrb.run_audio_file("/mrb/media/runorcurse.wav", voice, 0.7)
+            await player.play(requested, voice)
         except discord.DiscordException:
-            logger.log(logging.ERROR, "Failed to run or curse the road")
+            logger.log(logging.ERROR, "Failed to run '{}'".format(requested))
         finally:
             await voice.disconnect()
 
-        await client.delete_message(message)
         return
 
     if message.content.startswith('!purge'):
