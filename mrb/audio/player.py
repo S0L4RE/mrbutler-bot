@@ -50,6 +50,11 @@ def run_audio_file(
 
 
 class Player(object):
+    """
+    This class handles MRB's audio needs at any point. It will locate,
+    and load required audio files on demand. Simply request by name!
+    """
+
     def __init__(self):
         self._sound_files = {}
 
@@ -65,10 +70,12 @@ class Player(object):
 
     @property
     def sound_names(self) -> List[str]:
+        """Get a single list of available sounds by name"""
         return sorted(list(self._sound_files.keys()))
 
     @property
     def sound_files(self) -> OrderedDict:
+        """Get the full details on each sound name, as well as its file"""
         return OrderedDict(sorted(self._sound_files.items()))
 
     async def play(
