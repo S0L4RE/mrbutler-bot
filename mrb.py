@@ -148,6 +148,7 @@ async def on_message(message):
                 ),
             )
             await client.send_message(message.author, msg)
+            await client.delete_message(message)
             return
 
     if message.content.startswith('!hello'):
