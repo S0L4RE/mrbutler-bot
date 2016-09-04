@@ -89,6 +89,32 @@ class TestPlayer(TestCase):
             len(side_effects),
         )
 
+    def test_ignores_directories(self):
+        mocked_directory = MagicMock()
+        mocked_directory.is_file.return_value = False
+
+        mocked_file = MagicMock()
+        mocked_file.is_file.return_value = True
+        mocked_file.name = "file name"
+        mocked_file.path = "/some/file/path"
+
+        mock_results = [mocked_directory, mocked_file]
+
+        expected_file_count = 1
+
+        scandir_mock = MagicMock(return_value=mock_results)
+
+        with patch('os.scandir', scandir_mock):
+            temp_player = Player()
+
+        self.assertEqual(
+            len(temp_player.sound_files),
+            expected_file_count,
+        )
+
+        for mock_result in mock_results:
+            mock_result.is_file.assert_called_once_with()
+
     def test_invalid_name_request(self):
         with patch(self.mock_open_reference, self.mocked_open):
             self.player.play("No such file", self.voice_client)
