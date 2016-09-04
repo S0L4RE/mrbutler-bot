@@ -14,12 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import copy
 import os
-from typing import (
-    Dict,
-    List,
-)
+from collections import OrderedDict
+from time import sleep
+from typing import List
 
 from discord import VoiceClient
 
@@ -63,13 +61,40 @@ class Player(object):
             if not entry.is_file():
                 continue
 
-            with open(entry.path, "rb") as sound_file:
-                self._sound_files[entry.name] = sound_file.read()
+            self._sound_files[entry.name] = entry.path
 
     @property
-    def sounds(self) -> List[str]:
-        return list(self._sound_files.keys())
+    def sound_names(self) -> List[str]:
+        return sorted(list(self._sound_files.keys()))
 
     @property
-    def sound_files(self) -> Dict[str, bytes]:
-        return copy.deepcopy(self._sound_files)
+    def sound_files(self) -> OrderedDict:
+        return OrderedDict(sorted(self._sound_files.items()))
+
+    def play(
+        self,
+        audio_name_to_play: str,
+        voice_client: VoiceClient,
+        volume: float=1.0,
+    ):
+        """
+        Play a given audio file over a given voice client.
+
+        :param audio_name_to_play: Path to the audio file on disk.
+        :param voice_client: The `VoiceClient` to play the audio over.
+        :param volume: (Optional) the volume to play the audio at.
+        """
+
+        if audio_name_to_play not in self._sound_files:
+            return
+
+        player = voice_client.create_ffmpeg_player(
+            filename=self._sound_files[audio_name_to_play],
+            stderr=open('/dev/null', 'w'),
+        )
+
+        player.volume = volume
+        player.start()
+
+        while player.is_playing():
+            sleep(0.5)

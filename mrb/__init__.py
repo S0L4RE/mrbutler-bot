@@ -14,14 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio.player import run_audio_file
+from .audio.player import Player, run_audio_file
 from .dice import Dice
 from .environment import Environment
 
 __all__ = [
     'Dice',
     'Environment',
+    'Player',
     'run_audio_file',
 ]
 
-__version__ = "0.1.15"
+__version__ = "0.1.16"
