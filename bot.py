@@ -41,7 +41,6 @@ for check_env_key, check_env_value in bot_env.environment.items():
         exit(-1)
 
 client = discord.Client()
-audio_data = {}
 player = mrb.Player()
 
 
