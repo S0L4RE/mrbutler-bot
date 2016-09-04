@@ -49,6 +49,9 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.channel.type == discord.ChannelType.private:
+        return
+
     if message.content.startswith('!help'):
         commands = (
             "I understand the following commands:\n\n"
@@ -60,10 +63,14 @@ async def on_message(message):
             "!roll NdM ----- I'll roll 'N' number of dice with 'M' sides\n"
             "!runorcurse --- Is it better to run or curse the road?\n"
             "```\n"
+            "\n"
+            "**I do not respond to DM's.**\n"
+            "\n"
             "Mr. Butler, version `{0}`, at your service."
         ).format(mrb.__version__)
 
         await client.send_message(message.author, commands)
+        await client.delete_message(message)
         return
 
     if message.content.startswith('!roll'):
