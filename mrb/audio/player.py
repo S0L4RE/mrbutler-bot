@@ -22,33 +22,6 @@ from typing import List
 from discord import VoiceClient
 
 
-def run_audio_file(
-        file_path: str,
-        voice_channel:
-        VoiceClient, volume: float=1.0
-):
-    """
-    Play a given audio file over a given voice client.
-
-    :param file_path: Path to the audio file on disk.
-    :param voice_channel: The `VoiceClient` to play the audio over.
-    :param volume: (Optional) the volume to play the audio at.
-    """
-
-    with open(file_path, "rb") as audio_file:
-        player = voice_channel.create_ffmpeg_player(
-            audio_file,
-            pipe=True,
-            stderr=open('/dev/null', 'w'),
-        )
-
-        player.volume = volume
-        player.start()
-
-        while player.is_playing():
-            pass
-
-
 class Player(object):
     """
     This class handles MRB's audio needs at any point. It will locate,
