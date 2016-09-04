@@ -75,14 +75,12 @@ class Player(object):
         self,
         audio_name_to_play: str,
         voice_client: VoiceClient,
-        volume: float=1.0,
     ):
         """
         Play a given audio file over a given voice client.
 
         :param audio_name_to_play: Path to the audio file on disk.
         :param voice_client: The `VoiceClient` to play the audio over.
-        :param volume: (Optional) the volume to play the audio at.
         """
 
         if audio_name_to_play not in self._sound_files:
@@ -92,8 +90,6 @@ class Player(object):
             filename=self._sound_files[audio_name_to_play],
             stderr=open('/dev/null', 'w'),
         )
-
-        player.volume = volume
         player.start()
 
         while player.is_playing():
