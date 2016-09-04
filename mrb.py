@@ -118,7 +118,7 @@ async def on_message(message):
             return
 
         try:
-            roll_result = mrb.roll(roll_string_input[1])
+            roll_result = mrb.Dice.roll(roll_string_input[1])
 
             msg = "{0} rolled".format(message.author.mention)
 
