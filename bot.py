@@ -18,6 +18,7 @@ limitations under the License.
 
 import logging
 import sys
+from typing import List
 
 import discord
 
@@ -44,6 +45,49 @@ client = discord.Client()
 player = mrb.Player()
 
 
+def get_help_message(audio_list: List[str]=None) -> str:
+    help_message = (
+        "I understand the following commands:\n"
+        "```\n"
+        "{0}\n"
+        "```\n"
+        "\n"
+        "{1}"
+        "**I do not respond to DM's.**\n"
+        "\n"
+        "Mr. Butler, version `{2}`, at your service."
+    )
+
+    commands = [
+        ("!help", "I'll send you this command list"),
+        ("!hello", "I'll say hello to you"),
+        ("!play sound-name", "I'll play a sound for you (see list below)"),
+        ("!roll NdM", "I'll roll 'N' number of dice with 'M' sides"),
+    ]
+    command_message_list = []
+    for (command_name, command_help_text) in commands:
+        command_message_list.append(
+            "{0:.<20} {1}".format(command_name + " ", command_help_text),
+        )
+
+    if audio_list:
+        audio_player_help_message = (
+            "I can `!play` the following:\n"
+            "```\n"
+            "{0}\n"
+            "```\n"
+            "\n"
+        ).format("\n".join(audio_list))
+    else:
+        audio_player_help_message = '`!play` is unavailable at this time.\n\n'
+
+    return help_message.format(
+        "\n".join(command_message_list),
+        audio_player_help_message,
+        mrb.__version__,
+    )
+
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -53,23 +97,10 @@ async def on_message(message):
         return
 
     if message.content.startswith('!help'):
-        commands = (
-            "I understand the following commands:\n\n"
-            "```\n"
-            "!collar ------- Did you spot a pro player? Call this.\n"
-            "!djkhaled ----- I'll remind you that you're smart\n"
-            "!help --------- I'll send you this command list.\n"
-            "!hello -------- I'll say hello to you!\n"
-            "!roll NdM ----- I'll roll 'N' number of dice with 'M' sides\n"
-            "!runorcurse --- Is it better to run or curse the road?\n"
-            "```\n"
-            "\n"
-            "**I do not respond to DM's.**\n"
-            "\n"
-            "Mr. Butler, version `{0}`, at your service."
-        ).format(mrb.__version__)
-
-        await client.send_message(message.author, commands)
+        await client.send_message(
+            message.author,
+            get_help_message(player.sound_names),
+        )
         await client.delete_message(message)
         return
 
