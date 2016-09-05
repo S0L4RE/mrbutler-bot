@@ -276,7 +276,6 @@ async def on_message(message):
             return
 
         await client.purge_from(message.channel)
-        await client.send_message(message.channel, "Purged")
 
 
 @client.event
