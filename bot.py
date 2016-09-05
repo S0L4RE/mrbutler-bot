@@ -294,7 +294,7 @@ async def on_ready():
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'SOUNDS LOADED:')
     for sound_name, sound_file in player.sound_files.items():
-        logger.log(logging.INFO, "{0:.<15} {1}".format(sound_name, sound_file))
+        logger.log(logging.INFO, "{0:.<17} {1}".format(sound_name + " ", sound_file))
 
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, "Version: '{}'".format(mrb.__version__))
