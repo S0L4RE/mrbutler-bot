@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-bot
+    environment:
+      - MRB_ADMIN_ID=${MRB_ADMIN_ID}
+      - MRB_DISCORD_TOKEN=${MRB_DISCORD_TOKEN}

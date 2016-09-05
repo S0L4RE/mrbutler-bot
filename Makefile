@@ -24,7 +24,9 @@ dev-run: # Run the dev docker container
 
 .PHONY: prod-push
 prod-push: # Push this sucker to prod!
-	heroku container:push bot
+	docker build -f docker/Dockerfile-bot -t prod-bot . && \
+	docker tag prod-bot registry.heroku.com/mrbutler/bot && \
+	docker push registry.heroku.com/mrbutler/bot
 
 
 .PHONY: test-clean
