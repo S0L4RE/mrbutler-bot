@@ -300,6 +300,10 @@ async def on_ready():
 
     logger.log(logging.INFO, '---')
 
+    await client.change_status(
+        game=discord.Game(name="Version {}".format(mrb.__version__)),
+    )
+
 
 if __name__ == '__main__':
     client.run(bot_env.discord_token)
