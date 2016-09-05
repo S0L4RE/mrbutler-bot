@@ -1,13 +1,13 @@
-FROM ubuntu:16.04
+FROM alpine:3.4
 
-RUN apt-get update && apt-get install -y \
+RUN apk add --no-cache \
+    build-base \
+    ca-certificates \
     ffmpeg \
     libffi-dev \
-    opus-tools \
-    python3 \
+    opus-dev \
     python3-dev \
-    python3-pip \
-    && rm -rfv /var/lib/apt/lists/*
+    && python3 -m ensurepip
 
 ENV MRB_ROOT /app
 ENV PYTHONPATH ${PYTHONPATH}:/usr/bin
