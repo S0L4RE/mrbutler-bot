@@ -1,5 +1,8 @@
 language: python
 
+services:
+  - docker
+
 matrix:
   fast_finish: true
   include:
@@ -37,6 +40,8 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - make prod-build
+  - docker images
 
 notifications:
   email: false
