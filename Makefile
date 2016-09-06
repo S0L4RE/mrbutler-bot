@@ -22,10 +22,14 @@ dev-run: # Run the dev docker container
 	docker run dev-bot
 
 
-.PHONY: prod-push
-prod-push: # Push this sucker to prod!
+.PHONY: prod-build
+prod-build: # Build the production docker containers
 	docker build -f docker/Dockerfile-bot -t prod-bot . && \
-	docker tag prod-bot registry.heroku.com/mrbutler/bot && \
+	docker tag prod-bot registry.heroku.com/mrbutler/bot
+
+
+.PHONY: prod-push
+prod-push: prod-build # Push this sucker to prod!
 	docker push registry.heroku.com/mrbutler/bot
 
 
