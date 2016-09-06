@@ -1,0 +1,2 @@
+-r bot/requirements-test.txt
+-r web/requirements-test.txt
