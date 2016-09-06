@@ -1,0 +1,5 @@
+-r ./requirements.travis.txt
+-r ./bot/requirements.txt
+-r ./web/requirements.txt
+
+docker-compose
