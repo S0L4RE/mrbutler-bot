@@ -32,8 +32,8 @@ before_install:
   - echo Travis OS Name ... ${TRAVIS_OS_NAME}
   - echo Travis Python .... ${TRAVIS_PYTHON_VERSION}
   - echo Python Version ... $(python --version)
-  - make prod-build
-  - docker images
+  # - make prod-build
+  # - docker images
 
 install:
   - pip install --upgrade pip
