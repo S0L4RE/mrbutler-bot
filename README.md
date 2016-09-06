@@ -16,23 +16,23 @@ Simply perform the following
 1. `mkvirtualenv mr.butler -p $(which python3)`
 2. Edit `${VIRTUAL_ENV}/bin/postactivate` as following:
 
-```bash
-#!/bin/bash
-# This hook is sourced after this virtualenv is activated.
+    ```bash
+    #!/bin/bash
+    # This hook is sourced after this virtualenv is activated.
 
-export MRB_ADMIN_ID="YOUR DISCORD SNOWFLAKE ID"
-export MRB_DISCORD_TOKEN="YOUR DISCORD TOKEN HERE"
-```
+    export MRB_ADMIN_ID="YOUR DISCORD SNOWFLAKE ID"
+    export MRB_DISCORD_TOKEN="YOUR DISCORD TOKEN HERE"
+    ```
 
 3. Edit `${VIRTUAL_ENV}/bin/postdeactivate` as follows:
 
-```bash
-#!/bin/bash
-# This hook is sourced after this virtualenv is deactivated.
+    ```bash
+    #!/bin/bash
+    # This hook is sourced after this virtualenv is deactivated.
 
-unset MRB_ADMIN_ID
-unset MRB_DISCORD_TOKEN
-```
+    unset MRB_ADMIN_ID
+    unset MRB_DISCORD_TOKEN
+    ```
 
 4. `deactivate` and `workon mr.butler` to load your environment variables
 
