@@ -55,8 +55,6 @@ def get_help_message(audio_list: List[str]=None) -> str:
         "\n"
         "{1}"
         "**I do not respond to DM's.**\n"
-        "\n"
-        "Mr. Butler, version `{2}`, at your service."
     )
 
     commands = [
@@ -64,6 +62,7 @@ def get_help_message(audio_list: List[str]=None) -> str:
         ("!hello", "I'll say hello to you"),
         ("!play sound-name", "I'll play a sound for you (see list below)"),
         ("!roll NdM", "I'll roll 'N' number of dice with 'M' sides"),
+        ("!version", "I'll report my current version number to you"),
     ]
     command_message_list = []
     for (command_name, command_help_text) in commands:
@@ -85,7 +84,6 @@ def get_help_message(audio_list: List[str]=None) -> str:
     return help_message.format(
         "\n".join(command_message_list),
         audio_player_help_message,
-        mrb.__version__,
     )
 
 
@@ -95,6 +93,16 @@ async def on_message(message):
         return
 
     if message.channel.type == discord.ChannelType.private:
+        return
+
+    if message.content.startswith('!version'):
+        await client.send_message(
+            message.channel,
+            "{0} version `{1}`, at your service.".format(
+                client.user.mention,
+                mrb.__version__,
+            )
+        )
         return
 
     if message.content.startswith('!help'):
