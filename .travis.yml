@@ -33,7 +33,7 @@ before_install:
   - echo Travis OS Name ... ${TRAVIS_OS_NAME}
   - echo Travis Python .... ${TRAVIS_PYTHON_VERSION}
   - echo Python Version ... $(python --version)
-  - docker build -f docker/Dockerfile-bot -t prod-bot .
+  - docker-compose build
   - docker images
 
 install:
