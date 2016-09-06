@@ -32,6 +32,8 @@ before_install:
   - echo Travis OS Name ... ${TRAVIS_OS_NAME}
   - echo Travis Python .... ${TRAVIS_PYTHON_VERSION}
   - echo Python Version ... $(python --version)
+  - make prod-build
+  - docker images
 
 install:
   - pip install --upgrade pip
@@ -42,8 +44,6 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - make prod-build
-  - docker images
 
 notifications:
   email: false
