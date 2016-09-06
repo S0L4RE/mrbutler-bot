@@ -58,15 +58,21 @@ You can run the bot directly in your `virtualenv` or you can use the container
 that is built by `docker-compose`. Both depend on those environment variables
 you already setup, so you can switch back and forth with ease.
 
-- Run locally:
-  1. `workon mr.butler`
-  2. `python ./bot/bot.py`
-  3. `Ctrl-C` when done
+### Run locally:
 
-- Run from `docker`:
-  1. `workon mr.butler`
-  2. `docker-compose up --build bot`
-    - You can optionally add `-d` before `--build` if you do not mind the
-      container detaching from your session and will `docker-compose stop` it
-      later on your own.
-  3. `Ctrl-C` when done
+1. `workon mr.butler`
+
+2. `python ./bot/bot.py`
+
+3. `Ctrl-C` when done
+
+### Run from `docker`:
+
+1. `workon mr.butler`
+
+2. `docker-compose up --build bot`
+  - You can optionally add `-d` before `--build` if you do not mind the
+    container detaching from your session and will `docker-compose stop` it
+    later on your own.
+
+3. `Ctrl-C` when done
