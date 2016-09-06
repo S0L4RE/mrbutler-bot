@@ -12,8 +12,8 @@ dev-all: dev-build dev-run # Build AND run the dev docker container
 .PHONY: dev-build
 dev-build: # Build the dev docker container
 	docker build \
-	--build-arg MRB_DISCORD_TOKEN=${MRB_DISCORD_TOKEN} \
 	--build-arg MRB_ADMIN_ID=${MRB_ADMIN_ID} \
+	--build-arg MRB_DISCORD_TOKEN=${MRB_DISCORD_TOKEN} \
 	-t dev-bot .
 
 
