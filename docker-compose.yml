@@ -11,5 +11,7 @@ services:
   web:
     build:
       context: ./web/
+    environment:
+      - PORT=8000
     ports:
       - "8000:8000"

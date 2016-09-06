@@ -14,7 +14,8 @@ prod-build: # Build the production docker containers
 
 .PHONY: prod-push
 prod-push: prod-build # Push this sucker to prod!
-	docker push registry.heroku.com/mrbutler/bot
+	docker push registry.heroku.com/mrbutler/bot && \
+	docker push registry.heroku.com/mrbutler/web
 
 
 .PHONY: test-clean
