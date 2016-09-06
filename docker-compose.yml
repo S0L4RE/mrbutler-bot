@@ -8,3 +8,10 @@ services:
     environment:
       - MRB_ADMIN_ID=${MRB_ADMIN_ID}
       - MRB_DISCORD_TOKEN=${MRB_DISCORD_TOKEN}
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-web
+    ports:
+      - "8000:8000"
