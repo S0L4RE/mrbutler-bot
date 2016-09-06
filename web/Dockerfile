@@ -17,4 +17,4 @@ ENV PORT ${PORT}
 
 ADD web.py ${MRB_ROOT}
 
-CMD gunicorn -w 4 web:app --bind 0.0.0.0:${PORT}
+CMD ["gunicorn", "-w 4", "web:app", "--bind 0.0.0.0:${PORT}"]
