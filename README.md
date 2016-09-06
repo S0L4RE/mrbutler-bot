@@ -5,15 +5,22 @@
 
 ## Setting up your environment
 
-You will need:
+You will need (at minimum):
 
+- `ack`
 - `docker`
 - `libffi-devel`
 - `python3-dev`
 
+To fully use / deploy the project you will also need:
+
+- `heroku` command line app
+- A `heroku` account already configured for deployment
+
 Simply perform the following
 
 1. `mkvirtualenv mr.butler -p $(which python3)`
+
 2. Edit `${VIRTUAL_ENV}/bin/postactivate` as following:
 
     ```bash
@@ -44,3 +51,22 @@ Simply perform the following
 
 7. You're all done! You can use `docker-compose up -d --build` to start
    the containers.
+
+## Running the bot
+
+You can run the bot directly in your `virtualenv` or you can use the container
+that is built by `docker-compose`. Both depend on those environment variables
+you already setup, so you can switch back and forth with ease.
+
+- Run locally:
+  1. `workon mr.butler`
+  2. `python ./bot/bot.py`
+  3. `Ctrl-C` when done
+
+- Run from `docker`:
+  1. `workon mr.butler`
+  2. `docker-compose up --build bot`
+    - You can optionally add `-d` before `--build` if you do not mind the
+      container detaching from your session and will `docker-compose stop` it
+      later on your own.
+  3. `Ctrl-C` when done
