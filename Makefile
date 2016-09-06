@@ -5,27 +5,11 @@ help: # Show this help screen
 	awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
-.PHONY: dev-all
-dev-all: dev-build dev-run # Build AND run the dev docker container
-
-
-.PHONY: dev-build
-dev-build: # Build the dev docker container
-	docker build \
-	--build-arg MRB_ADMIN_ID=${MRB_ADMIN_ID} \
-	--build-arg MRB_DISCORD_TOKEN=${MRB_DISCORD_TOKEN} \
-	-t dev-bot .
-
-
-.PHONY: dev-run
-dev-run: # Run the dev docker container
-	docker run dev-bot
-
-
 .PHONY: prod-build
 prod-build: # Build the production docker containers
-	docker build -f docker/Dockerfile-bot -t prod-bot . && \
-	docker tag prod-bot registry.heroku.com/mrbutler/bot
+	docker-compose build && \
+	docker tag mrbutler_bot registry.heroku.com/mrbutler/bot && \
+	docker tag mrbutler_web registry.heroku.com/mrbutler/web
 
 
 .PHONY: prod-push
@@ -40,12 +24,12 @@ test-clean: # Clean up test artificats
 
 .PHONY: test-pep8
 test-pep8: # Run pep8 against project files
-	pep8 --verbose ./mrb/* ./tests/*
+	pep8 --verbose ./bot/mrb/* ./bot/tests/*
 
 
 .PHONY: test-pylint
 test-pylint: # Run pylint against the project
-	pylint --rcfile=./.pylintrc --reports=y --output-format=text mrb
+	pylint --rcfile=./.pylintrc --reports=y --output-format=text ./bot/mrb
 
 
 .PHONY: test-travis
@@ -54,4 +38,4 @@ test-travis: test-pep8 test-pylint test-unit # Run the full Travis CI testing su
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
-	py.test --cov mrb --cov-report html ./tests/unit
+	py.test --cov mrb --cov-report html ./bot/tests/unit

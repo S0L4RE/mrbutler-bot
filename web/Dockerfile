@@ -9,8 +9,8 @@ WORKDIR ${MRB_ROOT}
 
 RUN pip3 install --upgrade pip
 
-ADD requirements-web.txt ${MRB_ROOT}
-RUN pip3 install -r ${MRB_ROOT}/requirements-web.txt
+ADD requirements.txt ${MRB_ROOT}
+RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 
 ADD web.py ${MRB_ROOT}
 
