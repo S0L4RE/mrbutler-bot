@@ -160,7 +160,10 @@ async def on_message(message):
         try:
             roll_result = mrb.Dice.roll(roll_string_input[1])
 
-            msg = "{0} rolled".format(message.author.mention)
+            msg = "Given a `{0}` {1} rolled".format(
+                roll_string_input[1],
+                message.author.mention,
+            )
 
             if len(roll_result) > 1:
                 msg = "{0} `{1}` for a total of `{2}`".format(
