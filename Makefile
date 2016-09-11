@@ -25,7 +25,7 @@ test-clean: # Clean up test artificats
 
 .PHONY: test-pep8
 test-pep8: # Run pep8 against project files
-	pep8 --verbose ./bot/mrb/* ./bot/tests/*
+	pep8 --verbose ./bot/*.py ./bot/mrb/* ./bot/tests/*
 
 
 .PHONY: test-pylint

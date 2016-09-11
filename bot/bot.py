@@ -26,7 +26,9 @@ import discord
 import mrb
 
 stdout_logger = logging.StreamHandler(sys.stdout)
-stdout_logger.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
+stdout_logger.setFormatter(
+    logging.Formatter('%(asctime)s %(levelname)s - %(message)s')
+)
 stdout_logger.setLevel(logging.DEBUG)
 
 logger = logging.getLogger('discord')
@@ -118,7 +120,10 @@ async def on_message(message):
         # len('!roll 10d20') = 11, 15 is more than enough.
         safe_length = 15
         invalid_format_msg = "Expected format `NdM`! For example, `2d20`"
-        invalid_too_long = "That message was too long and will not be parsed. {}".format(invalid_format_msg)
+        invalid_too_long = \
+            "That message was too long and will not be parsed. {}".format(
+                invalid_format_msg
+            )
         invalid_pm_template = "I didn't understand that {0}. {1}"
         log_message_template = "Caught exception from user {0} --- {1}"
 
@@ -243,7 +248,9 @@ async def on_message(message):
             return
 
         try:
-            voice = await client.join_voice_channel(message.author.voice_channel)
+            voice = await client.join_voice_channel(
+                message.author.voice_channel
+            )
         except asyncio.TimeoutError:
             logger.log(
                 logging.ERROR,
@@ -282,7 +289,9 @@ async def on_message(message):
 
     if message.content.startswith('!purge'):
         if message.author.id != bot_env.discord_admin_id:
-            msg = "You are not in the sudo'ers file {}".format(message.author.mention)
+            msg = "You are not in the sudo'ers file {}".format(
+                message.author.mention
+            )
             await client.send_message(message.author, msg)
             return
 
@@ -299,12 +308,18 @@ async def on_ready():
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'ENV VARS:')
     for env_key, env_value in bot_env.environment.items():
-        logger.log(logging.INFO, '{0:.<25} {1}'.format(env_key + " ", env_value))
+        logger.log(
+            logging.INFO,
+            '{0:.<25} {1}'.format(env_key + " ", env_value)
+        )
 
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'SOUNDS LOADED:')
     for sound_name, sound_file in player.sound_files.items():
-        logger.log(logging.INFO, "{0:.<17} {1}".format(sound_name + " ", sound_file))
+        logger.log(
+            logging.INFO,
+            "{0:.<17} {1}".format(sound_name + " ", sound_file)
+        )
 
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, "Version: '{}'".format(mrb.__version__))
