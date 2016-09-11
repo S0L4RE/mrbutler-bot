@@ -1,18 +1,17 @@
+### Git ###
 .git/
 
-build
-dist
-*.egg-info
-*.egg/
-*.pyc
-*.swp
-
-.tox
-.coverage
-html/*
-__pycache__
-
-# Compiled Documentation
-site/
+### Build ###
 Makefile
 
+### Documentation ###
+docs/
+
+### Python ##
+__pycache__/
+
+# Testing
+.coverage
+
+.cache/
+htmlcov/
