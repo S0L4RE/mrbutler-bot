@@ -20,7 +20,7 @@ prod-push: prod-build # Push this sucker to prod!
 
 .PHONY: test-clean
 test-clean: # Clean up test artificats
-	rm -rf ./.cache ./tests/.cache/ ./htmlcov .coverage
+	rm -rf ./.cache ./htmlcov .coverage
 
 
 .PHONY: test-pep8
