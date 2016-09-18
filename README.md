@@ -29,6 +29,8 @@ Simply perform the following
 
     export MRB_ADMIN_ID="YOUR DISCORD SNOWFLAKE ID"
     export MRB_DISCORD_TOKEN="YOUR DISCORD TOKEN HERE"
+    export MRB_DJANGO_SECRET_KEY="YOUR DJANGO SECRET KEY HERE"
+    export MRB_ENV="dev"
     ```
 
 3. Edit `${VIRTUAL_ENV}/bin/postdeactivate` as follows:
@@ -39,6 +41,8 @@ Simply perform the following
 
     unset MRB_ADMIN_ID
     unset MRB_DISCORD_TOKEN
+    unset MRB_DJANGO_SECRET_KEY
+    unset MRB_ENV
     ```
 
 4. `deactivate` and `workon mr.butler` to load your environment variables
