@@ -24,4 +24,4 @@ __all__ = [
     'Player',
 ]
 
-__version__ = "0.1.22"
+__version__ = "0.1.23"

@@ -279,7 +279,7 @@ async def on_message(message):
             return
 
         try:
-            player.play(requested, voice)
+            await player.play(requested, voice)
         except discord.DiscordException:
             logger.log(logging.ERROR, "Failed to run '{}'".format(requested))
         finally:

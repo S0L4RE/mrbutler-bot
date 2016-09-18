@@ -19,6 +19,7 @@ from collections import OrderedDict
 from time import sleep
 from typing import List
 
+import asyncio
 from discord import VoiceClient
 
 
@@ -51,7 +52,7 @@ class Player(object):
         """Get the full details on each sound name, as well as its file"""
         return OrderedDict(sorted(self._sound_files.items()))
 
-    def play(
+    async def play(
             self,
             audio_name_to_play: str,
             voice_client: VoiceClient,
@@ -73,4 +74,4 @@ class Player(object):
         player.start()
 
         while player.is_playing():
-            sleep(0.5)
+            await asyncio.sleep(0.5)
