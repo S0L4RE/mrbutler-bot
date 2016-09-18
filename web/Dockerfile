@@ -1,6 +1,8 @@
 FROM alpine:3.4
 
 RUN apk add --no-cache \
+    build-base \
+    postgresql-dev \
     python3-dev \
     && python3 -m ensurepip
 

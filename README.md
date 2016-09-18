@@ -10,6 +10,7 @@ You will need (at minimum):
 - `ack`
 - `docker`
 - `libffi-devel`
+- `libpq-dev`
 - `python3-dev`
 
 To fully use / deploy the project you will also need:
