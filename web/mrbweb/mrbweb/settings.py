@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['MRB_DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.environ.get('MRB_ENV', 'prod') == 'dev' else False
+# DEBUG = True if os.environ.get('MRB_ENV', 'prod') == 'dev' else False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
