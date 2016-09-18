@@ -16,7 +16,6 @@ limitations under the License.
 
 import os
 from collections import OrderedDict
-from time import sleep
 from typing import List
 
 import asyncio
@@ -53,9 +52,9 @@ class Player(object):
         return OrderedDict(sorted(self._sound_files.items()))
 
     async def play(
-            self,
-            audio_name_to_play: str,
-            voice_client: VoiceClient,
+        self,
+        audio_name_to_play: str,
+        voice_client: VoiceClient,
     ):
         """
         Play a given audio file over a given voice client.

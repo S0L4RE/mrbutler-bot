@@ -21,6 +21,7 @@ from unittest.mock import (
     MagicMock,
 )
 
+import asyncio
 from discord import VoiceClient
 from discord.voice_client import StreamPlayer
 
@@ -53,7 +54,10 @@ class TestPlayer(TestCase):
         self.mocked_open.return_value = dev_null_reference
 
         with patch(self.mock_open_reference, self.mocked_open):
-            self.player.play(self.sample_file, self.voice_client)
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(
+                self.player.play(self.sample_file, self.voice_client)
+            )
 
         # noinspection PyUnresolvedReferences
         self.voice_client.create_ffmpeg_player.assert_called_with(
@@ -63,13 +67,19 @@ class TestPlayer(TestCase):
 
     def test_ffmpeg_player_dev_null_opened(self):
         with patch(self.mock_open_reference, self.mocked_open):
-            self.player.play(self.sample_file, self.voice_client)
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(
+                self.player.play(self.sample_file, self.voice_client)
+            )
 
         self.mocked_open.assert_called_once_with('/dev/null', 'w')
 
     def test_ffmpeg_player_starts(self):
         with patch(self.mock_open_reference, self.mocked_open):
-            self.player.play(self.sample_file, self.voice_client)
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(
+                self.player.play(self.sample_file, self.voice_client)
+            )
 
         self.assertEqual(self.ffmpeg_player.start.call_count, 1)
 
@@ -82,7 +92,10 @@ class TestPlayer(TestCase):
         )
 
         with patch(self.mock_open_reference, self.mocked_open):
-            self.player.play(self.sample_file, self.voice_client)
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(
+                self.player.play(self.sample_file, self.voice_client)
+            )
 
         self.assertEqual(
             self.ffmpeg_player.is_playing.call_count,
