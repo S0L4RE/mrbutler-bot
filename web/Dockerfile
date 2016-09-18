@@ -23,4 +23,5 @@ ENV MRB_DJANGO_SECRET_KEY {$MRB_DJANGO_SECRET_KEY}
 ADD mrbweb/ ${MRB_ROOT}/mrbweb/
 WORKDIR ${MRB_ROOT}/mrbweb/
 
-CMD ["gunicorn", "-b 0.0.0.0:8000", "mrbweb.wsgi"]
+# CMD ["gunicorn", "-b 0.0.0.0:8000", "mrbweb.wsgi"]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
