@@ -130,7 +130,10 @@ class TestPlayer(TestCase):
 
     def test_invalid_name_request(self):
         with patch(self.mock_open_reference, self.mocked_open):
-            self.player.play("No such file", self.voice_client)
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(
+                self.player.play("No such file", self.voice_client)
+            )
 
         self.ffmpeg_player.start.assert_not_called()
         self.ffmpeg_player.is_playing.assert_not_called()
