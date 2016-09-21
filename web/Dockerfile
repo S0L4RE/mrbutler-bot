@@ -29,4 +29,4 @@ WORKDIR ${MRB_ROOT}/mrbweb/
 
 RUN ["python3", "manage.py", "collectstatic", "--noinput"]
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD gunicorn -b 0.0.0.0:${PORT} mrbweb.wsgi
