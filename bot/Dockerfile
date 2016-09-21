@@ -29,4 +29,4 @@ ENV MRB_DISCORD_TOKEN ${MRB_DISCORD_TOKEN}
 ADD mrb/ ${MRB_ROOT}/mrb/
 ADD bot.py ${MRB_ROOT}
 
-CMD ["python3", "bot.py"]
+CMD python3 bot.py
