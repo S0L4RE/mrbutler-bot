@@ -2,14 +2,18 @@ FROM alpine:3.4
 
 RUN apk add --no-cache \
     build-base \
-    postgresql-dev \
     python3-dev \
-    && python3 -m ensurepip
+    && python3 -m ensurepip \
+    && pip3 install --upgrade pip \
+    && pip3 install --upgrade setuptools \
+    && :
 
 ENV MRB_ROOT /app
 WORKDIR ${MRB_ROOT}
 
-RUN pip3 install --upgrade pip
+RUN apk add --no-cache \
+    postgresql-dev \
+    && :
 
 ADD requirements.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements.txt
@@ -23,5 +27,4 @@ ENV MRB_DJANGO_SECRET_KEY {$MRB_DJANGO_SECRET_KEY}
 ADD mrbweb/ ${MRB_ROOT}/mrbweb/
 WORKDIR ${MRB_ROOT}/mrbweb/
 
-# CMD ["gunicorn", "-b 0.0.0.0:8000", "mrbweb.wsgi"]
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
