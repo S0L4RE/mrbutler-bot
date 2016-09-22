@@ -5,32 +5,39 @@ services:
     build:
       context: .
       dockerfile: ./bot/Dockerfile
+
     environment:
-      - MRB_ADMIN_ID=${MRB_ADMIN_ID}
-      - MRB_DISCORD_TOKEN=${MRB_DISCORD_TOKEN}
+      MRB_ADMIN_ID: ${MRB_ADMIN_ID}
+      MRB_DISCORD_TOKEN: ${MRB_DISCORD_TOKEN}
 
   web:
     build:
       context: .
       dockerfile: ./web/Dockerfile
       args:
-        - MRB_DJANGO_SECRET_KEY=${MRB_DJANGO_SECRET_KEY}
+        MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
+
     environment:
-      - MRB_DJANGO_SECRET_KEY=${MRB_DJANGO_SECRET_KEY}
-      - PORT=8000
+      MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
+      PORT: 8000
+
     ports:
       - "8000:8000"
+
     depends_on:
       - postgres
 
   postgres:
     image: postgres
+
     environment:
-      - POSTGRES_USER=mrb
-      - POSTGRES_DB=mrb
-      - PGDATA=/var/lib/postgresql/data/mrb
+      POSTGRES_USER: mrb
+      POSTGRES_DB: mrb
+      PGDATA: /var/lib/postgresql/data/mrb
+
     ports:
       - "5432:5432"
+
     volumes:
       - pg_data:/var/lib/postgresql/data/mrb
 
