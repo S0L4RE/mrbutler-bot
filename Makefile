@@ -30,12 +30,21 @@ test-clean: # Clean up test artificats
 
 .PHONY: test-pep8
 test-pep8: # Run pep8 against project files
-	pep8 --verbose ./bot/*.py ./bot/mrb/* ./bot/tests/*
+	pep8 --verbose \
+	./bot/*.py \
+	./bot/mrb/* \
+	./bot/tests/* \
+	./core/mrb_core/* \
+	./core/tests/* \
+	&& :
 
 
 .PHONY: test-pylint
 test-pylint: # Run pylint against the project
-	pylint --rcfile=./.pylintrc --reports=y --output-format=text ./bot/mrb
+	pylint --rcfile=./.pylintrc --reports=y --output-format=text \
+	./bot/mrb \
+	./core/mrb_core \
+	&& :
 
 
 .PHONY: test-travis
@@ -44,6 +53,11 @@ test-travis: test-pep8 test-pylint test-unit # Run the full Travis CI testing su
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
-	py.test --cov mrb_core --cov-report html --cov-append ./core/tests/unit && \
-	py.test --cov mrb --cov-report html --cov-append ./bot/tests/unit && \
-	:
+	PYTHONPATH="./bot/:./core/" \
+	pytest \
+	--cov mrb \
+	--cov mrb_core \
+	--cov-report html \
+	./bot/tests/unit \
+	./core/tests/unit \
+	&& :
