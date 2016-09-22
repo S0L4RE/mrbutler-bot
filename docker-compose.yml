@@ -13,6 +13,8 @@ services:
     build:
       context: .
       dockerfile: ./web/Dockerfile
+      args:
+        - MRB_DJANGO_SECRET_KEY=${MRB_DJANGO_SECRET_KEY}
     environment:
       - MRB_DJANGO_SECRET_KEY=${MRB_DJANGO_SECRET_KEY}
       - PORT=8000
