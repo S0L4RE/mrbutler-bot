@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio.player import Player
-from .dice import Dice
+from .environment import Environment
 
 __all__ = [
-    'Dice',
-    'Player',
+    'Environment',
 ]
+
+__version__ = "0.1.24"

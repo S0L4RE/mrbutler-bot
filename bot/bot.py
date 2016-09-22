@@ -24,6 +24,7 @@ from typing import List
 import discord
 
 import mrb
+import mrb_core
 
 stdout_logger = logging.StreamHandler(sys.stdout)
 stdout_logger.setFormatter(
@@ -36,7 +37,7 @@ logger.setLevel(logging.INFO)
 logger.addHandler(stdout_logger)
 
 # Get the env details
-bot_env = mrb.Environment()
+bot_env = mrb_core.Environment()
 
 for check_env_key, check_env_value in bot_env.environment.items():
     if check_env_value is None:
@@ -102,7 +103,7 @@ async def on_message(message):
             message.channel,
             "{0} version `{1}`, at your service.".format(
                 client.user.mention,
-                mrb.__version__,
+                mrb_core.__version__,
             )
         )
         return
@@ -322,7 +323,7 @@ async def on_ready():
         )
 
     logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, "Version: '{}'".format(mrb.__version__))
+    logger.log(logging.INFO, "Version: '{}'".format(mrb_core.__version__))
 
     logger.log(logging.INFO, '---')
 

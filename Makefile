@@ -39,4 +39,6 @@ test-travis: test-pep8 test-pylint test-unit # Run the full Travis CI testing su
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
-	py.test --cov mrb --cov-report html ./bot/tests/unit
+	py.test --cov mrb_core --cov-report html --cov-append ./core/tests/unit && \
+	py.test --cov mrb --cov-report html --cov-append ./bot/tests/unit && \
+	:
