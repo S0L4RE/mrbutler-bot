@@ -1,3 +1,9 @@
 [DESIGN]
-
 min-public-methods=0
+
+[MESSAGES CONTROL]
+# Disable the following PyLint messages:
+#
+# R0204 - redefined-variable-type
+
+disable=R0204
