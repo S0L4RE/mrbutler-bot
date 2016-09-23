@@ -23,6 +23,7 @@ WORKDIR ${MRB_ROOT}/mrbweb/
 
 ARG MRB_DJANGO_SECRET_KEY
 ENV MRB_DJANGO_SECRET_KEY ${MRB_DJANGO_SECRET_KEY}
+ENV MRB_ENV ${MRB_ENV}
 
 RUN python3 manage.py collectstatic --noinput
 

@@ -39,7 +39,7 @@ logger.addHandler(stdout_logger)
 # Get the env details
 bot_env = mrb_core.Environment()
 
-for check_env_key, check_env_value in bot_env.environment.items():
+for check_env_key, check_env_value in bot_env.env_vars_ordered.items():
     if check_env_value is None:
         print("Could not load required environment variable!")
         print("Did you set '{}' ?".format(check_env_key))

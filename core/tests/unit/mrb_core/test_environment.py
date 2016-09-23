@@ -25,7 +25,7 @@ class TestEnvironment(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.env = Environment()
-        cls.expected_env_length = 2
+        cls.expected_env_length = 3
 
     def test_admin_id(self):
         self.assertEqual(

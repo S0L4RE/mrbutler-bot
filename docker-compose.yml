@@ -9,6 +9,7 @@ services:
     environment:
       MRB_ADMIN_ID: ${MRB_ADMIN_ID}
       MRB_DISCORD_TOKEN: ${MRB_DISCORD_TOKEN}
+      MRB_ENV: ${MRB_ENV}
 
   web:
     build:
@@ -16,6 +17,7 @@ services:
       dockerfile: ./web/Dockerfile
       args:
         MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
+        MRB_ENV: ${MRB_ENV}
 
     environment:
       MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
