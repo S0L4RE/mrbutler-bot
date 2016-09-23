@@ -17,10 +17,10 @@ services:
       dockerfile: ./web/Dockerfile
       args:
         MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
-        MRB_ENV: ${MRB_ENV}
 
     environment:
       MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
+      MRB_ENV: ${MRB_ENV}
       PORT: 8000
 
     ports:
