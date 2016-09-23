@@ -27,6 +27,8 @@ class Environment(object):
     _DISCORD_TOKEN_KEY_NAME = 'MRB_DISCORD_TOKEN'
 
     def __init__(self):
+        self._stashed_env_vars_ordered = None
+
         self.discord_admin_id = os.getenv(
             self._DISCORD_ADMIN_ID_KEY_NAME,
             None,
@@ -43,7 +45,10 @@ class Environment(object):
         of all environment settings
         """
 
-        return OrderedDict([
-            (self._DISCORD_ADMIN_ID_KEY_NAME, self.discord_admin_id),
-            (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
-        ])
+        if self._stashed_env_vars_ordered is None:
+            self._stashed_env_vars_ordered = OrderedDict([
+                (self._DISCORD_ADMIN_ID_KEY_NAME, self.discord_admin_id),
+                (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
+            ])
+
+        return self._stashed_env_vars_ordered
