@@ -37,7 +37,7 @@ class Environment(object):
         )
 
     @property
-    def environment(self) -> OrderedDict:
+    def env_vars_ordered(self) -> OrderedDict:
         """
         Convenience property to get an ordered dictionary
         of all environment settings

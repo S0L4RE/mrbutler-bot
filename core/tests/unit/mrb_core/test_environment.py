@@ -48,11 +48,14 @@ class TestEnvironment(TestCase):
             self.expected_env_length,
         )
 
-    def test_environment_property_length(self):
-        self.assertEqual(len(self.env.environment), self.expected_env_length)
+    def test_env_vars_ordered_length(self):
+        self.assertEqual(
+            len(self.env.env_vars_ordered),
+            self.expected_env_length
+        )
 
-    def test_environment_property_type(self):
-        actual = self.env.environment
+    def test_env_vars_ordered_type(self):
+        actual = self.env.env_vars_ordered
         expected = OrderedDict
 
         self.assertIsInstance(

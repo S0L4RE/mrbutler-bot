@@ -308,7 +308,7 @@ async def on_ready():
 
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'ENV VARS:')
-    for env_key, env_value in bot_env.environment.items():
+    for env_key, env_value in bot_env.env_vars_ordered.items():
         logger.log(
             logging.INFO,
             '{0:.<25} {1}'.format(env_key + " ", env_value)
