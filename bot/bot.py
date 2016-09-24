@@ -26,15 +26,6 @@ import discord
 import mrb
 import mrb_core
 
-stdout_logger = logging.StreamHandler(sys.stdout)
-stdout_logger.setFormatter(
-    logging.Formatter('%(asctime)s %(levelname)s - %(message)s')
-)
-stdout_logger.setLevel(logging.DEBUG)
-
-logger = logging.getLogger('discord')
-logger.setLevel(logging.INFO)
-logger.addHandler(stdout_logger)
 
 # Get the env details
 bot_env = mrb_core.Environment()
@@ -44,6 +35,21 @@ for check_env_key, check_env_value in bot_env.env_vars_ordered.items():
         print("Could not load required environment variable!")
         print("Did you set '{}' ?".format(check_env_key))
         exit(-1)
+
+if bot_env.type == mrb_core.EnvironmentType.DEV:
+    log_level = logging.DEBUG
+else:
+    log_level = logging.INFO
+
+stdout_logger = logging.StreamHandler(sys.stdout)
+stdout_logger.setFormatter(
+    logging.Formatter('%(asctime)s %(levelname)s - %(message)s')
+)
+stdout_logger.setLevel(log_level)
+
+logger = logging.getLogger('discord')
+logger.setLevel(log_level)
+logger.addHandler(stdout_logger)
 
 client = discord.Client()
 player = mrb.Player()

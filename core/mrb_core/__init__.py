@@ -15,9 +15,11 @@ limitations under the License.
 """
 
 from .environment import Environment
+from .environment_type import EnvironmentType
 
 __all__ = [
     'Environment',
+    'EnvironmentType',
 ]
 
-__version__ = "0.1.24"
+__version__ = "0.1.25"
