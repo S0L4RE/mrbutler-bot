@@ -17,6 +17,13 @@ prod-build: # Build the production docker containers
 	docker tag mrbutler_web registry.heroku.com/mrbutler/web
 
 
+.PHONY: prod-pull
+prod-pull: # Pull the production docker containers
+	docker pull registry.heroku.com/mrbutler/bot && \
+	docker pull registry.heroku.com/mrbutler/web && \
+	:
+
+
 .PHONY: prod-push
 prod-push: prod-build # Push this sucker to prod!
 	docker push registry.heroku.com/mrbutler/bot && \
