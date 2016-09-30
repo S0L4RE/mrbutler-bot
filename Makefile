@@ -14,7 +14,8 @@ clean: # Clean up test artificats
 prod-build: # Build the production docker containers
 	docker-compose build && \
 	docker tag mrbutler_bot registry.heroku.com/mrbutler/bot && \
-	docker tag mrbutler_web registry.heroku.com/mrbutler/web
+	docker tag mrbutler_web registry.heroku.com/mrbutler/web && \
+	:
 
 
 .PHONY: prod-pull
@@ -27,7 +28,8 @@ prod-pull: # Pull the production docker containers
 .PHONY: prod-push
 prod-push: prod-build # Push this sucker to prod!
 	docker push registry.heroku.com/mrbutler/bot && \
-	docker push registry.heroku.com/mrbutler/web
+	docker push registry.heroku.com/mrbutler/web && \
+	:
 
 
 .PHONY: test-clean
