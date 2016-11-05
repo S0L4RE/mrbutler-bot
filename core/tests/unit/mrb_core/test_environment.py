@@ -25,13 +25,7 @@ class TestEnvironment(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.env = Environment()
-        cls.expected_env_length = 3
-
-    def test_admin_id(self):
-        self.assertEqual(
-            self.env._DISCORD_ADMIN_ID_KEY_NAME,
-            'MRB_ADMIN_ID',
-        )
+        cls.expected_env_length = 2
 
     def test_token_key(self):
         self.assertEqual(

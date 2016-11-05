@@ -25,17 +25,11 @@ class Environment(object):
     Class to collect required environment variables for Mr. Butler
     """
 
-    _DISCORD_ADMIN_ID_KEY_NAME = 'MRB_ADMIN_ID'
     _DISCORD_TOKEN_KEY_NAME = 'MRB_DISCORD_TOKEN'
     _MRB_ENV_KEY_NAME = 'MRB_ENV'
 
     def __init__(self):
         self._stashed_env_vars_ordered = None
-
-        self.discord_admin_id = os.getenv(
-            self._DISCORD_ADMIN_ID_KEY_NAME,
-            None,
-        )
 
         self.discord_token = os.getenv(
             self._DISCORD_TOKEN_KEY_NAME,
@@ -74,7 +68,6 @@ class Environment(object):
 
         if self._stashed_env_vars_ordered is None:
             self._stashed_env_vars_ordered = OrderedDict([
-                (self._DISCORD_ADMIN_ID_KEY_NAME, self.discord_admin_id),
                 (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
                 (self._MRB_ENV_KEY_NAME, self.type),
             ])

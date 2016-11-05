@@ -28,7 +28,6 @@ Simply perform the following
     #!/bin/bash
     # This hook is sourced after this virtualenv is activated.
 
-    export MRB_ADMIN_ID="YOUR DISCORD SNOWFLAKE ID"
     export MRB_DISCORD_TOKEN="YOUR DISCORD TOKEN HERE"
     export MRB_DJANGO_SECRET_KEY="YOUR DJANGO SECRET KEY HERE"
     export MRB_ENV="dev"
@@ -40,7 +39,6 @@ Simply perform the following
     #!/bin/bash
     # This hook is sourced after this virtualenv is deactivated.
 
-    unset MRB_ADMIN_ID
     unset MRB_DISCORD_TOKEN
     unset MRB_DJANGO_SECRET_KEY
     unset MRB_ENV
