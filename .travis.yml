@@ -5,6 +5,7 @@ dist: trusty
 
 services:
   - docker
+  - postgresql
 
 matrix:
   fast_finish: true
@@ -24,6 +25,7 @@ addons:
     packages:
       - libffi-dev
       - python3-dev
+  postgresql: "9.5"
 
 branches:
   only:
@@ -40,6 +42,9 @@ before_install:
 install:
   - pip install --upgrade pip
   - pip install --upgrade --requirement requirements-travis.txt
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
 
 script:
   - make test
