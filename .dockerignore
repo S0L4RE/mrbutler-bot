@@ -1,0 +1,17 @@
+### Git ###
+.git/
+
+### Build ###
+Makefile
+
+### Documentation ###
+docs/
+
+### Python ##
+__pycache__/
+
+# Testing
+.coverage
+
+.cache/
+htmlcov/

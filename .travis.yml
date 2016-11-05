@@ -1,0 +1,63 @@
+language: python
+
+sudo: required
+dist: trusty
+
+services:
+  - docker
+
+matrix:
+  fast_finish: true
+  include:
+    - python: "3.5"
+    - python: "3.5-dev"
+    - python: "nightly"
+  allow_failures:
+    - os: osx
+
+# `travis lint` is marking this section as a false positive!
+# References:
+#  - https://github.com/travis-ci/travis-ci/issues/3663
+#  - https://github.com/travis-ci/travis-ci/issues/5396
+addons:
+  apt:
+    packages:
+      - libffi-dev
+      - python3-dev
+
+branches:
+  only:
+    - master
+    - release
+
+before_install:
+  - echo Travis OS Name ... ${TRAVIS_OS_NAME}
+  - echo Travis Python .... ${TRAVIS_PYTHON_VERSION}
+  - echo Python Version ... $(python --version)
+  - docker-compose build
+  - docker images
+
+install:
+  - pip install --upgrade pip
+  - pip install --upgrade --requirement requirements-travis.txt
+
+script:
+  - make test-travis
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email: false
+  slack:
+    secure: >
+      2Wz1VSzXjlh5brL7KA0UuPON+93Mhjz3hBKic6irlpU9P5sQdPWPOr4G3sRJev2ncwKfczq8B3
+      a2oOF+KfKDb9wEi0bMamtWwZyQ3s2q59wSVugRCt4U/Gjt8tOOjO6/1PkhOwPGl88VKjNsIt55
+      hs2BIQQMcy45EHH6fs6pubqnVr3nJBSAchQtpf9ra4AwdtwJOIuUhH4CU/DlhJVEc1vea7qjDp
+      OBuuGyvVTbLpCfp40Xdnh57frohFfG2xh+CNb0poFd5JIAWpW/X/TAQDtL1ebfjw3ahOK4jx3n
+      56cW28ySdLx78aBBCApI9BYNNWC3Ec2MaYa+rl3jVBEnJqi4iIegGRNYZfCicdvdRpnwKnpkQH
+      gBo64L5nFQzSKQQSfGudHMXNFlM+LxuGo8hwk6eF1HKr05Gmg3gC+7+ZfxtDvtuW2tSskST91C
+      3KWXvYEll6FW/a75oWr8V50bV/L6kDAlKNNCQabSp3KJaQQjCT+jrHbgF2lei0q2CjI9IU5Arg
+      3KXUmXYyyRL3ueE4zatqAvRWMeR8dZV13s8/tpu1jnA3ZtrAH/D1PKwy0YR1WPSnJRErjL86vc
+      bN9t8bsr6kC8ElLf+bQNUU9hYyonY3G2q8i03a69+ScwA1oDgIxwaow1+8gVaI71Ng6DQzlLCq
+      ICa4ZKZg9Utzxi45c=
