@@ -1,0 +1,4 @@
+-r ./requirements-travis.txt
+
+docker-compose
+ipython

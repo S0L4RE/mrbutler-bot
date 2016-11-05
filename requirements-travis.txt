@@ -1,6 +1,7 @@
--r ./requirements.travis.txt
 -r ./bot/requirements.txt
 -r ./web/requirements.txt
 
-bpython
-docker-compose
+pep8
+pylint
+pytest
+pytest-cov
