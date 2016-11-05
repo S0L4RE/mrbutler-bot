@@ -294,16 +294,6 @@ async def on_message(message):
 
         return
 
-    if message.content.startswith('!purge'):
-        if message.author.id != bot_env.discord_admin_id:
-            msg = "You are not in the sudo'ers file {}".format(
-                message.author.mention
-            )
-            await client.send_message(message.author, msg)
-            return
-
-        await client.purge_from(message.channel)
-
 
 @client.event
 async def on_ready():
