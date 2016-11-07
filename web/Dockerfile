@@ -15,6 +15,8 @@ RUN apk add --no-cache \
     postgresql-dev \
     && :
 
+RUN pip3 install --upgrade ipython
+
 ADD web/requirements.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 
