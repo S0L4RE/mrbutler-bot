@@ -32,3 +32,4 @@ ADD web/entrypoint.sh ${MRB_ROOT}
 RUN chmod +x ${MRB_ROOT}/entrypoint.sh
 
 ENTRYPOINT ${MRB_ROOT}/entrypoint.sh
+CMD ["sh", "-c", "echo ${MRB_ENV}"]
