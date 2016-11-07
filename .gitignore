@@ -1,3 +1,8 @@
+### Project ###
+
+# Ignore Django's collectstatic
+web/mrbweb/static
+
 ### Python ###
 __pycache__/
 

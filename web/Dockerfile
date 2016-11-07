@@ -18,15 +18,15 @@ RUN apk add --no-cache \
 ADD web/requirements.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 
-ADD web/mrbweb/ ${MRB_ROOT}/mrbweb/
 WORKDIR ${MRB_ROOT}/mrbweb/
 
 ARG MRB_DJANGO_SECRET_KEY
 ENV MRB_DJANGO_SECRET_KEY ${MRB_DJANGO_SECRET_KEY}
 ENV MRB_ENV ${MRB_ENV}
 
-RUN python3 manage.py collectstatic --noinput
-
 ENV PORT ${PORT}
 
-CMD gunicorn -b 0.0.0.0:${PORT} mrbweb.wsgi
+ADD web/entrypoint.sh ${MRB_ROOT}
+RUN chmod +x ${MRB_ROOT}/entrypoint.sh
+
+ENTRYPOINT ${MRB_ROOT}/entrypoint.sh
