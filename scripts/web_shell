@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+MRB_PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
+pushd ${MRB_PROJECT_DIR} > /dev/null
+
+if [[ "${1}" == "" ]]; then
+    docker-compose exec web sh
+elif [[ "${1}" == "python" ]]; then
+    docker-compose exec web python3 manage.py shell
+else
+    echo "Usage: ${0} [python]"
+    exit 1
+fi
+
+popd > /dev/null
