@@ -27,7 +27,9 @@ SECRET_KEY = os.environ['MRB_DJANGO_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get('MRB_ENV', 'prod') == 'dev' else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'docker.mrb.lan',
+]
 
 
 # Application definition
