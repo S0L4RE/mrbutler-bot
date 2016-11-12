@@ -37,15 +37,9 @@ test-clean: # Clean up test artificats
 	rm -rf ./.cache ./htmlcov .coverage
 
 
-.PHONY: test-pep8
-test-pep8: # Run pep8 against project files
-	pep8 --verbose \
-	./bot/*.py \
-	./bot/mrb/* \
-	./bot/tests/* \
-	./core/mrb_core/* \
-	./core/tests/* \
-	&& :
+.PHONY: test-flake8
+test-flake8: # Run flake8 against project files
+	flake8 -v
 
 
 .PHONY: test-pylint
@@ -57,7 +51,7 @@ test-pylint: # Run pylint against the project
 
 
 .PHONY: test-travis
-test-travis: test-pep8 test-pylint test-unit # Run the full Travis CI testing suite
+test-travis: test-flake8 test-pylint test-unit # Run the full Travis CI testing suite
 
 
 .PHONY: test-unit
