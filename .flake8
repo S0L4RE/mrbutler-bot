@@ -1,0 +1,4 @@
+[flake8]
+exclude =
+    web/mrbweb/manage.py,
+    web/mrbweb/mrbweb/settings.py,
