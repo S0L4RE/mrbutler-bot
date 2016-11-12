@@ -1,5 +1,5 @@
 [BASIC]
-good-names=_,id
+good-names=_,id,default_app_config
 
 [DESIGN]
 min-public-methods=0
