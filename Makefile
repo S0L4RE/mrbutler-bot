@@ -37,6 +37,10 @@ test-clean: # Clean up test artificats
 	rm -rf ./.cache ./htmlcov .coverage
 
 
+.PHONY: test-flake8
+test-flake8: # Run flake8 against project files
+	flake8 -v
+
 .PHONY: test-pep8
 test-pep8: # Run pep8 against project files
 	pep8 --verbose \
@@ -57,7 +61,7 @@ test-pylint: # Run pylint against the project
 
 
 .PHONY: test-travis
-test-travis: test-pep8 test-pylint test-unit # Run the full Travis CI testing suite
+test-travis: test-flake8 test-pep8 test-pylint test-unit # Run the full Travis CI testing suite
 
 
 .PHONY: test-unit

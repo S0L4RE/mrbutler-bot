@@ -1,6 +1,7 @@
 -r ./bot/requirements.txt
 -r ./web/requirements.txt
 
+flake8
 pep8
 pylint
 pytest
