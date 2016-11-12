@@ -2,7 +2,6 @@
 -r ./web/requirements.txt
 
 flake8
-pep8
 pylint
 pytest
 pytest-cov
