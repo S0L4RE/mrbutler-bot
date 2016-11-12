@@ -2,3 +2,5 @@
 exclude =
     web/mrbweb/manage.py,
     web/mrbweb/mrbweb/settings.py,
+    web/mrbweb/mrbweb/urls.py,
+    web/mrbweb/mrbweb/wsgi.py,

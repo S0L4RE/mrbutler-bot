@@ -42,6 +42,7 @@ test-pylint: # Run pylint against the project
 	pylint --rcfile=./.pylintrc \
 	./bot/mrb \
 	./core/mrb_core \
+	./web/mrbweb/django_discord \
 	&& :
 
 

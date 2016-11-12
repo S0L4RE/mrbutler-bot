@@ -18,4 +18,7 @@ from django.apps import AppConfig
 
 
 class DjangoDiscordConfig(AppConfig):
+    """
+    Class representing a Django application and its configuration.
+    """
     name = 'django_discord'

@@ -18,6 +18,11 @@ from django.db import models
 
 
 class User(models.Model):
+    """
+    Django model to represent a Discord User
+
+    https://discordapp.com/developers/docs/resources/user
+    """
     id = models.CharField(
         max_length=20,
         primary_key=True,
