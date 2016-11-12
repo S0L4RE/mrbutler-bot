@@ -52,11 +52,15 @@ test: test-flake test-pylint test-unit # Run the full testing suite
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
-	PYTHONPATH="./bot/:./core/" \
+	DATABASE_URL="postgres://mrb_test:@localhost:5433/mrb_test" \
+	PYTHONPATH="./bot/:./core/:./web/mrbweb" \
 	pytest \
+	--ds=mrbweb.settings \
 	--cov mrb \
 	--cov mrb_core \
+	--cov django_discord \
 	--cov-report html \
 	./bot/tests/unit \
 	./core/tests/unit \
+	./web/mrbweb/django_discord/tests.py \
 	&& :
