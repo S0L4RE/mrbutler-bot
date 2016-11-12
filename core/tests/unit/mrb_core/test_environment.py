@@ -36,7 +36,7 @@ class TestEnvironment(TestCase):
     @patch('os.getenv')
     def test_getenv_calls(self, os_getenv_patched):
         os_getenv_patched.return_value = None
-        _ = Environment()
+        _ = Environment()  # noqa
         self.assertEqual(
             os_getenv_patched.call_count,
             self.expected_env_length,

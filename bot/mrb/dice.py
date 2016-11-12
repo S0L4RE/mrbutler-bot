@@ -33,7 +33,7 @@ class Dice(object):
         """
 
         try:
-            _ = int(input_string)
+            _ = int(input_string)  # noqa
             return True
         except ValueError:
             return False
