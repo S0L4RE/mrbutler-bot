@@ -1,5 +1,11 @@
+[BASIC]
+good-names=_,id,default_app_config
+
 [DESIGN]
 min-public-methods=0
+
+[MASTER]
+ignore=manage.py,migrations,mrbweb
 
 [MESSAGES CONTROL]
 # Disable the following PyLint messages:
@@ -11,3 +17,6 @@ disable=R0204
 [REPORTS]
 output-format=text
 reports=yes
+
+[TYPECHECK]
+generated-members=objects

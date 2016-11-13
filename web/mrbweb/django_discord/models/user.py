@@ -13,3 +13,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
+from django.db import models
+
+
+class User(models.Model):
+    """
+    Django model to represent a Discord User
+
+    https://discordapp.com/developers/docs/resources/user
+    """
+    id = models.CharField(
+        primary_key=True,
+        max_length=20,
+        help_text='The snowflake ID of this user from Discord'
+    )
+
+    created_ts = models.DateTimeField(auto_now_add=True)
+    updated_ts = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Discord User <{}>".format(self.id)
