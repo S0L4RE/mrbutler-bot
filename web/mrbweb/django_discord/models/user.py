@@ -26,11 +26,11 @@ class User(models.Model):
     id = models.CharField(
         primary_key=True,
         max_length=20,
-        help_text='The snowflake user ID of this user from Discord'
+        help_text='The snowflake ID of this user from Discord'
     )
 
     created_ts = models.DateTimeField(auto_now_add=True)
     updated_ts = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.id
+        return "Discord User <{}>".format(self.id)
