@@ -42,7 +42,7 @@ test-pylint: # Run pylint against the project
 	pylint --rcfile=./.pylintrc \
 	./bot/mrb \
 	./core/mrb_core \
-	./web/mrbweb/django_discord \
+	./web/mrbweb \
 	&& :
 
 
@@ -62,5 +62,5 @@ test-unit: # Run only unit tests
 	--cov-report html \
 	./bot/tests/unit \
 	./core/tests/unit \
-	./web/mrbweb/django_discord/tests.py \
+	./web/mrbweb/ \
 	&& :

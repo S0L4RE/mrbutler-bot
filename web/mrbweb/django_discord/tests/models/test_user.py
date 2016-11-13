@@ -16,7 +16,7 @@ limitations under the License.
 
 from django.test import TestCase
 
-from .models import User
+from django_discord.models import User
 
 
 class UserTestCase(TestCase):
