@@ -16,7 +16,33 @@ limitations under the License.
 
 from django.contrib import admin
 
-from .models import User
+from .models import (
+    Guild,
+    User,
+)
+
+
+class GuildAdmin(admin.ModelAdmin):
+    """Admin options for the User model"""
+
+    fieldsets = [
+        ('User Data', {
+            'fields': [
+                'id',
+            ],
+        }),
+        ('Metadata', {
+            'fields': [
+                'created_ts',
+                'updated_ts',
+            ],
+        }),
+    ]
+
+    readonly_fields = [
+        'created_ts',
+        'updated_ts',
+    ]
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -42,4 +68,5 @@ class UserAdmin(admin.ModelAdmin):
     ]
 
 
+admin.site.register(Guild, GuildAdmin)
 admin.site.register(User, UserAdmin)
