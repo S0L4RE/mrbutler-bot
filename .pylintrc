@@ -7,3 +7,7 @@ min-public-methods=0
 # R0204 - redefined-variable-type
 
 disable=R0204
+
+[REPORTS]
+output-format=text
+reports=yes

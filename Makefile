@@ -39,7 +39,7 @@ test-flake: # Run flake8 against project files
 
 .PHONY: test-pylint
 test-pylint: # Run pylint against the project
-	pylint --rcfile=./.pylintrc --reports=y --output-format=text \
+	pylint --rcfile=./.pylintrc \
 	./bot/mrb \
 	./core/mrb_core \
 	&& :
