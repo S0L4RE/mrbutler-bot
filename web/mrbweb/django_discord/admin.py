@@ -19,4 +19,25 @@ from django.contrib import admin
 from .models import User
 
 
-admin.site.register(User)
+class UserAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('User Data', {
+            'fields': [
+                'id',
+            ],
+        }),
+        ('Metadata', {
+            'fields': [
+                'created_ts',
+                'updated_ts',
+            ],
+        }),
+    ]
+
+    readonly_fields = [
+        'created_ts',
+        'updated_ts',
+    ]
+
+
+admin.site.register(User, UserAdmin)
