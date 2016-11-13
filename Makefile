@@ -32,8 +32,8 @@ test-clean: # Clean up test artifacts
 	rm -rf ./.cache ./htmlcov .coverage
 
 
-.PHONY: test-flake8
-test-flake8: # Run flake8 against project files
+.PHONY: test-flake
+test-flake: # Run flake8 against project files
 	flake8 -v
 
 
@@ -46,7 +46,7 @@ test-pylint: # Run pylint against the project
 
 
 .PHONY: test
-test: test-flake8 test-pylint test-unit # Run the full testing suite
+test: test-flake test-pylint test-unit # Run the full testing suite
 
 
 .PHONY: test-unit
