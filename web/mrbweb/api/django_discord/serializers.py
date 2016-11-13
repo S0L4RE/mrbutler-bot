@@ -14,22 +14,39 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from django.conf.urls import (
-    include,
-    url,
-)
-from rest_framework import routers
+from rest_framework import serializers
 
-from api.django_discord.views import (
-    GuildViewSet,
-    UserViewSet,
+from django_discord.models import (
+    Guild,
+    User,
 )
 
-router = routers.DefaultRouter()
 
-router.register(r'discord/guilds', GuildViewSet)
-router.register(r'discord/users', UserViewSet)
+class GuildSerializer(serializers.ModelSerializer):
+    """
 
-urlpatterns = [
-    url(r'^', include(router.urls)),
-]
+    """
+
+    class Meta:
+        model = Guild
+
+        fields = (
+            'id',
+            'created_ts',
+            'updated_ts',
+        )
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """
+
+    """
+
+    class Meta:
+        model = User
+
+        fields = (
+            'id',
+            'created_ts',
+            'updated_ts',
+        )

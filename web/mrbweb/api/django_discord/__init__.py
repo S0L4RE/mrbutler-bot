@@ -13,23 +13,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-
-from django.conf.urls import (
-    include,
-    url,
-)
-from rest_framework import routers
-
-from api.django_discord.views import (
-    GuildViewSet,
-    UserViewSet,
-)
-
-router = routers.DefaultRouter()
-
-router.register(r'discord/guilds', GuildViewSet)
-router.register(r'discord/users', UserViewSet)
-
-urlpatterns = [
-    url(r'^', include(router.urls)),
-]
