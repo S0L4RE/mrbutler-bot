@@ -5,11 +5,6 @@ help: # Show this help screen
 	awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
-.PHONY: clean
-clean: # Clean up test artificats
-	rm -rf ./.cache/ ./htmlcov/ .coverage
-
-
 .PHONY: prod-build
 prod-build: # Build the production docker containers
 	docker-compose build && \
@@ -33,7 +28,7 @@ prod-push: prod-build # Push this sucker to prod!
 
 
 .PHONY: test-clean
-test-clean: # Clean up test artificats
+test-clean: # Clean up test artifacts
 	rm -rf ./.cache ./htmlcov .coverage
 
 
@@ -50,8 +45,8 @@ test-pylint: # Run pylint against the project
 	&& :
 
 
-.PHONY: test-travis
-test-travis: test-flake8 test-pylint test-unit # Run the full Travis CI testing suite
+.PHONY: test
+test: test-flake8 test-pylint test-unit # Run the full testing suite
 
 
 .PHONY: test-unit
