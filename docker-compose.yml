@@ -17,10 +17,27 @@ services:
         MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
     environment:
       MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
+      MRB_ENV: 'prod'
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  web_dev:
+    build:
+      context: .
+      dockerfile: ./web/Dockerfile-dev
+      args:
+        MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
+    environment:
+      MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
       MRB_ENV: ${MRB_ENV}
       PORT: 8000
     ports:
       - "8000:8000"
+    volumes:
+      - ./web/mrbweb:/app/mrbweb
     depends_on:
       - postgres
 

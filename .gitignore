@@ -1,5 +1,8 @@
 ### Project ###
 
+# Ingnore Django's collectstatic
+web/mrbweb/static
+
 ### Python ###
 __pycache__/
 
