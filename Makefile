@@ -53,7 +53,10 @@ test: test-flake test-pylint test-unit # Run the full testing suite
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
-	DATABASE_URL="postgres://mrb_test:@localhost:5433/mrb_test" \
+	if [[ -z $${DATABASE_URL} ]]; then \
+	export DATABASE_URL="postgres://mrb_test:@localhost:5433/mrb_test"; \
+	echo "DATABASE_URL undefined, changed to $${DATABASE_URL}"; \
+	fi; \
 	PYTHONPATH="./bot/:./core/:./web/mrbweb/" \
 	pytest \
 	--ds=mrbweb.settings \
