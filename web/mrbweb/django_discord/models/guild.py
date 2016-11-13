@@ -14,5 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .guild import Guild
-from .user import User
+from django.db import models
+
+
+class Guild(models.Model):
+    """
+    Django model to represent a Discord Guild (Server)
+
+    https://discordapp.com/developers/docs/resources/guild
+    """
+
+    id = models.CharField(
+        primary_key=True,
+        max_length=20,
+        help_text='The snowflake ID of this guild from Discord'
+    )
+
+    created_ts = models.DateTimeField(auto_now_add=True)
+    updated_ts = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Discord Guild <{}>".format(self.id)
