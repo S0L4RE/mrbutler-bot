@@ -30,3 +30,12 @@ class TestGuildModel(TestCase):
 
         self.assertEqual(discord_guild.id, expected_id)
         self.assertIsInstance(discord_guild.id, str)
+
+    def test_str(self):
+        """Test the __str__ representation"""
+
+        guild_id = '18446744073709551615'
+        expected_str = "Discord Guild <{}>".format(guild_id)
+        discord_guild = Guild.objects.create(id=guild_id)
+
+        self.assertEqual(str(discord_guild), expected_str)

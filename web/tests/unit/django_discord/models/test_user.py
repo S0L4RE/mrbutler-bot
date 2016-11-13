@@ -30,3 +30,12 @@ class TestUserModel(TestCase):
 
         self.assertEqual(discord_user.id, expected_id)
         self.assertIsInstance(discord_user.id, str)
+
+    def test_str(self):
+        """Test the __str__ representation"""
+
+        user_id = '18446744073709551615'
+        expected_str = "Discord User <{}>".format(user_id)
+        discord_user = User.objects.create(id=user_id)
+
+        self.assertEqual(str(discord_user), expected_str)
