@@ -37,18 +37,8 @@ test-flake: # Run flake8 against project files
 	flake8 -v
 
 
-.PHONY: test-pylint
-test-pylint: # Run pylint against the project
-	PYTHONPATH="./bot/:./core/:./web/" \
-	pylint --rcfile=./.pylintrc \
-	./bot/mrb \
-	./core/mrb_core \
-	./web/mrbweb \
-	&& :
-
-
 .PHONY: test
-test: test-flake test-pylint test-unit # Run the full testing suite
+test: test-flake test-unit # Run the full testing suite
 
 
 .PHONY: test-unit
