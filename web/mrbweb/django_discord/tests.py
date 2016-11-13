@@ -21,7 +21,7 @@ from .models import User
 
 class UserTestCase(TestCase):
     def test_snowflake_id(self):
-        expected_id = '80351110224678912'
+        expected_id = '18446744073709551615'
         discord_user = User.objects.create(id=expected_id)
 
         self.assertEqual(discord_user.id, expected_id)
