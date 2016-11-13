@@ -45,6 +45,7 @@ DEBUG = True if os.environ.get('MRB_ENV', 'prod') == 'dev' else False
 
 ALLOWED_HOSTS = [
     'docker.mrb.lan',
+    'mrbutler.urda.cc',
 ]
 
 
