@@ -1,7 +1,8 @@
 -r ./bot/requirements.txt
 -r ./web/requirements.txt
 
-pep8
+flake8
 pylint
 pytest
 pytest-cov
+pytest-django

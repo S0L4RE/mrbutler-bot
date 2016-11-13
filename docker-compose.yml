@@ -35,7 +35,19 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data/mrb
+      - mrb_data:/var/lib/postgresql/data/mrb
+
+  postgres_test:
+    image: postgres
+    environment:
+      POSTGRES_USER: mrb_test
+      POSTGRES_DB: mrb_test
+      PGDATA: /var/lib/postgresql/data/mrb_test
+    ports:
+      - "5433:5432"
+    volumes:
+      - mrb_test_data:/var/lib/postgresql/data/mrb_test
 
 volumes:
-  pg_data: {}
+  mrb_data: {}
+  mrb_test_data: {}

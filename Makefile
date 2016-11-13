@@ -5,11 +5,6 @@ help: # Show this help screen
 	awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
-.PHONY: clean
-clean: # Clean up test artificats
-	rm -rf ./.cache/ ./htmlcov/ .coverage
-
-
 .PHONY: prod-build
 prod-build: # Build the production docker containers
 	docker-compose build && \
@@ -33,40 +28,43 @@ prod-push: prod-build # Push this sucker to prod!
 
 
 .PHONY: test-clean
-test-clean: # Clean up test artificats
+test-clean: # Clean up test artifacts
 	rm -rf ./.cache ./htmlcov .coverage
 
 
-.PHONY: test-pep8
-test-pep8: # Run pep8 against project files
-	pep8 --verbose \
-	./bot/*.py \
-	./bot/mrb/* \
-	./bot/tests/* \
-	./core/mrb_core/* \
-	./core/tests/* \
-	&& :
+.PHONY: test-flake
+test-flake: # Run flake8 against project files
+	flake8 -v
 
 
 .PHONY: test-pylint
 test-pylint: # Run pylint against the project
-	pylint --rcfile=./.pylintrc --reports=y --output-format=text \
+	PYTHONPATH="./bot/:./core/:./web/" \
+	pylint --rcfile=./.pylintrc \
 	./bot/mrb \
 	./core/mrb_core \
+	./web/mrbweb \
 	&& :
 
 
-.PHONY: test-travis
-test-travis: test-pep8 test-pylint test-unit # Run the full Travis CI testing suite
+.PHONY: test
+test: test-flake test-pylint test-unit # Run the full testing suite
 
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
-	PYTHONPATH="./bot/:./core/" \
+	if [[ -z $${DATABASE_URL} ]]; then \
+	export DATABASE_URL="postgres://mrb_test:@localhost:5433/mrb_test"; \
+	echo "DATABASE_URL undefined, changed to $${DATABASE_URL}"; \
+	fi; \
+	PYTHONPATH="./bot/:./core/:./web/mrbweb/" \
 	pytest \
+	--ds=mrbweb.settings \
 	--cov mrb \
 	--cov mrb_core \
+	--cov django_discord \
 	--cov-report html \
 	./bot/tests/unit \
 	./core/tests/unit \
+	./web/tests/unit \
 	&& :
