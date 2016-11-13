@@ -20,6 +20,8 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
+    """Admin options for the User model"""
+
     fieldsets = [
         ('User Data', {
             'fields': [
