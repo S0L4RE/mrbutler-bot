@@ -17,3 +17,6 @@ disable=R0204
 [REPORTS]
 output-format=text
 reports=yes
+
+[TYPECHECK]
+generated-members=objects
