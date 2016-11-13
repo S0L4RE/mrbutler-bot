@@ -39,7 +39,7 @@ test-flake: # Run flake8 against project files
 
 .PHONY: test-pylint
 test-pylint: # Run pylint against the project
-	PYTHONPATH="./bot/:./core/:./web/mrbweb" \
+	PYTHONPATH="./bot/:./core/:./web/" \
 	pylint --rcfile=./.pylintrc \
 	./bot/mrb \
 	./core/mrb_core \
@@ -54,7 +54,7 @@ test: test-flake test-pylint test-unit # Run the full testing suite
 .PHONY: test-unit
 test-unit: # Run only unit tests
 	DATABASE_URL="postgres://mrb_test:@localhost:5433/mrb_test" \
-	PYTHONPATH="./bot/:./core/:./web/mrbweb" \
+	PYTHONPATH="./bot/:./core/:./web/mrbweb/" \
 	pytest \
 	--ds=mrbweb.settings \
 	--cov mrb \
@@ -63,5 +63,5 @@ test-unit: # Run only unit tests
 	--cov-report html \
 	./bot/tests/unit \
 	./core/tests/unit \
-	./web/mrbweb/ \
+	./web/tests/unit \
 	&& :

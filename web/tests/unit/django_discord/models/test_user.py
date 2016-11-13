@@ -13,3 +13,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
+from django.test import TestCase
+
+from django_discord.models import User
+
+
+class TestUserModel(TestCase):
+    """Test the Discord User model in Django"""
+
+    def test_snowflake_id(self):
+        """Test the 64bit (uint64) string id"""
+
+        expected_id = '18446744073709551615'
+        discord_user = User.objects.create(id=expected_id)
+
+        self.assertEqual(discord_user.id, expected_id)
+        self.assertIsInstance(discord_user.id, str)
