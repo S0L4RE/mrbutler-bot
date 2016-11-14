@@ -52,6 +52,7 @@ test-unit: # Run only unit tests
 	--ds=mrbweb.settings \
 	--cov mrb \
 	--cov mrb_core \
+	--cov letsencrypt \
 	--cov django_discord \
 	--cov-report html \
 	./bot/tests/unit \
