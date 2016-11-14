@@ -50,6 +50,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
+      - .:/opt
       - mrb_data:/var/lib/postgresql/data/mrb
 
   postgres_test:
