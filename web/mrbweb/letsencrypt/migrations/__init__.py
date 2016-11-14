@@ -13,25 +13,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-
-from django.shortcuts import (
-    get_object_or_404,
-    render,
-)
-
-from .models import AcmeChallenge
-
-
-def detail(request, acme_data):
-    acme_challenge = get_object_or_404(
-        AcmeChallenge,
-        challenge=acme_data,
-    )
-
-    return render(
-        request,
-        'letsencrypt/detail.html',
-        {
-            'response': acme_challenge.response
-        },
-    )
