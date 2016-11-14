@@ -14,24 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from django.shortcuts import (
-    get_object_or_404,
-    render,
-)
-
-from .models import AcmeChallenge
+from django.apps import AppConfig
 
 
-def detail(request, acme_data):
-    acme_challenge = get_object_or_404(
-        AcmeChallenge,
-        challenge=acme_data,
-    )
-
-    return render(
-        request,
-        'letsencrypt/detail.html',
-        {
-            'response': acme_challenge.response
-        },
-    )
+class LetsEncryptConfig(AppConfig):
+    """
+    Class representing a Django application and its configuration.
+    """
+    name = 'letsencrypt'
+    verbose_name = "Let's Encrypt"

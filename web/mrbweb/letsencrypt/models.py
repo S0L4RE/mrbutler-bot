@@ -14,24 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from django.shortcuts import (
-    get_object_or_404,
-    render,
-)
-
-from .models import AcmeChallenge
+from django.db import models
 
 
-def detail(request, acme_data):
-    acme_challenge = get_object_or_404(
-        AcmeChallenge,
-        challenge=acme_data,
+class AcmeChallenge(models.Model):
+    """
+    Simple model to handle Let's Encrypt .well-known/acme-challenge objects
+    """
+
+    challenge = models.TextField(
+        help_text='The identifier for this challenge',
     )
 
-    return render(
-        request,
-        'letsencrypt/detail.html',
-        {
-            'response': acme_challenge.response
-        },
+    response = models.TextField(
+        help_text='The response expected for this challenge',
     )
+
+    created_ts = models.DateTimeField(auto_now_add=True)
+    updated_ts = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "ACME Challenge <{}>".format(self.challenge)
