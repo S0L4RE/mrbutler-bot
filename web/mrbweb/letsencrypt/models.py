@@ -32,3 +32,6 @@ class AcmeChallenge(models.Model):
 
     created_ts = models.DateTimeField(auto_now_add=True)
     updated_ts = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "ACME Challenge <{}>".format(self.challenge)
