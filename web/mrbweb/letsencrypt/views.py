@@ -22,12 +22,12 @@ from django.http import (
 
 def detail(request, acme_data):
     _ = request  # noqa
-    expected_request = 'N3Uf-Kx_S-CjfewfSU1ri3w-0Snm_9V8nckqCpft6Yg'
+    expected_request = 'lX8D7FNGoai8ktcHyAWo4I4zu6dAd9Fbz8aehEbAcJo'
 
     if acme_data != expected_request:
         return HttpResponseNotFound()
 
     return HttpResponse(
-        'N3Uf-Kx_S-CjfewfSU1ri3w-0Snm_9V8nckqCpft6Yg.'
+        'lX8D7FNGoai8ktcHyAWo4I4zu6dAd9Fbz8aehEbAcJo.'
         'fL5DxaUDxd_IosDayHDs9HS4kGtc2XVCiQbOdyAg340'
     )
