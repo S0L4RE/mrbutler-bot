@@ -20,5 +20,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^(?P<acme_data>.+)/$', views.detail, name='detail'),
+    url(r'^acme-challenge/(?P<acme_data>.+)/$', views.detail, name='detail'),
 ]
