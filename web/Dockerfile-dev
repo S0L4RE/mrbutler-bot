@@ -12,11 +12,8 @@ ENV MRB_ROOT /app
 WORKDIR ${MRB_ROOT}
 
 RUN apk add --no-cache \
-    postgresql-dev \
-    && :
-
-RUN apk add --no-cache \
     git \
+    postgresql-dev \
     && :
 
 RUN pip3 install --upgrade ipython
