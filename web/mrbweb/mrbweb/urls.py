@@ -37,5 +37,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^.well-known/', include('letsencrypt.urls')),
+    url(r'^\.well-known/', include('letsencrypt.urls')),
 ]
