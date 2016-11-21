@@ -1,7 +1,6 @@
--e git+https://github.com/urda/django-letsencrypt.git@master##egg=django-letsencrypt
-
-gunicorn
+Django
 dj-database-url
+django-letsencrypt
+gunicorn
 psycopg2
 whitenoise
-Django
