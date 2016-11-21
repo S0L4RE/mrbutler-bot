@@ -1,5 +1,6 @@
 Django
 dj-database-url
+django-letsencrypt
 gunicorn
 psycopg2
 whitenoise
