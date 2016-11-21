@@ -53,7 +53,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'django_discord.apps.DjangoDiscordConfig',
-    'letsencrypt.apps.LetsEncryptConfig',
+    'letsencrypt',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

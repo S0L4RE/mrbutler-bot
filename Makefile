@@ -43,7 +43,7 @@ test: test-flake test-unit # Run the full testing suite
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
-	if [[ -z $${DATABASE_URL} ]]; then \
+	if [ -z $${DATABASE_URL} ]; then \
 	export DATABASE_URL="postgres://mrb_test:@localhost:5433/mrb_test"; \
 	echo "DATABASE_URL undefined, changed to $${DATABASE_URL}"; \
 	fi; \
@@ -52,8 +52,8 @@ test-unit: # Run only unit tests
 	--ds=mrbweb.settings \
 	--cov mrb \
 	--cov mrb_core \
-	--cov letsencrypt \
 	--cov django_discord \
+	--cov letsencrypt \
 	--cov-report html \
 	./bot/tests/unit \
 	./core/tests/unit \
