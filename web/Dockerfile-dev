@@ -12,7 +12,6 @@ ENV MRB_ROOT /app
 WORKDIR ${MRB_ROOT}
 
 RUN apk add --no-cache \
-    git \
     postgresql-dev \
     && :
 
