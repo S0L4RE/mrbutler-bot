@@ -44,6 +44,12 @@ class GuildAdmin(admin.ModelAdmin):
         'updated_ts',
     ]
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ['id']
+
+        return self.readonly_fields
+
 
 class UserAdmin(admin.ModelAdmin):
     """Admin options for the User model"""
@@ -66,6 +72,12 @@ class UserAdmin(admin.ModelAdmin):
         'created_ts',
         'updated_ts',
     ]
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ['id']
+
+        return self.readonly_fields
 
 
 admin.site.register(Guild, GuildAdmin)
