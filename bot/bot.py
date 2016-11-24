@@ -332,6 +332,34 @@ async def on_message(message):
         await client.delete_message(message)
         return
 
+    if message.content.startswith("!aboutserver"):
+        server = message.server
+
+        doc_block = (
+            '```\n'
+            'id ................... {0}\n'
+            'name ................. {1}\n'
+            'icon ................. {2}\n'
+            'owner_id ............. {3}\n'
+            'region ............... {4}\n'
+            'verification_level ... {5}\n'
+            '```\n'
+        ).format(
+            server.id,
+            server.name,
+            server.icon,
+            server.owner_id,
+            server.region,
+            server.verification_level,
+        )
+
+        await client.send_message(
+            message.author,
+            doc_block,
+        )
+        await client.delete_message(message)
+        return
+
 
 @client.event
 async def on_ready():
