@@ -7,7 +7,7 @@ help: # Show this help screen
 
 .PHONY: prod-build
 prod-build: # Build the production docker containers
-	docker-compose build && \
+	docker-compose build --no-cache bot web && \
 	docker tag mrbutler_bot registry.heroku.com/mrbutler/bot && \
 	docker tag mrbutler_web registry.heroku.com/mrbutler/web && \
 	:
