@@ -30,8 +30,15 @@ class Guild(models.Model):
         help_text='The snowflake ID of this guild from Discord'
     )
 
-    created_ts = models.DateTimeField(auto_now_add=True)
-    updated_ts = models.DateTimeField(auto_now=True)
+    created_ts = models.DateTimeField(
+        "Created Timestamp",
+        auto_now_add=True,
+    )
+
+    updated_ts = models.DateTimeField(
+        "Updated Timestamp",
+        auto_now=True,
+    )
 
     def __str__(self):
         return "Discord Guild <{}>".format(self.id)
