@@ -15,8 +15,6 @@ RUN apk add --no-cache \
     postgresql-dev \
     && :
 
-RUN pip3 install --upgrade ipython
-
 ADD web/requirements.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 
@@ -25,7 +23,6 @@ WORKDIR ${MRB_ROOT}/mrbweb/
 ARG MRB_DJANGO_SECRET_KEY
 ENV MRB_DJANGO_SECRET_KEY ${MRB_DJANGO_SECRET_KEY}
 ENV MRB_ENV ${MRB_ENV}
-
 ENV PORT ${PORT}
 
 ADD web/mrbweb/ ${MRB_ROOT}/mrbweb/
