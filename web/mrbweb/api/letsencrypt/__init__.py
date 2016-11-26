@@ -13,29 +13,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-
-from django.conf.urls import (
-    include,
-    url,
-)
-from rest_framework import routers
-
-from .django_discord.views import (
-    GuildViewSet,
-    UserViewSet,
-)
-from .letsencrypt.views import (
-    AcmeChallengeViewSet,
-)
-
-router = routers.DefaultRouter()
-
-
-router.register(r'discord/guilds', GuildViewSet)
-router.register(r'discord/users', UserViewSet)
-router.register(r'letsencrypt/acme_challenges', AcmeChallengeViewSet)
-
-
-urlpatterns = [
-    url(r'^', include(router.urls)),
-]
