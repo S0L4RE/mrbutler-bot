@@ -27,18 +27,14 @@ from .serializers import (
 
 
 class GuildViewSet(viewsets.ModelViewSet):
-    """
-
-    """
+    """ViewSet for Discord Guilds"""
 
     queryset = Guild.objects.all()
     serializer_class = GuildSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """
-
-    """
+    """ViewSet for Discord Users"""
 
     queryset = User.objects.all()
     serializer_class = UserSerializer

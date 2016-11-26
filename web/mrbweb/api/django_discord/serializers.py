@@ -23,9 +23,7 @@ from django_discord.models import (
 
 
 class GuildSerializer(serializers.ModelSerializer):
-    """
-
-    """
+    """Serializer for Discord Guilds"""
 
     class Meta:
         model = Guild
@@ -38,9 +36,7 @@ class GuildSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """
-
-    """
+    """Serializer for Discord Users"""
 
     class Meta:
         model = User
