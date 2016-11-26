@@ -29,6 +29,16 @@ class User(models.Model):
         help_text='The snowflake ID of this user from Discord'
     )
 
+    username = models.CharField(
+        max_length=50,
+        help_text='The username for this user',
+    )
+
+    discriminator = models.CharField(
+        max_length=4,
+        help_text='The 4-digit discord-tag for this user',
+    )
+
     created_ts = models.DateTimeField(
         "Created Timestamp",
         auto_now_add=True,
@@ -40,4 +50,8 @@ class User(models.Model):
     )
 
     def __str__(self):
-        return "Discord User <{}>".format(self.id)
+        return "Discord User <{0}#{1} -- {2}>".format(
+            self.username,
+            self.discriminator,
+            self.id,
+        )

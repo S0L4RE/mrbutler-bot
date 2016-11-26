@@ -35,7 +35,17 @@ class TestUserModel(TestCase):
         """Test the __str__ representation"""
 
         user_id = '18446744073709551615'
-        expected_str = "Discord User <{}>".format(user_id)
-        discord_user = User.objects.create(id=user_id)
+        user_name = 'SomeUser'
+        user_discriminator = '1234'
+        expected_str = "Discord User <{0}#{1} -- {2}>".format(
+            user_name,
+            user_discriminator,
+            user_id,
+        )
+        discord_user = User.objects.create(
+            id=user_id,
+            discriminator=user_discriminator,
+            username=user_name,
+        )
 
         self.assertEqual(str(discord_user), expected_str)
