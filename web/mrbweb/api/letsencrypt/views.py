@@ -14,28 +14,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from django.conf.urls import (
-    include,
-    url,
-)
-from rest_framework import routers
+from letsencrypt.models import AcmeChallenge
+from rest_framework import viewsets
 
-from .django_discord.views import (
-    GuildViewSet,
-    UserViewSet,
-)
-from .letsencrypt.views import (
-    AcmeChallengeViewSet,
-)
-
-router = routers.DefaultRouter()
+from .serializers import AcmeChallengeSerializer
 
 
-router.register(r'discord/guilds', GuildViewSet)
-router.register(r'discord/users', UserViewSet)
-router.register(r'letsencrypt/acme_challenges', AcmeChallengeViewSet)
+class AcmeChallengeViewSet(viewsets.ModelViewSet):
+    """
 
+    """
 
-urlpatterns = [
-    url(r'^', include(router.urls)),
-]
+    queryset = AcmeChallenge.objects.all()
+    serializer_class = AcmeChallengeSerializer
