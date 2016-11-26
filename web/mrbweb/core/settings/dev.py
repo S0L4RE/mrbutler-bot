@@ -18,3 +18,7 @@ limitations under the License.
 from .base import *  # noqa
 
 DEBUG = True
+
+ALLOWED_HOSTS = [
+    'docker.mrb.lan',
+]

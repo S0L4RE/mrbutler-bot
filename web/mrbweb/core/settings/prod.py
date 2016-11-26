@@ -17,7 +17,9 @@ limitations under the License.
 # noinspection PyUnresolvedReferences
 from .base import *  # noqa
 
-ALLOWED_HOSTS.append('mrbutler.urda.cc')  # noqa
+ALLOWED_HOSTS = [
+    'mrbutler.urda.cc'
+]
 
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SECURE = True
