@@ -16,13 +16,17 @@ limitations under the License.
 
 from django.contrib import admin
 
+from .mixins import AdminMixins
 from .models import (
     Guild,
     User,
 )
 
 
-class GuildAdmin(admin.ModelAdmin):
+class GuildAdmin(
+    admin.ModelAdmin,
+    AdminMixins,
+):
     """Admin options for the User model"""
 
     fieldsets = [
@@ -44,14 +48,11 @@ class GuildAdmin(admin.ModelAdmin):
         'updated_ts',
     ]
 
-    def get_readonly_fields(self, request, obj=None):
-        if obj:
-            return self.readonly_fields + ['id']
 
-        return self.readonly_fields
-
-
-class UserAdmin(admin.ModelAdmin):
+class UserAdmin(
+    admin.ModelAdmin,
+    AdminMixins,
+):
     """Admin options for the User model"""
 
     fieldsets = [
@@ -72,12 +73,6 @@ class UserAdmin(admin.ModelAdmin):
         'created_ts',
         'updated_ts',
     ]
-
-    def get_readonly_fields(self, request, obj=None):
-        if obj:
-            return self.readonly_fields + ['id']
-
-        return self.readonly_fields
 
 
 admin.site.register(Guild, GuildAdmin)
