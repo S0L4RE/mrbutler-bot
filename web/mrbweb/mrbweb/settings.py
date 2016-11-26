@@ -131,4 +131,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
 
 
+CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
