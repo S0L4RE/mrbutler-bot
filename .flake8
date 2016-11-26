@@ -2,4 +2,3 @@
 exclude =
     */migrations/*,
     web/mrbweb/manage.py,
-    web/mrbweb/mrbweb/wsgi.py,

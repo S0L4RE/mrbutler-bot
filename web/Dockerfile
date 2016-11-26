@@ -29,4 +29,4 @@ ENV PORT ${PORT}
 ADD web/mrbweb/ ${MRB_ROOT}/mrbweb/
 
 RUN python3 manage.py collectstatic --noinput
-CMD gunicorn -b 0.0.0.0:${PORT} mrbweb.wsgi
+CMD gunicorn -b 0.0.0.0:${PORT} core.wsgi

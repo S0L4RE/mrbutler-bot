@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mrbweb.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database
