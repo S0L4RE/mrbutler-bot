@@ -20,6 +20,7 @@ from .base import *  # noqa
 ALLOWED_HOSTS.append('mrbutler.urda.cc')  # noqa
 
 CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SECURE = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
