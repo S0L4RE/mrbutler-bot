@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-ALLOWED_HOSTS = [
-    'docker.mrb.lan',
-    'mrbutler.urda.cc',
-]
+# noinspection PyUnresolvedReferences
+from .base import *  # noqa
+
+ALLOWED_HOSTS.append('mrbutler.urda.cc')  # noqa
 
 CSRF_COOKIE_HTTPONLY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True

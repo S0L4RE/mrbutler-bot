@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-DEBUG = True
+# noinspection PyUnresolvedReferences
+from .base import *  # noqa
 
-ALLOWED_HOSTS = [
-    'docker.mrb.lan',
-]
+DEBUG = True

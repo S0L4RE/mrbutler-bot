@@ -32,6 +32,10 @@ SECRET_KEY = os.environ['MRB_DJANGO_SECRET_KEY']
 
 DEBUG = False
 
+ALLOWED_HOSTS = [
+    'docker.mrb.lan',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
