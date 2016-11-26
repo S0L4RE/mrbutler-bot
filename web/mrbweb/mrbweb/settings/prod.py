@@ -14,13 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .base import *
+ALLOWED_HOSTS = [
+    'docker.mrb.lan',
+    'mrbutler.urda.cc',
+]
 
-env_name = os.environ.get('MRB_ENV', 'prod')
-
-if env_name == 'prod':
-    from .prod import *
-elif env_name == 'dev':
-    from .dev import *
-else:
-    raise ValueError("Unable to determine 'EnvironmentType'")
+CSRF_COOKIE_HTTPONLY = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SESSION_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'

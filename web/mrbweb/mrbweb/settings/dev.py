@@ -14,13 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .base import *
+DEBUG = True
 
-env_name = os.environ.get('MRB_ENV', 'prod')
-
-if env_name == 'prod':
-    from .prod import *
-elif env_name == 'dev':
-    from .dev import *
-else:
-    raise ValueError("Unable to determine 'EnvironmentType'")
+ALLOWED_HOSTS = [
+    'docker.mrb.lan',
+]
