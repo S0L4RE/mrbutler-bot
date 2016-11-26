@@ -19,13 +19,13 @@ from rest_framework import serializers
 
 
 class AcmeChallengeSerializer(serializers.ModelSerializer):
-    """
-
-    """
+    """Serializer for Acme Challenges"""
 
     acme_url = serializers.SerializerMethodField()
 
+    # noinspection PyMethodMayBeStatic
     def get_acme_url(self, obj):
+        """DRF method to get the access the Acme URL from the object"""
         return obj.get_acme_url()
 
     class Meta:
