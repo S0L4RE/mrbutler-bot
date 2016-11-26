@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .base import *
+from .base import *  # noqa
 
-env_name = os.environ.get('MRB_ENV', 'prod')
+env_name = os.environ.get('MRB_ENV', 'prod')  # noqa
 
 if env_name == 'prod':
-    from .prod import *
+    from .prod import *  # noqa
 elif env_name == 'dev':
-    from .dev import *
+    from .dev import *  # noqa
 else:
     raise ValueError("Unable to determine 'EnvironmentType'")
