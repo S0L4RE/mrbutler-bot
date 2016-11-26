@@ -14,19 +14,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from django.conf.urls import (
-    include,
-    url,
+from rest_framework import viewsets
+
+from django_discord.models import (
+    Guild,
+    User,
 )
-from django.contrib import admin
+from .serializers import (
+    GuildSerializer,
+    UserSerializer,
+)
 
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('api.urls')),
-    url(
-        r'^api-auth/',
-        include('rest_framework.urls', namespace='rest_framework')
-    ),
-    url(r'^\.well-known/', include('letsencrypt.urls')),
-]
+class GuildViewSet(viewsets.ModelViewSet):
+    """ViewSet for Discord Guilds"""
+
+    queryset = Guild.objects.all()
+    serializer_class = GuildSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """ViewSet for Discord Users"""
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

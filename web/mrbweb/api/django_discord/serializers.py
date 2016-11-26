@@ -14,19 +14,35 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from django.conf.urls import (
-    include,
-    url,
+from rest_framework import serializers
+
+from django_discord.models import (
+    Guild,
+    User,
 )
-from django.contrib import admin
 
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('api.urls')),
-    url(
-        r'^api-auth/',
-        include('rest_framework.urls', namespace='rest_framework')
-    ),
-    url(r'^\.well-known/', include('letsencrypt.urls')),
-]
+class GuildSerializer(serializers.ModelSerializer):
+    """Serializer for Discord Guilds"""
+
+    class Meta:
+        model = Guild
+
+        fields = (
+            'id',
+            'created_ts',
+            'updated_ts',
+        )
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """Serializer for Discord Users"""
+
+    class Meta:
+        model = User
+
+        fields = (
+            'id',
+            'created_ts',
+            'updated_ts',
+        )

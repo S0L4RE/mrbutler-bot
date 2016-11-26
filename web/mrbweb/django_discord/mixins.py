@@ -14,19 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from django.conf.urls import (
-    include,
-    url,
-)
 from django.contrib import admin
 
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('api.urls')),
-    url(
-        r'^api-auth/',
-        include('rest_framework.urls', namespace='rest_framework')
-    ),
-    url(r'^\.well-known/', include('letsencrypt.urls')),
-]
+class AdminMixins(admin.ModelAdmin):
+    """
+    Common Mixin class for some Django Discord ModelAdmins
+    """
+
+    def get_readonly_fields(self, request, obj=None):
+        """
+        Many Django Discord Models have 'id' fields that should not be changed
+        after an object has been created.
+        """
+        if obj:
+            return self.readonly_fields + ['id']
+
+        return self.readonly_fields

@@ -18,15 +18,18 @@ from django.conf.urls import (
     include,
     url,
 )
-from django.contrib import admin
+from rest_framework import routers
 
+from api.django_discord.views import (
+    GuildViewSet,
+    UserViewSet,
+)
+
+router = routers.DefaultRouter()
+
+router.register(r'discord/guilds', GuildViewSet)
+router.register(r'discord/users', UserViewSet)
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('api.urls')),
-    url(
-        r'^api-auth/',
-        include('rest_framework.urls', namespace='rest_framework')
-    ),
-    url(r'^\.well-known/', include('letsencrypt.urls')),
+    url(r'^', include(router.urls)),
 ]
