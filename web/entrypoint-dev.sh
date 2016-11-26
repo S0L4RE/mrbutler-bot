@@ -7,5 +7,5 @@ if [[ "${MRB_ENV}" != "dev" ]]; then
     exit 1
 else
     echo "'dev' ENV detected"
-    exec gunicorn -b 0.0.0.0:${PORT} --reload mrbweb.wsgi
+    exec gunicorn -b 0.0.0.0:${PORT} --reload core.wsgi
 fi

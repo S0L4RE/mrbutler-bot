@@ -14,10 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .guild import Guild
-from .user import User
+import os
 
-__all__ = [
-    'Guild',
-    'User',
-]
+from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
