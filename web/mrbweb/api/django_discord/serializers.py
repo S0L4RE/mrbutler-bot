@@ -43,6 +43,8 @@ class UserSerializer(serializers.ModelSerializer):
 
         fields = (
             'id',
+            'username',
+            'discriminator',
             'created_ts',
             'updated_ts',
         )
