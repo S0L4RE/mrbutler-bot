@@ -19,8 +19,6 @@ from rest_framework import serializers
 
 
 class AcmeChallengeSerializer(serializers.ModelSerializer):
-    """Serializer for Acme Challenges"""
-
     acme_url = serializers.SerializerMethodField()
 
     # noinspection PyMethodMayBeStatic

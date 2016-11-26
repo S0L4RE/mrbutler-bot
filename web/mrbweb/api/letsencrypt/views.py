@@ -21,9 +21,5 @@ from .serializers import AcmeChallengeSerializer
 
 
 class AcmeChallengeViewSet(viewsets.ModelViewSet):
-    """
-
-    """
-
     queryset = AcmeChallenge.objects.all()
     serializer_class = AcmeChallengeSerializer
