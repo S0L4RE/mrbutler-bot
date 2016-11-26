@@ -13,3 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
+# noinspection PyUnresolvedReferences
+from .base import *  # noqa
+
+ALLOWED_HOSTS.append('mrbutler.urda.cc')  # noqa
+
+CSRF_COOKIE_HTTPONLY = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SESSION_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'

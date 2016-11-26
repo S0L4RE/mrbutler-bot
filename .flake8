@@ -1,8 +1,4 @@
 [flake8]
 exclude =
     */migrations/*,
-    */models/__init__.py,
     web/mrbweb/manage.py,
-    web/mrbweb/mrbweb/settings.py,
-    web/mrbweb/mrbweb/urls.py,
-    web/mrbweb/mrbweb/wsgi.py,

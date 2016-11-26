@@ -49,7 +49,7 @@ test-unit: # Run only unit tests
 	fi; \
 	PYTHONPATH="./bot/:./core/:./web/mrbweb/" \
 	pytest \
-	--ds=mrbweb.settings \
+	--ds=core.settings \
 	--cov mrb \
 	--cov mrb_core \
 	--cov django_discord \

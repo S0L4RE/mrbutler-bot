@@ -14,10 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .guild import Guild
-from .user import User
+import os
 
-__all__ = [
-    'Guild',
-    'User',
-]
+env_name = os.environ.get('MRB_ENV', 'prod')
+
+if env_name == 'prod':
+    from .prod import *  # noqa
+elif env_name == 'dev':
+    from .dev import *  # noqa
+else:
+    raise ValueError("Unable to determine 'MRB_ENV'")
