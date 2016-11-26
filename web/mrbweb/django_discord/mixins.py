@@ -30,5 +30,3 @@ class AdminMixins(admin.ModelAdmin):
             return self.readonly_fields + ['id']
 
         return self.readonly_fields
-
-

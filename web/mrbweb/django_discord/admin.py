@@ -23,10 +23,7 @@ from .models import (
 )
 
 
-class GuildAdmin(
-    admin.ModelAdmin,
-    AdminMixins,
-):
+class GuildAdmin(AdminMixins):
     """Admin options for the User model"""
 
     fieldsets = [
@@ -49,10 +46,7 @@ class GuildAdmin(
     ]
 
 
-class UserAdmin(
-    admin.ModelAdmin,
-    AdminMixins,
-):
+class UserAdmin(AdminMixins):
     """Admin options for the User model"""
 
     fieldsets = [
