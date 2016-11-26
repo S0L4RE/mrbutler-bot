@@ -16,13 +16,14 @@ limitations under the License.
 
 from django.contrib import admin
 
+from .mixins import AdminMixins
 from .models import (
     Guild,
     User,
 )
 
 
-class GuildAdmin(admin.ModelAdmin):
+class GuildAdmin(AdminMixins):
     """Admin options for the User model"""
 
     fieldsets = [
@@ -45,7 +46,7 @@ class GuildAdmin(admin.ModelAdmin):
     ]
 
 
-class UserAdmin(admin.ModelAdmin):
+class UserAdmin(AdminMixins):
     """Admin options for the User model"""
 
     fieldsets = [

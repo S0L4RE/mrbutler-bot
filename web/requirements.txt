@@ -1,6 +1,7 @@
 Django
 dj-database-url
 django-letsencrypt==1.0.2
+djangorestframework
 gunicorn
 psycopg2
 whitenoise
