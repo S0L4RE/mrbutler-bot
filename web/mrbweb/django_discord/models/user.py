@@ -23,6 +23,7 @@ class User(models.Model):
 
     https://discordapp.com/developers/docs/resources/user
     """
+
     id = models.CharField(
         primary_key=True,
         max_length=20,
@@ -30,7 +31,7 @@ class User(models.Model):
     )
 
     username = models.CharField(
-        max_length=50,
+        max_length=32,
         help_text='The username for this user',
     )
 
