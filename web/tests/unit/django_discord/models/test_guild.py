@@ -16,17 +16,34 @@ limitations under the License.
 
 from django.test import TestCase
 
-from django_discord.models import Guild
+from django_discord.models import (
+    Guild,
+    User,
+)
 
 
 class TestGuildModel(TestCase):
     """Test the Discord User model in Django"""
 
+    @classmethod
+    def setUpClass(cls):
+        cls.test_user = User.objects.create(
+            id='1234567890',
+            username='Test User',
+            discriminator='0000',
+        )
+
+        super().setUpClass()
+
     def test_snowflake_id(self):
         """Test the 64bit (uint64) string id"""
 
         expected_id = '18446744073709551615'
-        discord_guild = Guild.objects.create(id=expected_id)
+        discord_guild = Guild.objects.create(
+            id=expected_id,
+            name='Test Guild',
+            owner=self.test_user,
+        )
 
         self.assertEqual(discord_guild.id, expected_id)
         self.assertIsInstance(discord_guild.id, str)
@@ -36,6 +53,10 @@ class TestGuildModel(TestCase):
 
         guild_id = '18446744073709551615'
         expected_str = "Discord Guild <{}>".format(guild_id)
-        discord_guild = Guild.objects.create(id=guild_id)
+        discord_guild = Guild.objects.create(
+            id=guild_id,
+            name='Test Guild',
+            owner=self.test_user,
+        )
 
         self.assertEqual(str(discord_guild), expected_str)
