@@ -16,10 +16,14 @@ limitations under the License.
 
 from django.db import models
 
+from .mixins import CreatedUpdatedFieldsMixin
 from .user import User
 
 
-class Guild(models.Model):
+class Guild(
+    CreatedUpdatedFieldsMixin,
+    models.Model
+):
     """
     Django model to represent a Discord Guild (Server)
 
@@ -41,16 +45,6 @@ class Guild(models.Model):
         to=User,
         on_delete=models.CASCADE,
         related_name='servers',
-    )
-
-    created_ts = models.DateTimeField(
-        "Created Timestamp",
-        auto_now_add=True,
-    )
-
-    updated_ts = models.DateTimeField(
-        "Updated Timestamp",
-        auto_now=True,
     )
 
     def __str__(self):

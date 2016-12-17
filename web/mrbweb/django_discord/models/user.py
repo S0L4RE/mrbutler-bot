@@ -16,8 +16,13 @@ limitations under the License.
 
 from django.db import models
 
+from .mixins import CreatedUpdatedFieldsMixin
 
-class User(models.Model):
+
+class User(
+    CreatedUpdatedFieldsMixin,
+    models.Model
+):
     """
     Django model to represent a Discord User
 
@@ -38,16 +43,6 @@ class User(models.Model):
     discriminator = models.CharField(
         max_length=4,
         help_text='The 4-digit discord-tag for this user',
-    )
-
-    created_ts = models.DateTimeField(
-        "Created Timestamp",
-        auto_now_add=True,
-    )
-
-    updated_ts = models.DateTimeField(
-        "Updated Timestamp",
-        auto_now=True,
     )
 
     def __str__(self):
