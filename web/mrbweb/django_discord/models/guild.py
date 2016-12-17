@@ -16,6 +16,8 @@ limitations under the License.
 
 from django.db import models
 
+from .user import User
+
 
 class Guild(models.Model):
     """
@@ -28,6 +30,17 @@ class Guild(models.Model):
         primary_key=True,
         max_length=20,
         help_text='The snowflake ID of this guild from Discord'
+    )
+
+    name = models.CharField(
+        max_length=100,
+        help_text='The name for this guild',
+    )
+
+    owner = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='servers',
     )
 
     created_ts = models.DateTimeField(
