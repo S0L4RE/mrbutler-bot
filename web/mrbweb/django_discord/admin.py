@@ -16,11 +16,26 @@ limitations under the License.
 
 from django.contrib import admin
 
-from .mixins import AdminMixins
 from .models import (
     Guild,
     User,
 )
+
+
+class AdminMixins(admin.ModelAdmin):
+    """
+    Common Mixin class for some Django Discord ModelAdmins
+    """
+
+    def get_readonly_fields(self, request, obj=None):
+        """
+        Many Django Discord Models have 'id' fields that should not be changed
+        after an object has been created.
+        """
+        if obj:
+            return self.readonly_fields + ['id']
+
+        return self.readonly_fields
 
 
 class GuildAdmin(AdminMixins):
