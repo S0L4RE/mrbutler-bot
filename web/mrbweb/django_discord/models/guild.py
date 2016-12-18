@@ -45,6 +45,7 @@ class Guild(
         to=User,
         on_delete=models.CASCADE,
         related_name='servers',
+        help_text="The user that owns this guild",
     )
 
     icon = models.TextField(
