@@ -42,9 +42,12 @@ class GuildAdmin(AdminMixins):
     """Admin options for the User model"""
 
     fieldsets = [
-        ('User Data', {
+        ('Guild Data', {
             'fields': [
                 'id',
+                'name',
+                'owner',
+                'icon',
             ],
         }),
         ('Metadata', {
@@ -68,6 +71,9 @@ class UserAdmin(AdminMixins):
         ('User Data', {
             'fields': [
                 'id',
+                'username',
+                'discriminator',
+                'avatar',
             ],
         }),
         ('Metadata', {
