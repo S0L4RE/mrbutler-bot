@@ -45,7 +45,8 @@ class User(
         help_text='The 4-digit discord-tag for this user',
     )
 
-    avatar = models.TextField(
+    avatar = models.CharField(
+        max_length=255,
         help_text="The user's avatar hash",
     )
 

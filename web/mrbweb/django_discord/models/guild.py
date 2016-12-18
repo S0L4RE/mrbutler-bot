@@ -48,7 +48,8 @@ class Guild(
         help_text="The user that owns this guild",
     )
 
-    icon = models.TextField(
+    icon = models.CharField(
+        max_length=255,
         help_text="The guild's icon hash value",
     )
 
