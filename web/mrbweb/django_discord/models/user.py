@@ -45,6 +45,10 @@ class User(
         help_text='The 4-digit discord-tag for this user',
     )
 
+    avatar = models.TextField(
+        help_text="The user's avatar hash",
+    )
+
     def __str__(self):
         return "Discord User <{0}#{1} -- {2}>".format(
             self.username,
