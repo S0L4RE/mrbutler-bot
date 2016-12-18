@@ -47,5 +47,9 @@ class Guild(
         related_name='servers',
     )
 
+    icon = models.TextField(
+        help_text="The guild's icon hash value",
+    )
+
     def __str__(self):
         return "Discord Guild <{}>".format(self.id)
