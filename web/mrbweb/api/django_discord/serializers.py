@@ -30,6 +30,9 @@ class GuildSerializer(serializers.ModelSerializer):
 
         fields = (
             'id',
+            'name',
+            'owner',
+            'icon',
             'created_ts',
             'updated_ts',
         )
@@ -45,6 +48,7 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'username',
             'discriminator',
+            'avatar',
             'created_ts',
             'updated_ts',
         )
