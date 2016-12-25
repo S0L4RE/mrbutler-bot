@@ -34,6 +34,7 @@ class GuildSerializer(
             'name',
             'owner',
             'icon',
+            'members',
             'created_ts',
             'updated_ts',
         )

@@ -35,6 +35,7 @@ class UserSerializer(
             'discriminator',
             'avatar',
             'is_bot',
+            'guilds',
             'created_ts',
             'updated_ts',
         )
