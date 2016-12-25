@@ -60,7 +60,7 @@ class GuildAdmin(AdminMixins):
 
     list_display = (
         'name',
-        'owner',
+        'id',
     )
 
     list_filter = [
