@@ -36,6 +36,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(help_text='The name for this guild', max_length=100)),
                 ('owner', models.ForeignKey(help_text="The user that owns this guild", on_delete=django.db.models.deletion.CASCADE, related_name='servers', to='django_discord.User')),
                 ('icon', models.CharField(help_text="The guild's icon hash value", max_length=255)),
+                ('members', models.ManyToManyField(related_name='guilds', related_query_name='guild', to='django_discord.User')),
                 ('created_ts', models.DateTimeField(auto_now_add=True, help_text='The timestamp for when this object was created', verbose_name='Created Timestamp')),
                 ('updated_ts', models.DateTimeField(auto_now=True, help_text='The timestamp for when this object was updated', verbose_name='Updated Timestamp')),
             ],

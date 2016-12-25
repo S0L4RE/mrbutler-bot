@@ -53,6 +53,12 @@ class Guild(
         help_text="The guild's icon hash value",
     )
 
+    members = models.ManyToManyField(
+        User,
+        related_name='guilds',
+        related_query_name='guild',
+    )
+
     def __str__(self):
         return "Discord Guild <{0} - {1}>".format(
             self.id,
