@@ -64,7 +64,4 @@ class User(
         :return: A string formatted as 'username#discriminator'
         """
 
-        return "{username}#{discriminator}".format(
-            username=self.username,
-            discriminator=self.discriminator,
-        )
+        return "{0.username}#{0.discriminator}".format(self)
