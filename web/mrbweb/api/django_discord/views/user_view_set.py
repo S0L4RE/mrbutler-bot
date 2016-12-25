@@ -16,21 +16,8 @@ limitations under the License.
 
 from rest_framework import viewsets
 
-from django_discord.models import (
-    Guild,
-    User,
-)
-from .serializers import (
-    GuildSerializer,
-    UserSerializer,
-)
-
-
-class GuildViewSet(viewsets.ModelViewSet):
-    """ViewSet for Discord Guilds"""
-
-    queryset = Guild.objects.all().order_by('id')
-    serializer_class = GuildSerializer
+from django_discord.models import User
+from ..serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
