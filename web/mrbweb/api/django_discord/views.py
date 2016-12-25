@@ -29,12 +29,12 @@ from .serializers import (
 class GuildViewSet(viewsets.ModelViewSet):
     """ViewSet for Discord Guilds"""
 
-    queryset = Guild.objects.all()
+    queryset = Guild.objects.all().order_by('id')
     serializer_class = GuildSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
     """ViewSet for Discord Users"""
 
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
