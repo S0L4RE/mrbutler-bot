@@ -20,6 +20,7 @@ from django_discord.models import (
     Guild,
     User,
 )
+from .mixins import SerializerWriteOnceMixin
 
 
 class GuildSerializer(serializers.ModelSerializer):
@@ -38,19 +39,11 @@ class GuildSerializer(serializers.ModelSerializer):
         )
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(
+    SerializerWriteOnceMixin,
+    serializers.ModelSerializer,
+):
     """Serializer for Discord Users"""
-
-    def get_extra_kwargs(self):
-        extra_kwargs = super().get_extra_kwargs()
-        action = self.context['view'].action
-
-        if action in ['update', 'partial_update']:
-            kwargs = extra_kwargs.get('id', {})
-            kwargs['read_only'] = True
-            extra_kwargs['id'] = kwargs
-
-        return extra_kwargs
 
     class Meta:
         model = User
@@ -62,4 +55,8 @@ class UserSerializer(serializers.ModelSerializer):
             'avatar',
             'created_ts',
             'updated_ts',
+        )
+
+        write_once_fields = (
+            'id',
         )
