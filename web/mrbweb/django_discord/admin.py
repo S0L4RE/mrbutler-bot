@@ -89,8 +89,13 @@ class UserAdmin(AdminMixins):
     """Admin options for the User model"""
 
     def username_for_django_admin(self, user) -> str:
-        return user.full_discord_username
+        """
+        Allow the UserAdmin to access the discord username property
 
+        :param user: Discord User
+        :return: The 'full_discord_username' property string
+        """
+        return user.full_discord_username
     username_for_django_admin.short_description = 'User'
 
     fieldsets = [
