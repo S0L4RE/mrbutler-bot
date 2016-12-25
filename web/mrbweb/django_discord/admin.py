@@ -50,6 +50,11 @@ class GuildAdmin(AdminMixins):
                 'icon',
             ],
         }),
+        ('Members', {
+            'fields': [
+                'members',
+            ],
+        }),
         ('Metadata', {
             'fields': [
                 'created_ts',
@@ -57,6 +62,10 @@ class GuildAdmin(AdminMixins):
             ],
         }),
     ]
+
+    filter_horizontal = (
+        'members',
+    )
 
     list_display = (
         'name',
