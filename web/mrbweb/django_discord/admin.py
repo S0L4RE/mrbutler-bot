@@ -107,6 +107,11 @@ class UserAdmin(AdminMixins):
                 'avatar',
             ],
         }),
+        ('Flags', {
+            'fields': [
+                'is_bot',
+            ]
+        }),
         ('Metadata', {
             'fields': [
                 'created_ts',
@@ -118,9 +123,11 @@ class UserAdmin(AdminMixins):
     list_display = (
         'username_for_django_admin',
         'id',
+        'is_bot',
     )
 
     list_filter = [
+        'is_bot',
         'created_ts',
         'updated_ts',
     ]

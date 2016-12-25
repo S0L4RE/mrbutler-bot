@@ -50,6 +50,11 @@ class User(
         help_text="The user's avatar hash",
     )
 
+    is_bot = models.BooleanField(
+        'Bot User',
+        help_text='Is this Discord user a bot?',
+    )
+
     def __str__(self):
         return "Discord User <{0.full_discord_username} - {0.id}>".format(self)
 

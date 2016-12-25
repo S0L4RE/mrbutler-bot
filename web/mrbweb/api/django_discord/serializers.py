@@ -60,10 +60,12 @@ class UserSerializer(
             'username',
             'discriminator',
             'avatar',
+            'is_bot',
             'created_ts',
             'updated_ts',
         )
 
         write_once_fields = (
             'id',
+            'is_bot',
         )

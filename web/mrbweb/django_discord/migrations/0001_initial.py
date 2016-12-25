@@ -21,6 +21,7 @@ class Migration(migrations.Migration):
                 ('username', models.CharField(help_text='The username for this user', max_length=32)),
                 ('discriminator', models.CharField(help_text='The 4-digit discord-tag for this user', max_length=4)),
                 ('avatar', models.CharField(help_text="The user's avatar hash", max_length=255)),
+                ('is_bot', models.BooleanField(help_text='Is this Discord user a bot?', verbose_name='Bot User')),
                 ('created_ts', models.DateTimeField(auto_now_add=True, help_text='The timestamp for when this object was created', verbose_name='Created Timestamp')),
                 ('updated_ts', models.DateTimeField(auto_now=True, help_text='The timestamp for when this object was updated', verbose_name='Updated Timestamp')),
             ],

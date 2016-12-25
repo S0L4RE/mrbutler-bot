@@ -31,6 +31,7 @@ class TestGuildModel(TestCase):
             id='1234567890',
             username='Test User',
             discriminator='0000',
+            is_bot=True,
         )
 
         super().setUpClass()

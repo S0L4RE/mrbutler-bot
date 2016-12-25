@@ -26,7 +26,10 @@ class TestUserModel(TestCase):
         """Test the 64bit (uint64) string id"""
 
         expected_id = '18446744073709551615'
-        discord_user = User.objects.create(id=expected_id)
+        discord_user = User.objects.create(
+            id=expected_id,
+            is_bot=True,
+        )
 
         self.assertEqual(discord_user.id, expected_id)
         self.assertIsInstance(discord_user.id, str)
@@ -46,6 +49,7 @@ class TestUserModel(TestCase):
             id=user_id,
             discriminator=user_discriminator,
             username=user_name,
+            is_bot=True,
         )
 
         self.assertEqual(str(discord_user), expected_str)
