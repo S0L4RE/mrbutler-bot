@@ -56,7 +56,7 @@ class User(
     )
 
     def __str__(self):
-        return "Discord User <{0.full_discord_username} - {0.id}>".format(self)
+        return "{0.full_discord_username} - {0.id}".format(self)
 
     @property
     def full_discord_username(self) -> str:

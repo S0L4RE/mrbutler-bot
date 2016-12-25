@@ -54,7 +54,7 @@ class TestGuildModel(TestCase):
 
         guild_id = '18446744073709551615'
         guild_name = 'Test Guild'
-        expected_str = "Discord Guild <{0} - {1}>".format(
+        expected_str = "{0} - {1}".format(
             guild_name,
             guild_id,
         )

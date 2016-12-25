@@ -60,4 +60,4 @@ class Guild(
     )
 
     def __str__(self):
-        return "Discord Guild <{0.name} - {0.id}>".format(self)
+        return "{0.name} - {0.id}".format(self)
