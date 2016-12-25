@@ -16,7 +16,7 @@ limitations under the License.
 
 from django.test import TestCase
 
-from django_discord.mixins import AdminMixins
+from django_discord.admin import AdminMixins
 from django_discord.models import User
 
 
