@@ -55,8 +55,8 @@ class TestGuildModel(TestCase):
         guild_id = '18446744073709551615'
         guild_name = 'Test Guild'
         expected_str = "Discord Guild <{0} - {1}>".format(
-            guild_id,
             guild_name,
+            guild_id,
         )
         discord_guild = Guild.objects.create(
             id=guild_id,
