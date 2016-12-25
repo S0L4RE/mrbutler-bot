@@ -37,7 +37,7 @@ class TestUserModel(TestCase):
         user_id = '18446744073709551615'
         user_name = 'SomeUser'
         user_discriminator = '1234'
-        expected_str = "Discord User <{0}#{1} -- {2}>".format(
+        expected_str = "Discord User <{0}#{1} - {2}>".format(
             user_name,
             user_discriminator,
             user_id,
