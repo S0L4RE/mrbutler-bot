@@ -23,7 +23,10 @@ from django_discord.models import (
 from .mixins import SerializerWriteOnceMixin
 
 
-class GuildSerializer(serializers.ModelSerializer):
+class GuildSerializer(
+    SerializerWriteOnceMixin,
+    serializers.ModelSerializer,
+):
     """Serializer for Discord Guilds"""
 
     class Meta:
@@ -36,6 +39,10 @@ class GuildSerializer(serializers.ModelSerializer):
             'icon',
             'created_ts',
             'updated_ts',
+        )
+
+        write_once_fields = (
+            'id',
         )
 
 
