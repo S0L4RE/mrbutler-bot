@@ -16,8 +16,14 @@ limitations under the License.
 
 from django.db import models
 
+from .mixins import CreatedUpdatedFieldsMixin
+from .user import User
 
-class Guild(models.Model):
+
+class Guild(
+    CreatedUpdatedFieldsMixin,
+    models.Model
+):
     """
     Django model to represent a Discord Guild (Server)
 
@@ -30,15 +36,28 @@ class Guild(models.Model):
         help_text='The snowflake ID of this guild from Discord'
     )
 
-    created_ts = models.DateTimeField(
-        "Created Timestamp",
-        auto_now_add=True,
+    name = models.CharField(
+        max_length=100,
+        help_text='The name for this guild',
     )
 
-    updated_ts = models.DateTimeField(
-        "Updated Timestamp",
-        auto_now=True,
+    owner = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='servers',
+        help_text="The user that owns this guild",
+    )
+
+    icon = models.CharField(
+        max_length=255,
+        help_text="The guild's icon hash value",
+    )
+
+    members = models.ManyToManyField(
+        User,
+        related_name='guilds',
+        related_query_name='guild',
     )
 
     def __str__(self):
-        return "Discord Guild <{}>".format(self.id)
+        return "{0.name} - {0.id}".format(self)

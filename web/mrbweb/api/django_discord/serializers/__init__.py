@@ -14,27 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from rest_framework import viewsets
-
-from django_discord.models import (
-    Guild,
-    User,
-)
-from .serializers import (
-    GuildSerializer,
-    UserSerializer,
-)
+from .guild_serializer import GuildSerializer
+from .user_serializer import UserSerializer
 
 
-class GuildViewSet(viewsets.ModelViewSet):
-    """ViewSet for Discord Guilds"""
-
-    queryset = Guild.objects.all()
-    serializer_class = GuildSerializer
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    """ViewSet for Discord Users"""
-
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+__all__ = [
+    'GuildSerializer',
+    'UserSerializer',
+]

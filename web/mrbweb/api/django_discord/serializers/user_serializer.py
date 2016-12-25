@@ -16,26 +16,14 @@ limitations under the License.
 
 from rest_framework import serializers
 
-from django_discord.models import (
-    Guild,
-    User,
-)
+from django_discord.models import User
+from .mixins import SerializerWriteOnceMixin
 
 
-class GuildSerializer(serializers.ModelSerializer):
-    """Serializer for Discord Guilds"""
-
-    class Meta:
-        model = Guild
-
-        fields = (
-            'id',
-            'created_ts',
-            'updated_ts',
-        )
-
-
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(
+    SerializerWriteOnceMixin,
+    serializers.ModelSerializer,
+):
     """Serializer for Discord Users"""
 
     class Meta:
@@ -43,6 +31,16 @@ class UserSerializer(serializers.ModelSerializer):
 
         fields = (
             'id',
+            'username',
+            'discriminator',
+            'avatar',
+            'is_bot',
+            'guilds',
             'created_ts',
             'updated_ts',
+        )
+
+        write_once_fields = (
+            'id',
+            'is_bot',
         )

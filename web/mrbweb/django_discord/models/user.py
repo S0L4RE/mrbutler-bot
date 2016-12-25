@@ -16,28 +16,54 @@ limitations under the License.
 
 from django.db import models
 
+from .mixins import CreatedUpdatedFieldsMixin
 
-class User(models.Model):
+
+class User(
+    CreatedUpdatedFieldsMixin,
+    models.Model
+):
     """
     Django model to represent a Discord User
 
     https://discordapp.com/developers/docs/resources/user
     """
+
     id = models.CharField(
         primary_key=True,
         max_length=20,
         help_text='The snowflake ID of this user from Discord'
     )
 
-    created_ts = models.DateTimeField(
-        "Created Timestamp",
-        auto_now_add=True,
+    username = models.CharField(
+        max_length=32,
+        help_text='The username for this user',
     )
 
-    updated_ts = models.DateTimeField(
-        "Updated Timestamp",
-        auto_now=True,
+    discriminator = models.CharField(
+        max_length=4,
+        help_text='The 4-digit discord-tag for this user',
+    )
+
+    avatar = models.CharField(
+        max_length=255,
+        help_text="The user's avatar hash",
+    )
+
+    is_bot = models.BooleanField(
+        'Bot User',
+        help_text='Is this Discord user a bot?',
     )
 
     def __str__(self):
-        return "Discord User <{}>".format(self.id)
+        return "{0.full_discord_username} - {0.id}".format(self)
+
+    @property
+    def full_discord_username(self) -> str:
+        """
+        Get the user#tag string for this User
+
+        :return: A string formatted as 'username#discriminator'
+        """
+
+        return "{0.username}#{0.discriminator}".format(self)

@@ -16,20 +16,43 @@ limitations under the License.
 
 from django.contrib import admin
 
-from .mixins import AdminMixins
 from .models import (
     Guild,
     User,
 )
 
 
+class AdminMixins(admin.ModelAdmin):
+    """
+    Common Mixin class for some Django Discord ModelAdmins
+    """
+
+    def get_readonly_fields(self, request, obj=None):
+        """
+        Many Django Discord Models have 'id' fields that should not be changed
+        after an object has been created.
+        """
+        if obj:
+            return self.readonly_fields + ['id']
+
+        return self.readonly_fields
+
+
 class GuildAdmin(AdminMixins):
     """Admin options for the User model"""
 
     fieldsets = [
-        ('User Data', {
+        ('Guild Data', {
             'fields': [
                 'id',
+                'name',
+                'owner',
+                'icon',
+            ],
+        }),
+        ('Members', {
+            'fields': [
+                'members',
             ],
         }),
         ('Metadata', {
@@ -40,20 +63,63 @@ class GuildAdmin(AdminMixins):
         }),
     ]
 
+    filter_horizontal = (
+        'members',
+    )
+
+    list_display = (
+        'name',
+        'id',
+    )
+
+    list_filter = [
+        'created_ts',
+        'updated_ts',
+    ]
+
+    raw_id_fields = [
+        'owner',
+    ]
+
     readonly_fields = [
         'created_ts',
         'updated_ts',
+    ]
+
+    search_fields = [
+        'id',
+        'name',
+        'owner__id',
+        'owner__username',
     ]
 
 
 class UserAdmin(AdminMixins):
     """Admin options for the User model"""
 
+    def username_for_django_admin(self, user) -> str:
+        """
+        Allow the UserAdmin to access the discord username property
+
+        :param user: Discord User
+        :return: The 'full_discord_username' property string
+        """
+        return user.full_discord_username
+    username_for_django_admin.short_description = 'User'
+
     fieldsets = [
         ('User Data', {
             'fields': [
                 'id',
+                'username',
+                'discriminator',
+                'avatar',
             ],
+        }),
+        ('Flags', {
+            'fields': [
+                'is_bot',
+            ]
         }),
         ('Metadata', {
             'fields': [
@@ -63,9 +129,27 @@ class UserAdmin(AdminMixins):
         }),
     ]
 
+    list_display = (
+        'username_for_django_admin',
+        'id',
+        'is_bot',
+    )
+
+    list_filter = [
+        'is_bot',
+        'created_ts',
+        'updated_ts',
+    ]
+
     readonly_fields = [
         'created_ts',
         'updated_ts',
+    ]
+
+    search_fields = [
+        'id',
+        'username',
+        'discriminator',
     ]
 
 
