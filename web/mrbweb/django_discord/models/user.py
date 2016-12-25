@@ -51,9 +51,8 @@ class User(
     )
 
     def __str__(self):
-        return "Discord User <{0}#{1} -- {2}>".format(
-            self.username,
-            self.discriminator,
+        return "Discord User <{0} -- {1}>".format(
+            self.full_discord_username,
             self.id,
         )
 
