@@ -52,10 +52,14 @@ class TestGuildModel(TestCase):
         """Test the __str__ representation"""
 
         guild_id = '18446744073709551615'
-        expected_str = "Discord Guild <{}>".format(guild_id)
+        guild_name = 'Test Guild'
+        expected_str = "Discord Guild <{0} -- {1}>".format(
+            guild_id,
+            guild_name,
+        )
         discord_guild = Guild.objects.create(
             id=guild_id,
-            name='Test Guild',
+            name=guild_name,
             owner=self.test_user,
         )
 
