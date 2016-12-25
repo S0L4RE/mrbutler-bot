@@ -14,30 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from rest_framework import serializers
+from .write_once import SerializerWriteOnceMixin
 
-from django_discord.models import Guild
-from .mixins import SerializerWriteOnceMixin
-
-
-class GuildSerializer(
-    SerializerWriteOnceMixin,
-    serializers.ModelSerializer,
-):
-    """Serializer for Discord Guilds"""
-
-    class Meta:
-        model = Guild
-
-        fields = (
-            'id',
-            'name',
-            'owner',
-            'icon',
-            'created_ts',
-            'updated_ts',
-        )
-
-        write_once_fields = (
-            'id',
-        )
+__all__ = [
+    'SerializerWriteOnceMixin',
+]

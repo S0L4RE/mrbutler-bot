@@ -17,7 +17,7 @@ limitations under the License.
 from rest_framework import serializers
 
 from django_discord.models import User
-from ..mixins import SerializerWriteOnceMixin
+from .mixins import SerializerWriteOnceMixin
 
 
 class UserSerializer(
