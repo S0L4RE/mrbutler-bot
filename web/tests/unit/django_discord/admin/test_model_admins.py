@@ -25,15 +25,15 @@ class TestUserAdmin(TestCase):
 
     def test_username_for_django_admin(self):
         """Verify the model admin is generating column values correctly"""
-        expected = 'user#1234'
-
         user = User(
             id='1234',
             username='user',
             discriminator='1234',
             avatar='',
         )
-
         user_admin = UserAdmin(user, None)
 
-        self.assertEqual(expected, user_admin.username_for_django_admin(user))
+        self.assertEqual(
+            'user#1234',
+            user_admin.username_for_django_admin(user)
+        )
