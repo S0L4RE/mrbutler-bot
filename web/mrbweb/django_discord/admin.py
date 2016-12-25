@@ -58,9 +58,30 @@ class GuildAdmin(AdminMixins):
         }),
     ]
 
+    list_display = (
+        'name',
+        'owner',
+    )
+
+    list_filter = [
+        'created_ts',
+        'updated_ts',
+    ]
+
+    raw_id_fields = [
+        'owner',
+    ]
+
     readonly_fields = [
         'created_ts',
         'updated_ts',
+    ]
+
+    search_fields = [
+        'id',
+        'name',
+        'owner__id',
+        'owner__username',
     ]
 
 
@@ -84,9 +105,25 @@ class UserAdmin(AdminMixins):
         }),
     ]
 
+    list_display = (
+        'username',
+        'discriminator',
+    )
+
+    list_filter = [
+        'created_ts',
+        'updated_ts',
+    ]
+
     readonly_fields = [
         'created_ts',
         'updated_ts',
+    ]
+
+    search_fields = [
+        'id',
+        'username',
+        'discriminator',
     ]
 
 
