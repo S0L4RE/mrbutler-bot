@@ -56,3 +56,16 @@ class User(
             self.discriminator,
             self.id,
         )
+
+    @property
+    def full_discord_username(self) -> str:
+        """
+        Get the user#tag string for this User
+
+        :return: A string formatted as 'username#discriminator'
+        """
+
+        return "{username}#{discriminator}".format(
+            username=self.username,
+            discriminator=self.discriminator,
+        )
