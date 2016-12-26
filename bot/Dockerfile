@@ -1,5 +1,10 @@
 FROM alpine:3.4
 
+ARG MRB_ENV
+ENV MRB_ENV ${MRB_ENV}
+ENV MRB_ROOT /app
+WORKDIR ${MRB_ROOT}
+
 RUN apk add --no-cache \
     build-base \
     python3-dev \
@@ -8,8 +13,10 @@ RUN apk add --no-cache \
     && pip3 install --upgrade setuptools \
     && :
 
-ENV MRB_ROOT /app
-WORKDIR ${MRB_ROOT}
+# Common Image Above
+# Different Image Settings Below
+
+ENV MRB_DISCORD_TOKEN ${MRB_DISCORD_TOKEN}
 
 RUN apk add --no-cache \
     ca-certificates \
@@ -24,8 +31,5 @@ RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 ADD core/mrb_core/ ${MRB_ROOT}/mrb_core/
 ADD bot/mrb/ ${MRB_ROOT}/mrb/
 ADD bot/bot.py ${MRB_ROOT}
-
-ENV MRB_DISCORD_TOKEN ${MRB_DISCORD_TOKEN}
-ENV MRB_ENV ${MRB_ENV}
 
 CMD python3 bot.py

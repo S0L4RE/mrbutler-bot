@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: ./bot/Dockerfile
+      args:
+        MRB_ENV: ${MRB_ENV}
     environment:
       MRB_DISCORD_TOKEN: ${MRB_DISCORD_TOKEN}
       MRB_ENV: ${MRB_ENV}
