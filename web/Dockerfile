@@ -33,4 +33,4 @@ WORKDIR ${MRB_ROOT}/mrbweb/
 ADD web/mrbweb/ ${MRB_ROOT}/mrbweb/
 
 RUN python3 manage.py collectstatic --noinput
-CMD gunicorn -b 0.0.0.0:${PORT} mrbweb/core.wsgi
+CMD gunicorn -b 0.0.0.0:${PORT} core.wsgi
