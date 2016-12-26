@@ -1,33 +1,37 @@
 FROM alpine:3.4
 
+ARG MRB_ENV
+ENV MRB_ENV ${MRB_ENV}
+ENV MRB_ROOT /app
+WORKDIR ${MRB_ROOT}
+
 RUN apk add --no-cache \
     build-base \
-    postgresql-dev \
     python3-dev \
     && python3 -m ensurepip \
     && pip3 install --upgrade pip \
     && pip3 install --upgrade setuptools \
     && :
 
-ENV MRB_ROOT /app
-WORKDIR ${MRB_ROOT}
+# Common Image Above
+# Different Image Settings Below
+
+ARG MRB_DJANGO_SECRET_KEY
+ENV MRB_DJANGO_SECRET_KEY ${MRB_DJANGO_SECRET_KEY}
+ENV PORT ${PORT}
+
+RUN apk add --no-cache postgresql-dev
 
 ADD web/requirements.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 
 WORKDIR ${MRB_ROOT}/mrbweb/
 
-ARG MRB_DJANGO_SECRET_KEY
-ENV MRB_DJANGO_SECRET_KEY ${MRB_DJANGO_SECRET_KEY}
-
-# Common Image Above
+# Common WEB Image Above
 # Different Image Settings Below
 
-ARG MRB_ENV
-ENV MRB_ENV ${MRB_ENV}
-ENV PORT ${PORT}
-
 RUN pip3 install --upgrade ipython
+
 ADD web/entrypoint-dev.sh ${MRB_ROOT}
 RUN chmod +x ${MRB_ROOT}/entrypoint-dev.sh
 
