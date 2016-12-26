@@ -24,4 +24,13 @@ class UserViewSet(viewsets.ModelViewSet):
     """ViewSet for Discord Users"""
 
     queryset = User.objects.all().order_by('id')
+
     serializer_class = UserSerializer
+
+    http_method_names = [
+        'get',
+        'post',
+        'patch',
+        'head',
+        'options',
+    ]
