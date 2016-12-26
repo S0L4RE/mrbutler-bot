@@ -24,4 +24,13 @@ class GuildViewSet(viewsets.ModelViewSet):
     """ViewSet for Discord Guilds"""
 
     queryset = Guild.objects.all().order_by('id')
+
     serializer_class = GuildSerializer
+
+    http_method_names = [
+        'get',
+        'post',
+        'patch',
+        'head',
+        'options',
+    ]
