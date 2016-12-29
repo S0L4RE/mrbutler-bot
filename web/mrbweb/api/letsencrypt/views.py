@@ -20,6 +20,6 @@ from rest_framework import viewsets
 from .serializers import AcmeChallengeSerializer
 
 
-class AcmeChallengeViewSet(viewsets.ModelViewSet):
+class AcmeChallengeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = AcmeChallenge.objects.all()
     serializer_class = AcmeChallengeSerializer
