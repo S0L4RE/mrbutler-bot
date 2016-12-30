@@ -24,16 +24,12 @@ from .django_discord.views import (
     GuildViewSet,
     UserViewSet,
 )
-from .letsencrypt.views import (
-    AcmeChallengeViewSet,
-)
 
 router = routers.DefaultRouter()
 
 
 router.register(r'discord/guilds', GuildViewSet)
 router.register(r'discord/users', UserViewSet)
-router.register(r'letsencrypt/acme_challenges', AcmeChallengeViewSet)
 
 
 urlpatterns = [
