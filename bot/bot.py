@@ -319,7 +319,7 @@ async def on_ready():
         )
 
     logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, "Version: '{}'".format(mrb_core.__version__))
+    logger.log(logging.INFO, "Version: '{}'".format(mrb.__version__))
 
     logger.log(logging.INFO, '---')
 
