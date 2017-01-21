@@ -25,10 +25,10 @@ RUN apk add --no-cache \
     opus-dev \
     && :
 
-ADD bot/requirements.txt ${MRB_ROOT}
+ADD requirements.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 
-ADD core/mrb_core/ ${MRB_ROOT}/mrb_core/
+ADD bot/mrb_core/ ${MRB_ROOT}/mrb_core/
 ADD bot/mrb/ ${MRB_ROOT}/mrb/
 ADD bot/bot.py ${MRB_ROOT}
 
