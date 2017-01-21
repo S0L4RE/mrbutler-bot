@@ -48,7 +48,7 @@ you already setup, so you can switch back and forth with ease.
 
 1. `workon mrbutler-bot`
 
-2. `python ./bot.py`
+2. `python ./bot/bot.py`
 
 3. `Ctrl-C` when done
 
