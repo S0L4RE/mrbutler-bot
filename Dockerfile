@@ -1,7 +1,5 @@
-FROM alpine:3.4
+FROM alpine:3.5
 
-ARG MRB_ENV
-ENV MRB_ENV ${MRB_ENV}
 ENV MRB_ROOT /app
 WORKDIR ${MRB_ROOT}
 
