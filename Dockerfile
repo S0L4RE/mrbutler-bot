@@ -7,22 +7,14 @@ WORKDIR ${MRB_ROOT}
 
 RUN apk add --no-cache \
     build-base \
-    python3-dev \
-    && python3 -m ensurepip \
-    && pip3 install --upgrade pip \
-    && pip3 install --upgrade setuptools \
-    && :
-
-# Common Image Above
-# Different Image Settings Below
-
-ENV MRB_DISCORD_TOKEN ${MRB_DISCORD_TOKEN}
-
-RUN apk add --no-cache \
     ca-certificates \
     ffmpeg \
     libffi-dev \
+    python3-dev \
     opus-dev \
+    && python3 -m ensurepip \
+    && pip3 install --upgrade pip \
+    && pip3 install --upgrade setuptools \
     && :
 
 ADD requirements.txt ${MRB_ROOT}
