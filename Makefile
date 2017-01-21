@@ -5,17 +5,9 @@ help: # Show this help screen
 	awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
-.PHONY: prod-build
-prod-build: # Build the production docker containers
-	docker build -t mrbutler-bot . && \
-	docker tag mrbutler-bot registry.heroku.com/mrbutler-bot/bot && \
-	:
-
-
 .PHONY: prod-push
-prod-push: prod-build # Push this sucker to prod!
-	docker push registry.heroku.com/mrbutler-bot/bot && \
-	:
+prod-push: # Push this sucker to prod!
+	heroku container:push bot
 
 
 .PHONY: test-clean
