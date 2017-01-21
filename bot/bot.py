@@ -109,7 +109,7 @@ async def on_message(message):
             message.channel,
             "{0} version `{1}`, at your service.".format(
                 client.user.mention,
-                mrb_core.__version__,
+                mrb.__version__,
             )
         )
         return

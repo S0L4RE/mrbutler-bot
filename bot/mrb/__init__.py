@@ -21,3 +21,5 @@ __all__ = [
     'Dice',
     'Player',
 ]
+
+__version__ = "0.2.0"

@@ -21,5 +21,3 @@ __all__ = [
     'Environment',
     'EnvironmentType',
 ]
-
-__version__ = "0.1.26"
