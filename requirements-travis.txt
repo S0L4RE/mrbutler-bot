@@ -1,5 +1,4 @@
--r ./bot/requirements.txt
--r ./web/requirements.txt
+-r ./requirements.txt
 
 flake8
 pytest

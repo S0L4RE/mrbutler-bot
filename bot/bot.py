@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """
-Copyright 2016 Peter Urda
+Copyright 2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -109,7 +109,7 @@ async def on_message(message):
             message.channel,
             "{0} version `{1}`, at your service.".format(
                 client.user.mention,
-                mrb_core.__version__,
+                mrb.__version__,
             )
         )
         return
@@ -319,7 +319,7 @@ async def on_ready():
         )
 
     logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, "Version: '{}'".format(mrb_core.__version__))
+    logger.log(logging.INFO, "Version: '{}'".format(mrb.__version__))
 
     logger.log(logging.INFO, '---')
 

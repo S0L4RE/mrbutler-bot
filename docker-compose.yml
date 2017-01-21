@@ -4,67 +4,12 @@ services:
   bot:
     build:
       context: .
-      dockerfile: ./bot/Dockerfile
+      dockerfile: ./Dockerfile
       args:
         MRB_ENV: ${MRB_ENV}
     environment:
       MRB_DISCORD_TOKEN: ${MRB_DISCORD_TOKEN}
       MRB_ENV: ${MRB_ENV}
-
-  web:
-    build:
-      context: .
-      dockerfile: ./web/Dockerfile
-      args:
-        MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
-        MRB_ENV: 'prod'
-    environment:
-      MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
-      MRB_ENV: 'prod'
-      PORT: 8080
-    depends_on:
-      - postgres
-
-  web_dev:
-    build:
-      context: .
-      dockerfile: ./web/Dockerfile-dev
-      args:
-        MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
-        MRB_ENV: ${MRB_ENV}
-    environment:
-      MRB_DJANGO_SECRET_KEY: ${MRB_DJANGO_SECRET_KEY}
-      MRB_ENV: ${MRB_ENV}
-      PORT: 8000
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./web/mrbweb:/app/mrbweb
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_USER: mrb
-      POSTGRES_DB: mrb
-      PGDATA: /var/lib/postgresql/data/mrb
-    ports:
-      - "5432:5432"
-    volumes:
-      - .:/opt
-      - mrb_data:/var/lib/postgresql/data/mrb
-
-  postgres_test:
-    image: postgres
-    environment:
-      POSTGRES_USER: mrb_test
-      POSTGRES_DB: mrb_test
-      PGDATA: /var/lib/postgresql/data/mrb_test
-    ports:
-      - "5433:5432"
-    volumes:
-      - mrb_test_data:/var/lib/postgresql/data/mrb_test
 
 volumes:
   mrb_data: {}

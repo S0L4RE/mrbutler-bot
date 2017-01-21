@@ -14,12 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio.player import Player
-from .dice import Dice
+from enum import Enum
 
-__all__ = [
-    'Dice',
-    'Player',
-]
 
-__version__ = "0.2.0"
+class EnvironmentType(Enum):
+    """
+    Enum for describing environment types
+    """
+
+    DEV = 'dev'
+    PROD = 'prod'

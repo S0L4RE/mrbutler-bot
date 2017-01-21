@@ -5,22 +5,7 @@
 
 ## Setting up your environment
 
-You will need (at minimum):
-
-- `ack`
-- `docker`
-- `libffi-devel`
-- `libpq-dev`
-- `python3-dev`
-
-To fully use / deploy the project you will also need:
-
-- `heroku` command line app
-- A `heroku` account already configured for deployment
-
-Simply perform the following
-
-1. `mkvirtualenv mr.butler -p $(which python3)`
+1. `mkvirtualenv mrbutler-bot -p $(which python3)`
 
 2. Edit `${VIRTUAL_ENV}/bin/postactivate` as following:
 
@@ -29,7 +14,6 @@ Simply perform the following
     # This hook is sourced after this virtualenv is activated.
 
     export MRB_DISCORD_TOKEN="YOUR DISCORD TOKEN HERE"
-    export MRB_DJANGO_SECRET_KEY="YOUR DJANGO SECRET KEY HERE"
     export MRB_ENV="dev"
     ```
 
@@ -40,13 +24,12 @@ Simply perform the following
     # This hook is sourced after this virtualenv is deactivated.
 
     unset MRB_DISCORD_TOKEN
-    unset MRB_DJANGO_SECRET_KEY
     unset MRB_ENV
     ```
 
-4. `deactivate` and `workon mr.butler` to load your environment variables
+4. `deactivate` and `workon mrbutler-bot` to load your environment variables
 
-5. `pip install -r requirements.dev.txt`
+5. `pip install -r requirements-dev.txt` to install dev requirements.
 
 6. Once `pip` has installed everything correctly, you should run tests to
    confirm everything is working as expected. Running `make test-travis` will
@@ -63,15 +46,15 @@ you already setup, so you can switch back and forth with ease.
 
 ### Run locally:
 
-1. `workon mr.butler`
+1. `workon mrbutler-bot`
 
-2. `python ./bot/bot.py`
+2. `python ./bot.py`
 
 3. `Ctrl-C` when done
 
 ### Run from `docker`:
 
-1. `workon mr.butler`
+1. `workon mrbutler-bot`
 
 2. `docker-compose up --build bot`
   - You can optionally add `-d` before `--build` if you do not mind the
