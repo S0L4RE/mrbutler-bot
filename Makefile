@@ -8,22 +8,13 @@ help: # Show this help screen
 .PHONY: prod-build
 prod-build: # Build the production docker containers
 	docker-compose build bot web && \
-	docker tag mrbutler_bot registry.heroku.com/mrbutler/bot && \
-	docker tag mrbutler_web registry.heroku.com/mrbutler/web && \
-	:
-
-
-.PHONY: prod-pull
-prod-pull: # Pull the production docker containers
-	docker pull registry.heroku.com/mrbutler/bot && \
-	docker pull registry.heroku.com/mrbutler/web && \
+	docker tag mrbutler_bot registry.heroku.com/mrbutler-bot/bot && \
 	:
 
 
 .PHONY: prod-push
 prod-push: prod-build # Push this sucker to prod!
-	docker push registry.heroku.com/mrbutler/bot && \
-	docker push registry.heroku.com/mrbutler/web && \
+	docker push registry.heroku.com/mrbutler-bot/bot && \
 	:
 
 
@@ -43,19 +34,9 @@ test: test-flake test-unit # Run the full testing suite
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
-	if [ -z $${DATABASE_URL} ]; then \
-	export DATABASE_URL="postgres://mrb_test:@localhost:5433/mrb_test"; \
-	echo "DATABASE_URL undefined, changed to $${DATABASE_URL}"; \
-	fi; \
-	PYTHONPATH="./bot/:./core/:./web/mrbweb/" \
 	pytest \
-	--ds=core.settings \
 	--cov mrb \
-	--cov mrb_core \
-	--cov django_discord \
 	--cov-report html \
 	--cov-report term \
-	./bot/tests/unit \
-	./core/tests/unit \
-	./web/tests/unit \
+	./tests/unit \
 	&& :
