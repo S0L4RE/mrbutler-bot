@@ -11,6 +11,7 @@ db.sqlite3
 
 # Testing
 .coverage
+coverage.xml
 
 .cache/
 htmlcov/

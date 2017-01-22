@@ -39,5 +39,6 @@ test-unit: # Run only unit tests
 	--cov bot \
 	--cov-report html \
 	--cov-report term \
+	--cov-report xml \
 	./tests/unit \
 	&& :
