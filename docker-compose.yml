@@ -16,5 +16,6 @@ services:
     environment:
       MRB_DISCORD_TOKEN: ${MRB_DISCORD_TOKEN}
       MRB_ENV: ${MRB_ENV}
+    command: /bin/true
     volumes:
       - .:/app
