@@ -10,7 +10,9 @@ help: # Show this help screen
 
 .PHONY: clean
 clean: # Clean up test artifacts
-	rm -rf ./.cache ./htmlcov .coverage
+	rm -rf ./.cache ./htmlcov .coverage && \
+	find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf && \
+	:
 
 
 .PHONY: prod-push
