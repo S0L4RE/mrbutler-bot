@@ -7,11 +7,10 @@ export PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
 
 pushd ${PROJECT_DIR} > /dev/null
 
-# NOTICE
-echo "Running tests INSIDE test docker container..."
+make clean
 
 # Run the tests
-make clean
+echo "Running tests INSIDE test docker container..."
 docker-compose run --rm --user "${UID}" test sh -c "make test-docker-entry"
 
 # Outta here

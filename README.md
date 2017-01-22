@@ -1,7 +1,7 @@
-# Mr. Butler
+# Mr. Butler Bot
 
-[![Build Status](https://travis-ci.org/urda/mr.butler.svg?branch=master)](https://travis-ci.org/urda/mr.butler)
-[![codecov](https://codecov.io/gh/urda/mr.butler/branch/master/graph/badge.svg)](https://codecov.io/gh/urda/mr.butler)
+[![Build Status](https://travis-ci.org/urda/mrbutler-bot.svg?branch=master)](https://travis-ci.org/urda/mrbutler-bot)
+[![codecov](https://codecov.io/gh/urda/mrbutler-bot/branch/master/graph/badge.svg)](https://codecov.io/gh/urda/mrbutler-bot)
 
 ## Setting up your environment
 
@@ -32,8 +32,8 @@
 5. `pip install -r requirements-dev.txt` to install dev requirements.
 
 6. Once `pip` has installed everything correctly, you should run tests to
-   confirm everything is working as expected. Running `make test-travis` will
-   execute the entire testing suite.
+   confirm everything is working as expected. Running `make test` will
+   execute the entire testing suite inside the `test` docker container.
 
 7. You're all done! You can use `docker-compose up -d --build` to start
    the containers.
