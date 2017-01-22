@@ -1,45 +1,15 @@
 language: python
 
-sudo: required
-dist: trusty
-
-services:
-  - postgresql
-
-matrix:
-  fast_finish: true
-  include:
-    - python: "3.5"
-  allow_failures:
-    - os: osx
-
-# `travis lint` is marking this section as a false positive!
-# References:
-#  - https://github.com/travis-ci/travis-ci/issues/3663
-#  - https://github.com/travis-ci/travis-ci/issues/5396
-addons:
-  apt:
-    packages:
-      - libffi-dev
-      - python3-dev
-  postgresql: "9.5"
+python:
+  - "3.6"
 
 branches:
   only:
     - master
     - release
 
-before_install:
-  - echo Travis OS Name ... ${TRAVIS_OS_NAME}
-  - echo Travis Python .... ${TRAVIS_PYTHON_VERSION}
-  - echo Python Version ... $(python --version)
-
 install:
-  - pip install --upgrade pip
-  - pip install --upgrade --requirement requirements-travis.txt
-
-before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - pip install -r requirements-travis.txt
 
 script:
   - make test
