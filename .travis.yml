@@ -19,7 +19,6 @@ install:
 
 script:
   - make test
-  - ls -al
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
