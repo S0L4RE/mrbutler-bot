@@ -5,14 +5,14 @@ help: # Show this help screen
 	awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
+.PHONY: clean
+clean: # Clean up test artifacts
+	rm -rf ./.cache ./htmlcov .coverage
+
+
 .PHONY: prod-push
 prod-push: # Push this sucker to prod!
 	heroku container:push bot
-
-
-.PHONY: test-clean
-test-clean: # Clean up test artifacts
-	rm -rf ./.cache ./htmlcov .coverage
 
 
 .PHONY: test-flake
