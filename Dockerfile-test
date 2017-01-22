@@ -18,10 +18,6 @@ RUN apk add --no-cache \
 # COMMON DOCKERFILE ENDS HERE
 
 ADD requirements.txt ${MRB_ROOT}
-RUN pip3 install -r ${MRB_ROOT}/requirements.txt
-
-ADD bot/mrb_core/ ${MRB_ROOT}/mrb_core/
-ADD bot/mrb/ ${MRB_ROOT}/mrb/
-ADD bot/bot.py ${MRB_ROOT}
-
-CMD python3 bot.py
+ADD requirements-dev.txt ${MRB_ROOT}
+ADD requirements-travis.txt ${MRB_ROOT}
+RUN pip3 install -r ${MRB_ROOT}/requirements-dev.txt

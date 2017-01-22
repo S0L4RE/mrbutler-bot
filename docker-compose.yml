@@ -8,3 +8,13 @@ services:
     environment:
       MRB_DISCORD_TOKEN: ${MRB_DISCORD_TOKEN}
       MRB_ENV: ${MRB_ENV}
+
+  test:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-test
+    environment:
+      MRB_DISCORD_TOKEN: ${MRB_DISCORD_TOKEN}
+      MRB_ENV: ${MRB_ENV}
+    volumes:
+      - .:/app

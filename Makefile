@@ -1,3 +1,6 @@
+MAKEFLAGS += --no-print-directory
+
+
 .PHONY: help
 help: # Show this help screen
 	@ack '^[a-zA-Z_-]+:.*?# .*$$' $(MAKEFILE_LIST) |\
@@ -15,13 +18,18 @@ prod-push: # Push this sucker to prod!
 	heroku container:push bot
 
 
+.PHONY: test
+test: # Run the full testing suite
+	./scripts/test.sh
+
+
+.PHONY: test-docker-entry
+test-docker-entry: test-flake test-unit # Entry point for the docker test container to run tests
+
+
 .PHONY: test-flake
 test-flake: # Run flake8 against project files
 	flake8 -v
-
-
-.PHONY: test
-test: test-flake test-unit # Run the full testing suite
 
 
 .PHONY: test-unit

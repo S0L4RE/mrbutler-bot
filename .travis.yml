@@ -1,15 +1,20 @@
+sudo: required
+
 language: python
 
 python:
   - "3.6"
+
+services:
+  - docker
 
 branches:
   only:
     - master
     - release
 
-install:
-  - pip install -r requirements-travis.txt
+before_install:
+  - docker-compose build
 
 script:
   - make test
