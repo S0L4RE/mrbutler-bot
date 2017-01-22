@@ -26,8 +26,9 @@ test: test-flake test-unit # Run the full testing suite
 
 .PHONY: test-unit
 test-unit: # Run only unit tests
+	PYTHONPATH="./bot/" \
 	pytest \
-	--cov mrb \
+	--cov bot \
 	--cov-report html \
 	--cov-report term \
 	./tests/unit \

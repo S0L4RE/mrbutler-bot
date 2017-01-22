@@ -1,0 +1,3 @@
+[report]
+omit =
+    bot/bot.py
