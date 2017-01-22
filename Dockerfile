@@ -15,10 +15,10 @@ RUN apk add --no-cache \
     && pip3 install --upgrade setuptools \
     && :
 
-# COMMON DOCKERFILE ENDS HERE
-
 ADD requirements.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements.txt
+
+# COMMON DOCKERFILE ENDS HERE
 
 ADD bot/mrb_core/ ${MRB_ROOT}/mrb_core/
 ADD bot/mrb/ ${MRB_ROOT}/mrb/

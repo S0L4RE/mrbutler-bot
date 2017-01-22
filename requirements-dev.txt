@@ -1,4 +1,7 @@
--r ./requirements-travis.txt
+-r ./requirements.txt
 
 docker-compose
+flake8
 ipython
+pytest
+pytest-cov

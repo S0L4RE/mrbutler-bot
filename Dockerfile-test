@@ -15,9 +15,10 @@ RUN apk add --no-cache \
     && pip3 install --upgrade setuptools \
     && :
 
+ADD requirements.txt ${MRB_ROOT}
+RUN pip3 install -r ${MRB_ROOT}/requirements.txt
+
 # COMMON DOCKERFILE ENDS HERE
 
-ADD requirements.txt ${MRB_ROOT}
 ADD requirements-dev.txt ${MRB_ROOT}
-ADD requirements-travis.txt ${MRB_ROOT}
 RUN pip3 install -r ${MRB_ROOT}/requirements-dev.txt
