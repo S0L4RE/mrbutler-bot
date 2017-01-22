@@ -1,4 +1,4 @@
-# Mr. Butler
+# Mr. Butler Bot
 
 [![Build Status](https://travis-ci.org/urda/mrbutler-bot.svg?branch=master)](https://travis-ci.org/urda/mrbutler-bot)
 [![codecov](https://codecov.io/gh/urda/mrbutler-bot/branch/master/graph/badge.svg)](https://codecov.io/gh/urda/mrbutler-bot)
