@@ -11,7 +11,7 @@ services:
 branches:
   only:
     - master
-    - release
+    - develop
 
 install:
   - pip install codecov
