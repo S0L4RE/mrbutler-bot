@@ -55,6 +55,11 @@ client = discord.Client()
 player = mrb.Player()
 
 
+ignored_users = [
+    '140562791349223425',
+]
+
+
 def get_help_message(audio_list: List[str]=None) -> str:
     help_message = (
         "I understand the following commands:\n"
@@ -102,6 +107,13 @@ async def on_message(message):
         return
 
     if message.channel.type == discord.ChannelType.private:
+        return
+
+    if message.author.id in ignored_users:
+        logger.log(logging.INFO, "{0} - {1} has been ignored".format(
+            message.author,
+            message.author.id,
+        ))
         return
 
     if message.content.startswith('!version'):
