@@ -2,10 +2,8 @@
 
 set -euo pipefail
 
-# The absolute path of the chewse project directory
-export PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
-
-pushd ${PROJECT_DIR} > /dev/null
+# Change to parent directory
+pushd $(git rev-parse --show-toplevel) > /dev/null
 
 make clean
 
