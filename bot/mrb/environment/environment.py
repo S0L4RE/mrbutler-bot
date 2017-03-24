@@ -30,11 +30,20 @@ class Environment(object):
     _MRB_ENV_KEY_NAME = 'MRB_ENV'
 
     def __init__(self):
+        # Configure the internal values for the environment
         self._discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME)
+        self._discord_token_safe = None
         self._type = self._get_mrb_env(os.getenv(self._MRB_ENV_KEY_NAME))
 
+        # Configure a "safe" string that we can log for the 'discord_token'
+        if self._discord_token and len(self._discord_token) > 4:
+            self._discord_token_safe = "{blanks}{last_chars}".format(
+                blanks='•'*(len(self._discord_token) - 4),
+                last_chars=self._discord_token[-4:],
+            )
+
         self._env_vars_ordered = OrderedDict([
-            (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
+            (self._DISCORD_TOKEN_KEY_NAME, self._discord_token_safe),
             (self._MRB_ENV_KEY_NAME, self.type),
         ])
 
