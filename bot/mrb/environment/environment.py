@@ -29,8 +29,6 @@ class Environment(object):
     _MRB_ENV_KEY_NAME = 'MRB_ENV'
 
     def __init__(self):
-        self._stashed_env_vars_ordered = None
-
         self.discord_token = os.getenv(
             self._DISCORD_TOKEN_KEY_NAME,
             None,
@@ -42,6 +40,11 @@ class Environment(object):
                 'prod',
             )
         )
+
+        self._env_vars_ordered = OrderedDict([
+            (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
+            (self._MRB_ENV_KEY_NAME, self.type),
+        ])
 
     @staticmethod
     def _get_mrb_env(env_input: str=''):
@@ -66,10 +69,4 @@ class Environment(object):
         of all environment settings
         """
 
-        if self._stashed_env_vars_ordered is None:
-            self._stashed_env_vars_ordered = OrderedDict([
-                (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
-                (self._MRB_ENV_KEY_NAME, self.type),
-            ])
-
-        return self._stashed_env_vars_ordered
+        return self._env_vars_ordered
