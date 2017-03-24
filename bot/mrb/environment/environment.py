@@ -16,8 +16,9 @@ limitations under the License.
 
 import os
 from collections import OrderedDict
+from typing import Optional
 
-from mrb_core.environment_type import EnvironmentType
+from .environment_type import EnvironmentType
 
 
 class Environment(object):
@@ -29,19 +30,13 @@ class Environment(object):
     _MRB_ENV_KEY_NAME = 'MRB_ENV'
 
     def __init__(self):
-        self._stashed_env_vars_ordered = None
+        self._discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME)
+        self._type = self._get_mrb_env(os.getenv(self._MRB_ENV_KEY_NAME))
 
-        self.discord_token = os.getenv(
-            self._DISCORD_TOKEN_KEY_NAME,
-            None,
-        )
-
-        self.type = self._get_mrb_env(
-            os.getenv(
-                self._MRB_ENV_KEY_NAME,
-                'prod',
-            )
-        )
+        self._env_vars_ordered = OrderedDict([
+            (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
+            (self._MRB_ENV_KEY_NAME, self.type),
+        ])
 
     @staticmethod
     def _get_mrb_env(env_input: str=''):
@@ -51,7 +46,6 @@ class Environment(object):
         :param env_input: The string describing the environment
         :return: The 'EnvironmentType' or 'EnvironmentType.PROD' on ValueError
         """
-
         try:
             result = EnvironmentType(env_input)
         except ValueError:
@@ -60,16 +54,25 @@ class Environment(object):
         return result
 
     @property
+    def discord_token(self) -> Optional[str]:
+        """
+        The determined API token for Discord.
+        :return: The API token as a string, or None if unset.
+        """
+        return self._discord_token
+
+    @property
     def env_vars_ordered(self) -> OrderedDict:
         """
         Convenience property to get an ordered dictionary
         of all environment settings
         """
+        return self._env_vars_ordered
 
-        if self._stashed_env_vars_ordered is None:
-            self._stashed_env_vars_ordered = OrderedDict([
-                (self._DISCORD_TOKEN_KEY_NAME, self.discord_token),
-                (self._MRB_ENV_KEY_NAME, self.type),
-            ])
-
-        return self._stashed_env_vars_ordered
+    @property
+    def type(self) -> EnvironmentType:
+        """
+        The determined EnvironmentType for this Environment
+        :return: The loaded EnvironmentType, or EnvironmentType.PROD if unset.
+        """
+        return self._type
