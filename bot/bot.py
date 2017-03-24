@@ -298,9 +298,11 @@ async def on_message(message):
 @client.event
 async def on_ready():
     logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, 'Logged in as')
-    logger.log(logging.INFO, client.user.name)
-    logger.log(logging.INFO, client.user.id)
+    logger.log(logging.INFO, 'Logged in as:')
+    logger.log(logging.INFO, "{name} - {id}".format(
+        name=client.user.name,
+        id=client.user.id,
+    ))
 
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'ENV VARS:')
