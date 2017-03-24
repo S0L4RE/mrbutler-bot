@@ -17,7 +17,7 @@ limitations under the License.
 import os
 from collections import OrderedDict
 
-from mrb_core.environment_type import EnvironmentType
+from .environment_type import EnvironmentType
 
 
 class Environment(object):

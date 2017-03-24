@@ -16,7 +16,7 @@ limitations under the License.
 
 from unittest import TestCase
 
-from mrb_core.environment_type import EnvironmentType
+from mrb.environment import EnvironmentType
 
 
 class TestEnvironmentType(TestCase):

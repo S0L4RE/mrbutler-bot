@@ -24,11 +24,11 @@ from typing import List
 import discord
 
 import mrb
-import mrb_core
+import mrb.environment
 
 
 # Get the env details
-bot_env = mrb_core.Environment()
+bot_env = mrb.environment.Environment()
 
 for check_env_key, check_env_value in bot_env.env_vars_ordered.items():
     if check_env_value is None:
@@ -36,7 +36,7 @@ for check_env_key, check_env_value in bot_env.env_vars_ordered.items():
         print("Did you set '{}' ?".format(check_env_key))
         exit(-1)
 
-if bot_env.type == mrb_core.EnvironmentType.DEV:
+if bot_env.type == mrb.environment.EnvironmentType.DEV:
     log_level = logging.DEBUG
 else:
     log_level = logging.INFO

@@ -18,7 +18,7 @@ from collections import OrderedDict
 from unittest import TestCase
 from unittest.mock import patch
 
-from mrb_core import Environment
+from mrb.environment import Environment
 
 
 class TestEnvironment(TestCase):
