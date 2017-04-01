@@ -35,7 +35,7 @@ bot_env = mrb.environment.Environment()
 for check_env_key, check_env_value in bot_env.env_vars_ordered.items():
     if check_env_value is None:
         print("Could not load required environment variable!")
-        print("Did you set '{}' ?".format(check_env_key))
+        print(f'Did you set "{check_env_key}" ?')
         exit(-1)
 
 if bot_env.type == mrb.environment.EnvironmentType.DEV:
@@ -314,30 +314,20 @@ async def on_message(message):
 @client.event
 async def on_ready():
     logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, 'Logged in as:')
-    logger.log(logging.INFO, "{name} - {id}".format(
-        name=client.user.name,
-        id=client.user.id,
-    ))
+    logger.log(logging.INFO, f'User: {client.user.name} - {client.user.id}')
 
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'ENV VARS:')
     for env_key, env_value in bot_env.env_vars_ordered.items():
-        logger.log(
-            logging.INFO,
-            '{0:.<25} {1}'.format(env_key + " ", env_value)
-        )
+        logger.log(logging.INFO, f'{env_key + " ":.<25} {env_value}')
 
     logger.log(logging.INFO, '---')
     logger.log(logging.INFO, 'SOUNDS LOADED:')
     for sound_name, sound_file in player.sound_files.items():
-        logger.log(
-            logging.INFO,
-            "{0:.<17} {1}".format(sound_name + " ", sound_file)
-        )
+        logger.log(logging.INFO, f'{sound_name + " ":.<25} {sound_file}')
 
     logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, "Version: '{}'".format(get_version()))
+    logger.log(logging.INFO, f'Version: {get_version()}')
 
     logger.log(logging.INFO, '---')
 
