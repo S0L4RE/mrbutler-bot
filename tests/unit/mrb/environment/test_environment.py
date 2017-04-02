@@ -24,6 +24,7 @@ from mrb.environment import Environment
 class TestEnvironment(TestCase):
     @classmethod
     def setUpClass(cls):
+        """Setup testing for the entire run."""
         cls.env = Environment()
         cls.expected_env_length = 2
 
@@ -35,6 +36,7 @@ class TestEnvironment(TestCase):
 
     @patch('os.getenv')
     def test_getenv_calls(self, os_getenv_patched):
+        """Verify we only are making calls to os.getenv as expected"""
         os_getenv_patched.return_value = None
         _ = Environment()  # noqa
         self.assertEqual(
@@ -43,12 +45,14 @@ class TestEnvironment(TestCase):
         )
 
     def test_env_vars_ordered_length(self):
+        """Our environment should have a known length at all times"""
         self.assertEqual(
             len(self.env.env_vars_ordered),
             self.expected_env_length
         )
 
     def test_env_vars_ordered_type(self):
+        """Ordered environment variables should be an OrderedDict"""
         actual = self.env.env_vars_ordered
         expected = OrderedDict
 
