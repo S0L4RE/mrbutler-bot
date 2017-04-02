@@ -28,12 +28,6 @@ class TestEnvironment(TestCase):
         cls.env = Environment()
         cls.expected_env_length = 2
 
-    def test_token_key(self):
-        self.assertEqual(
-            self.env._DISCORD_TOKEN_KEY_NAME,
-            'MRB_DISCORD_TOKEN',
-        )
-
     @patch('os.getenv')
     def test_getenv_calls(self, os_getenv_patched):
         """Verify we only are making calls to os.getenv as expected"""
@@ -42,13 +36,6 @@ class TestEnvironment(TestCase):
         self.assertEqual(
             os_getenv_patched.call_count,
             self.expected_env_length,
-        )
-
-    def test_env_vars_ordered_length(self):
-        """Our environment should have a known length at all times"""
-        self.assertEqual(
-            len(self.env.env_vars_ordered),
-            self.expected_env_length
         )
 
     def test_env_vars_ordered_type(self):
