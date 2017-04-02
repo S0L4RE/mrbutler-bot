@@ -42,17 +42,7 @@ class TestEnvironment(TestCase):
 
     def test_env_vars_ordered_type(self):
         """Ordered environment variables should be an OrderedDict"""
-        actual = self.env.env_vars_ordered
-        expected = OrderedDict
-
-        self.assertIsInstance(
-            actual,
-            expected,
-            msg="Expected a {0}, instead got a {1}".format(
-                expected,
-                type(actual),
-            )
-        )
+        self.assertIsInstance(self.env.env_vars_ordered, OrderedDict)
 
 
 class TestEnvironmentHelperMethods(TestCase):
