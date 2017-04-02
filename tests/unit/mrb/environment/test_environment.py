@@ -60,3 +60,24 @@ class TestEnvironment(TestCase):
                 type(actual),
             )
         )
+
+
+class TestEnvironmentHelperMethods(TestCase):
+    def test_make_log_safe(self):
+        """The standard case, verify that the string is made safe"""
+        input_token = 'masking your face'
+        expected = '•••••••••••••face'
+
+        self.assertEqual(Environment.make_log_safe(input_token), expected)
+
+    def test_make_log_safe_short_strings(self):
+        """Edge case, verify that short strings are fully masked"""
+        for x in range(1, 8):
+            input_token = 'x' * x
+            expected = '•' * x
+
+            self.assertEqual(Environment.make_log_safe(input_token), expected)
+
+    def test_make_log_safe_none_type(self):
+        """Edge case, verify that a 'None' value is treated as empty string"""
+        self.assertEqual(Environment.make_log_safe(None), '')

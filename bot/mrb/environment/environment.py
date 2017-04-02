@@ -32,16 +32,10 @@ class Environment(object):
     def __init__(self):
         # Configure the internal values for the environment
         self._discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME)
-        self._discord_token_safe = None
+        self._discord_token_safe = self.make_log_safe(self._discord_token)
         self._type = self._get_mrb_env(os.getenv(self._MRB_ENV_KEY_NAME))
 
-        # Configure a "safe" string that we can log for the 'discord_token'
-        if self._discord_token and len(self._discord_token) > 4:
-            self._discord_token_safe = "{blanks}{last_chars}".format(
-                blanks='•'*(len(self._discord_token) - 4),
-                last_chars=self._discord_token[-4:],
-            )
-
+        # Configure environment variable collections
         self._env_vars_ordered = OrderedDict([
             (self._DISCORD_TOKEN_KEY_NAME, self._discord_token_safe),
             (self._MRB_ENV_KEY_NAME, self.type),
@@ -61,6 +55,34 @@ class Environment(object):
             result = EnvironmentType.PROD
 
         return result
+
+    @staticmethod
+    def make_log_safe(token: str=None):
+        """
+        Given an input token, turn it into a log-safe value.
+
+        This is performed by using a given generic character to mask
+        the other values of the token
+
+        :param token: The string to generate a safe instance of
+        :return: A string, with all but the last few characters covered up
+        """
+
+        if not token:
+            token = ''
+
+        safe_char = '•'
+        token_length = len(token)
+        token_exposed_length = 4
+        token_min_length = token_exposed_length * 2
+
+        if token_length >= token_min_length:
+            return "{blanks}{last_chars}".format(
+                blanks=safe_char * (token_length - token_exposed_length),
+                last_chars=token[-token_exposed_length:]
+            )
+        else:
+            return '•' * token_length
 
     @property
     def discord_token(self) -> Optional[str]:
