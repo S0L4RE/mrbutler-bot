@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:edge
 
 ENV MRB_ROOT /app
 WORKDIR ${MRB_ROOT}
