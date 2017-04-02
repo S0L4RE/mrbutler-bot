@@ -24,17 +24,19 @@ from mrb.environment import Environment
 class TestEnvironment(TestCase):
     @classmethod
     def setUpClass(cls):
-        """Setup testing for the entire run."""
-        cls.env = Environment()
         cls.expected_env_length = 2
 
-    @patch('os.getenv')
-    def test_getenv_calls(self, os_getenv_patched):
+    def setUp(self):
+        patcher = patch('os.getenv')
+        self.addCleanup(patcher.stop)
+        self.mock_os_getenv = patcher.start()
+
+        self.env = Environment()
+
+    def test_getenv_calls(self):
         """Verify we only are making calls to os.getenv as expected"""
-        os_getenv_patched.return_value = None
-        _ = Environment()  # noqa
         self.assertEqual(
-            os_getenv_patched.call_count,
+            self.mock_os_getenv.call_count,
             self.expected_env_length,
         )
 
