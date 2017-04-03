@@ -25,6 +25,7 @@ class TestEnvironmentType(TestCase):
         cls.expected_env_type_length = 2
 
     def test_known_environments_available(self):
+        """Given known environment types, verify we have a matching Enum"""
         known_envs = [
             'dev',
             'prod',
@@ -39,6 +40,7 @@ class TestEnvironmentType(TestCase):
             )
 
     def test_known_environment_length(self):
+        """Verify that we have a known number of environments at all times"""
         known_environments = list(EnvironmentType.__members__.items())
 
         self.assertEqual(
