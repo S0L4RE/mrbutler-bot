@@ -16,7 +16,6 @@ limitations under the License.
 
 import os
 from collections import OrderedDict
-from typing import Optional
 
 from .environment_type import EnvironmentType
 
@@ -26,62 +25,50 @@ class Environment(object):
     Class to collect required environment variables for Mr. Butler
     """
 
-    _DISCORD_TOKEN_KEY_NAME = 'MRB_DISCORD_TOKEN'
-    _MRB_ENV_KEY_NAME = 'MRB_ENV'
-
     def __init__(self):
+        discord_token_key_name = 'MRB_DISCORD_TOKEN'
+        mrb_env_key_name = 'MRB_ENV'
+
         # Configure the internal values for the environment
-        self._discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME)
-        self._discord_token_safe = None
-        self._type = self._get_mrb_env(os.getenv(self._MRB_ENV_KEY_NAME))
+        self.discord_token = os.getenv(discord_token_key_name)
+        self.type = EnvironmentType.get_type(os.getenv(mrb_env_key_name))
 
-        # Configure a "safe" string that we can log for the 'discord_token'
-        if self._discord_token and len(self._discord_token) > 4:
-            self._discord_token_safe = "{blanks}{last_chars}".format(
-                blanks='•'*(len(self._discord_token) - 4),
-                last_chars=self._discord_token[-4:],
-            )
+        # Configure environment variable collections
+        safe_discord_token = self.make_log_safe(self.discord_token)
 
-        self._env_vars_ordered = OrderedDict([
-            (self._DISCORD_TOKEN_KEY_NAME, self._discord_token_safe),
-            (self._MRB_ENV_KEY_NAME, self.type),
+        self.env_vars_ordered = OrderedDict([
+            (discord_token_key_name, safe_discord_token),
+            (mrb_env_key_name, self.type),
         ])
 
+        self.env_vars = {}
+        for key, value in self.env_vars_ordered.items():
+            self.env_vars[key] = value
+
     @staticmethod
-    def _get_mrb_env(env_input: str=''):
+    def make_log_safe(token: str=None):
         """
-        Determine the environment enum based on a string input
+        Given an input token, turn it into a log-safe value.
 
-        :param env_input: The string describing the environment
-        :return: The 'EnvironmentType' or 'EnvironmentType.PROD' on ValueError
-        """
-        try:
-            result = EnvironmentType(env_input)
-        except ValueError:
-            result = EnvironmentType.PROD
+        This is performed by using a given generic character to mask
+        the other values of the token
 
-        return result
+        :param token: The string to generate a safe instance of
+        :return: A string, with all but the last few characters covered up
+        """
 
-    @property
-    def discord_token(self) -> Optional[str]:
-        """
-        The determined API token for Discord.
-        :return: The API token as a string, or None if unset.
-        """
-        return self._discord_token
+        if not token:
+            token = ''
 
-    @property
-    def env_vars_ordered(self) -> OrderedDict:
-        """
-        Convenience property to get an ordered dictionary
-        of all environment settings
-        """
-        return self._env_vars_ordered
+        safe_char = '•'
+        token_length = len(token)
+        token_exposed_length = 4
+        token_min_length = token_exposed_length * 2
 
-    @property
-    def type(self) -> EnvironmentType:
-        """
-        The determined EnvironmentType for this Environment
-        :return: The loaded EnvironmentType, or EnvironmentType.PROD if unset.
-        """
-        return self._type
+        if token_length >= token_min_length:
+            return "{blanks}{last_chars}".format(
+                blanks=safe_char * (token_length - token_exposed_length),
+                last_chars=token[-token_exposed_length:]
+            )
+        else:
+            return '•' * token_length

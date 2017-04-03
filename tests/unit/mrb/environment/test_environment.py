@@ -24,39 +24,43 @@ from mrb.environment import Environment
 class TestEnvironment(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.env = Environment()
         cls.expected_env_length = 2
 
-    def test_token_key(self):
-        self.assertEqual(
-            self.env._DISCORD_TOKEN_KEY_NAME,
-            'MRB_DISCORD_TOKEN',
-        )
+    def setUp(self):
+        patcher = patch('os.getenv')
+        self.addCleanup(patcher.stop)
+        self.mock_os_getenv = patcher.start()
 
-    @patch('os.getenv')
-    def test_getenv_calls(self, os_getenv_patched):
-        os_getenv_patched.return_value = None
-        _ = Environment()  # noqa
+        self.env = Environment()
+
+    def test_getenv_calls(self):
+        """Verify we only are making calls to os.getenv as expected"""
         self.assertEqual(
-            os_getenv_patched.call_count,
+            self.mock_os_getenv.call_count,
             self.expected_env_length,
         )
 
-    def test_env_vars_ordered_length(self):
-        self.assertEqual(
-            len(self.env.env_vars_ordered),
-            self.expected_env_length
-        )
-
     def test_env_vars_ordered_type(self):
-        actual = self.env.env_vars_ordered
-        expected = OrderedDict
+        """Ordered environment variables should be an OrderedDict"""
+        self.assertIsInstance(self.env.env_vars_ordered, OrderedDict)
 
-        self.assertIsInstance(
-            actual,
-            expected,
-            msg="Expected a {0}, instead got a {1}".format(
-                expected,
-                type(actual),
-            )
+
+class TestEnvironmentHelperMethods(TestCase):
+    def test_make_log_safe(self):
+        """The standard case, verify that the string is made safe"""
+        self.assertEqual(
+            Environment.make_log_safe('masking your face'),
+            '•••••••••••••face',
         )
+
+    def test_make_log_safe_short_strings(self):
+        """Edge case, verify that short strings are fully masked"""
+        for x in range(1, 8):
+            input_token = 'x' * x
+            expected = '•' * x
+
+            self.assertEqual(Environment.make_log_safe(input_token), expected)
+
+    def test_make_log_safe_none_type(self):
+        """Edge case, verify that a 'None' value is treated as empty string"""
+        self.assertEqual(Environment.make_log_safe(None), '')

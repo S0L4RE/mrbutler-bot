@@ -24,3 +24,23 @@ class EnvironmentType(Enum):
 
     DEV = 'dev'
     PROD = 'prod'
+
+    @staticmethod
+    def get_type(env_input: str=''):
+        """
+        Determine the environment enum based on a string input
+
+        :param env_input: The string describing the environment
+        :return: The 'EnvironmentType' or 'EnvironmentType.PROD' on ValueError
+        """
+        if not isinstance(env_input, str):
+            return EnvironmentType.PROD
+
+        env_input = env_input.lower()
+
+        try:
+            result = EnvironmentType(env_input)
+        except ValueError:
+            result = EnvironmentType.PROD
+
+        return result
