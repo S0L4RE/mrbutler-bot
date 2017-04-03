@@ -31,12 +31,13 @@ class Environment(object):
     def __init__(self):
         # Configure the internal values for the environment
         self.discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME)
-        self._discord_token_safe = self.make_log_safe(self.discord_token)
         self.type = self._get_mrb_env(os.getenv(self._MRB_ENV_KEY_NAME))
 
         # Configure environment variable collections
+        safe_discord_token = self.make_log_safe(self.discord_token)
+
         self._env_vars_ordered = OrderedDict([
-            (self._DISCORD_TOKEN_KEY_NAME, self._discord_token_safe),
+            (self._DISCORD_TOKEN_KEY_NAME, safe_discord_token),
             (self._MRB_ENV_KEY_NAME, self.type),
         ])
 
