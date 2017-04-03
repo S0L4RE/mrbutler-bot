@@ -25,20 +25,20 @@ class Environment(object):
     Class to collect required environment variables for Mr. Butler
     """
 
-    _DISCORD_TOKEN_KEY_NAME = 'MRB_DISCORD_TOKEN'
-    _MRB_ENV_KEY_NAME = 'MRB_ENV'
-
     def __init__(self):
+        discord_token_key_name = 'MRB_DISCORD_TOKEN'
+        mrb_env_key_name = 'MRB_ENV'
+
         # Configure the internal values for the environment
-        self.discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME)
-        self.type = self._get_mrb_env(os.getenv(self._MRB_ENV_KEY_NAME))
+        self.discord_token = os.getenv(discord_token_key_name)
+        self.type = self._get_mrb_env(os.getenv(mrb_env_key_name))
 
         # Configure environment variable collections
         safe_discord_token = self.make_log_safe(self.discord_token)
 
         self.env_vars_ordered = OrderedDict([
-            (self._DISCORD_TOKEN_KEY_NAME, safe_discord_token),
-            (self._MRB_ENV_KEY_NAME, self.type),
+            (discord_token_key_name, safe_discord_token),
+            (mrb_env_key_name, self.type),
         ])
 
         self.env_vars = {}
