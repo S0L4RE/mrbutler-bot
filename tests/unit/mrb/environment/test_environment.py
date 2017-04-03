@@ -18,7 +18,10 @@ from collections import OrderedDict
 from unittest import TestCase
 from unittest.mock import patch
 
-from mrb.environment import Environment
+from mrb.environment import (
+    Environment,
+    EnvironmentType,
+)
 
 
 class TestEnvironment(TestCase):
@@ -46,6 +49,27 @@ class TestEnvironment(TestCase):
 
 
 class TestEnvironmentHelperMethods(TestCase):
+    def test_get_environment_type_dev(self):
+        """Standard case, verify that we get a DEV environment"""
+        self.assertEqual(
+            Environment.get_environment_type('dev'),
+            EnvironmentType.DEV,
+        )
+
+    def test_get_environment_type_prod(self):
+        """Standard case, verify that we get a PROD environment"""
+        self.assertEqual(
+            Environment.get_environment_type('prod'),
+            EnvironmentType.PROD,
+        )
+
+    def test_get_environment_type_invalid(self):
+        """Edge case, verify that we get a PROD environment on ValueError"""
+        self.assertEqual(
+            Environment.get_environment_type('junk data junk data junk data'),
+            EnvironmentType.PROD,
+        )
+
     def test_make_log_safe(self):
         """The standard case, verify that the string is made safe"""
         self.assertEqual(
