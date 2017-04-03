@@ -46,7 +46,7 @@ class Environment(object):
             self.env_vars[key] = value
 
     @staticmethod
-    def get_environment_type(env_input: str= ''):
+    def get_environment_type(env_input: str=''):
         """
         Determine the environment enum based on a string input
 
