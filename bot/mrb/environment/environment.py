@@ -31,7 +31,7 @@ class Environment(object):
 
         # Configure the internal values for the environment
         self.discord_token = os.getenv(discord_token_key_name)
-        self.type = self._get_mrb_env(os.getenv(mrb_env_key_name))
+        self.type = self.get_environment_type(os.getenv(mrb_env_key_name))
 
         # Configure environment variable collections
         safe_discord_token = self.make_log_safe(self.discord_token)
@@ -46,7 +46,7 @@ class Environment(object):
             self.env_vars[key] = value
 
     @staticmethod
-    def _get_mrb_env(env_input: str=''):
+    def get_environment_type(env_input: str= ''):
         """
         Determine the environment enum based on a string input
 
