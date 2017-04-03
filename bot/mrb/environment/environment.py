@@ -53,6 +53,11 @@ class Environment(object):
         :param env_input: The string describing the environment
         :return: The 'EnvironmentType' or 'EnvironmentType.PROD' on ValueError
         """
+        if not isinstance(env_input, str):
+            return EnvironmentType.PROD
+
+        env_input = env_input.lower()
+
         try:
             result = EnvironmentType(env_input)
         except ValueError:
