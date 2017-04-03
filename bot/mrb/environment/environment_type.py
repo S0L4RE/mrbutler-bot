@@ -26,7 +26,7 @@ class EnvironmentType(Enum):
     PROD = 'prod'
 
     @staticmethod
-    def get_type(env_input: str = ''):
+    def get_type(env_input: str=''):
         """
         Determine the environment enum based on a string input
 
