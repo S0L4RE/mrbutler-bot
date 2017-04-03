@@ -48,10 +48,10 @@ class TestEnvironment(TestCase):
 class TestEnvironmentHelperMethods(TestCase):
     def test_make_log_safe(self):
         """The standard case, verify that the string is made safe"""
-        input_token = 'masking your face'
-        expected = '•••••••••••••face'
-
-        self.assertEqual(Environment.make_log_safe(input_token), expected)
+        self.assertEqual(
+            Environment.make_log_safe('masking your face'),
+            '•••••••••••••face',
+        )
 
     def test_make_log_safe_short_strings(self):
         """Edge case, verify that short strings are fully masked"""
