@@ -31,7 +31,9 @@ class Environment(object):
 
         # Configure the internal values for the environment
         self.discord_token = os.getenv(discord_token_key_name)
-        self.type = self.get_environment_type(os.getenv(mrb_env_key_name))
+        self.type = EnvironmentType.get_environment_type(
+            os.getenv(mrb_env_key_name)
+        )
 
         # Configure environment variable collections
         safe_discord_token = self.make_log_safe(self.discord_token)
@@ -44,26 +46,6 @@ class Environment(object):
         self.env_vars = {}
         for key, value in self.env_vars_ordered.items():
             self.env_vars[key] = value
-
-    @staticmethod
-    def get_environment_type(env_input: str=''):
-        """
-        Determine the environment enum based on a string input
-
-        :param env_input: The string describing the environment
-        :return: The 'EnvironmentType' or 'EnvironmentType.PROD' on ValueError
-        """
-        if not isinstance(env_input, str):
-            return EnvironmentType.PROD
-
-        env_input = env_input.lower()
-
-        try:
-            result = EnvironmentType(env_input)
-        except ValueError:
-            result = EnvironmentType.PROD
-
-        return result
 
     @staticmethod
     def make_log_safe(token: str=None):
