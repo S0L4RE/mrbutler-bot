@@ -41,6 +41,10 @@ class Environment(object):
             (self._MRB_ENV_KEY_NAME, self.type),
         ])
 
+        self.env_vars = {}
+        for key, value in self.env_vars_ordered.items():
+            self.env_vars[key] = value
+
     @staticmethod
     def _get_mrb_env(env_input: str=''):
         """
