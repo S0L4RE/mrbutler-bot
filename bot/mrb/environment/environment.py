@@ -16,7 +16,6 @@ limitations under the License.
 
 import os
 from collections import OrderedDict
-from typing import Optional
 
 from .environment_type import EnvironmentType
 
@@ -31,9 +30,9 @@ class Environment(object):
 
     def __init__(self):
         # Configure the internal values for the environment
-        self._discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME)
-        self._discord_token_safe = self.make_log_safe(self._discord_token)
-        self._type = self._get_mrb_env(os.getenv(self._MRB_ENV_KEY_NAME))
+        self.discord_token = os.getenv(self._DISCORD_TOKEN_KEY_NAME)
+        self._discord_token_safe = self.make_log_safe(self.discord_token)
+        self.type = self._get_mrb_env(os.getenv(self._MRB_ENV_KEY_NAME))
 
         # Configure environment variable collections
         self._env_vars_ordered = OrderedDict([
@@ -85,25 +84,9 @@ class Environment(object):
             return '•' * token_length
 
     @property
-    def discord_token(self) -> Optional[str]:
-        """
-        The determined API token for Discord.
-        :return: The API token as a string, or None if unset.
-        """
-        return self._discord_token
-
-    @property
     def env_vars_ordered(self) -> OrderedDict:
         """
         Convenience property to get an ordered dictionary
         of all environment settings
         """
         return self._env_vars_ordered
-
-    @property
-    def type(self) -> EnvironmentType:
-        """
-        The determined EnvironmentType for this Environment
-        :return: The loaded EnvironmentType, or EnvironmentType.PROD if unset.
-        """
-        return self._type
