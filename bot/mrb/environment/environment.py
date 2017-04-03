@@ -36,7 +36,7 @@ class Environment(object):
         # Configure environment variable collections
         safe_discord_token = self.make_log_safe(self.discord_token)
 
-        self._env_vars_ordered = OrderedDict([
+        self.env_vars_ordered = OrderedDict([
             (self._DISCORD_TOKEN_KEY_NAME, safe_discord_token),
             (self._MRB_ENV_KEY_NAME, self.type),
         ])
@@ -83,11 +83,3 @@ class Environment(object):
             )
         else:
             return '•' * token_length
-
-    @property
-    def env_vars_ordered(self) -> OrderedDict:
-        """
-        Convenience property to get an ordered dictionary
-        of all environment settings
-        """
-        return self._env_vars_ordered
