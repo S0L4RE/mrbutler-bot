@@ -53,14 +53,14 @@ class TestEnvironmentTypeHelperMethods(TestCase):
     def test_get_environment_type_dev(self):
         """Standard case, verify that we get a DEV environment"""
         self.assertEqual(
-            EnvironmentType.get_environment_type('dev'),
+            EnvironmentType.get_type('dev'),
             EnvironmentType.DEV,
         )
 
     def test_get_environment_type_prod(self):
         """Standard case, verify that we get a PROD environment"""
         self.assertEqual(
-            EnvironmentType.get_environment_type('prod'),
+            EnvironmentType.get_type('prod'),
             EnvironmentType.PROD,
         )
 
@@ -85,14 +85,14 @@ class TestEnvironmentTypeHelperMethods(TestCase):
                 lookup_value = capitalize_index(env.value, idx)
                 # And use it to lookup the matching EnvironmentType!
                 self.assertEqual(
-                    EnvironmentType.get_environment_type(lookup_value),
+                    EnvironmentType.get_type(lookup_value),
                     env,
                 )
 
     def test_get_environment_type_invalid(self):
         """Edge case, verify that we get a PROD environment on ValueError"""
         self.assertEqual(
-            EnvironmentType.get_environment_type('junk data junk data'),
+            EnvironmentType.get_type('junk data junk data'),
             EnvironmentType.PROD,
         )
 
@@ -100,10 +100,10 @@ class TestEnvironmentTypeHelperMethods(TestCase):
     def test_get_environment_type_bad_input_type(self):
         """Edge case, verify that we get PROD from a bad data type"""
         self.assertEqual(
-            EnvironmentType.get_environment_type(None),
+            EnvironmentType.get_type(None),
             EnvironmentType.PROD,
         )
         self.assertEqual(
-            EnvironmentType.get_environment_type(1),
+            EnvironmentType.get_type(1),
             EnvironmentType.PROD,
         )

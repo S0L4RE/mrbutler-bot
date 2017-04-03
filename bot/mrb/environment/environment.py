@@ -31,9 +31,7 @@ class Environment(object):
 
         # Configure the internal values for the environment
         self.discord_token = os.getenv(discord_token_key_name)
-        self.type = EnvironmentType.get_environment_type(
-            os.getenv(mrb_env_key_name)
-        )
+        self.type = EnvironmentType.get_type(os.getenv(mrb_env_key_name))
 
         # Configure environment variable collections
         safe_discord_token = self.make_log_safe(self.discord_token)
