@@ -99,9 +99,11 @@ def get_help_message(audio_list: List[str]=None) -> str:
 
 @client.event
 async def on_message(message):
+    # Ignore the bot's own messages
     if message.author == client.user:
         return
 
+    # Ignore private messages
     if message.channel.type == discord.ChannelType.private:
         return
 
