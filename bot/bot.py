@@ -25,6 +25,7 @@ import discord
 
 import mrb
 import mrb.environment
+import mrb.fun
 
 
 # Get the env details
@@ -170,7 +171,7 @@ async def on_message(message):
             return
 
         try:
-            roll_result = mrb.Dice.roll(roll_string_input[1])
+            roll_result = mrb.fun.Dice.roll(roll_string_input[1])
 
             msg = "Given a `{0}` {1} rolled".format(
                 roll_string_input[1],
