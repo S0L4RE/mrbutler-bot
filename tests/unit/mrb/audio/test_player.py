@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import asyncio
 from unittest import TestCase
 from unittest.mock import (
     mock_open,
@@ -21,7 +22,6 @@ from unittest.mock import (
     MagicMock,
 )
 
-import asyncio
 from discord import VoiceClient
 from discord.voice_client import StreamPlayer
 

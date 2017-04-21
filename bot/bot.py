@@ -27,7 +27,6 @@ import mrb
 import mrb.environment
 import mrb.fun
 
-
 # Get the env details
 bot_env = mrb.environment.Environment()
 
