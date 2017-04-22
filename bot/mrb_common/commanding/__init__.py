@@ -14,12 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio.player import Player
-from .bot_commands import BotCommands
+from .command import Command
+from .command_result import CommandResult
+from .commander import Commander
+from .reponse_type import ResponseType
 
 __all__ = [
-    'BotCommands',
-    'Player',
+    'Command',
+    'Commander',
+    'CommandResult',
+    'ResponseType',
 ]
-
-__version__ = "0.3.3"

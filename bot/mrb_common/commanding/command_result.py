@@ -14,12 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio.player import Player
-from .bot_commands import BotCommands
+from .reponse_type import ResponseType
 
-__all__ = [
-    'BotCommands',
-    'Player',
-]
 
-__version__ = "0.3.3"
+class CommandResult(object):
+    def __init__(
+            self,
+            content: str='',
+            error_message: str='',
+            response_type: ResponseType=ResponseType.NoOp,
+            success: bool=False,
+    ):
+        self.content = content
+        self.error_message = error_message
+        self.response_type = response_type
+        self.success = success

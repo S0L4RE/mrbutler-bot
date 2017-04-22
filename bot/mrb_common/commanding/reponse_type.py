@@ -14,12 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio.player import Player
-from .bot_commands import BotCommands
+from enum import Enum
 
-__all__ = [
-    'BotCommands',
-    'Player',
-]
 
-__version__ = "0.3.3"
+class ResponseType(Enum):
+    ChannelMessage = 'channel'
+    DirectMessage = 'dm'
+    NoOp = 'noop'
