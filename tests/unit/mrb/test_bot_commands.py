@@ -31,9 +31,7 @@ class TestBotCommands(TestCase):
     def setUp(self):
         self.mock_logger = MagicMock(spec=Logger)  # type: Logger
         self.mock_message = MagicMock(spec=Message)  # type: Message
-        self.bot_commands = BotCommands(
-            logger=self.mock_logger,
-        )
+        self.bot_commands = BotCommands(logger=self.mock_logger)
 
     def test_configure_commands(self):
         """Verify that commands are configured through the parent's add"""
