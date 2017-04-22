@@ -40,13 +40,15 @@ class TestCommander(TestCase):
     def test_execute(self):
         """Verify commands can be executed"""
         mock_function = MagicMock()
+        mock_message = MagicMock(spec=Message)  # type: Message
         self.commander.add('test', mock_function)
-        self.commander.execute('test', MagicMock(spec=Message))
+        self.commander.execute('test', mock_message)
         self.assertEqual(mock_function.call_count, 1)
 
     def test_execute_undefined(self):
         """Verify no-op occurs when an undefined command is executed"""
-        self.commander.execute('test', MagicMock(spec=Message))
+        mock_message = MagicMock(spec=Message)  # type: Message
+        self.commander.execute('test', mock_message)
 
     def test_init(self):
         """Verify that init configures the object correctly"""
