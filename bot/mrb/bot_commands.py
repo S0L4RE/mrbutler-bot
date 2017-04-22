@@ -28,6 +28,7 @@ from mrb_common.commanding import (
     Commander,
     CommandResult,
 )
+from .versioning import get_version_command
 
 
 class BotCommands(Commander):
@@ -39,6 +40,10 @@ class BotCommands(Commander):
         self._logger = logger
 
         self.configure_commands({
+            '!version': (
+                get_version_command,
+                "I'll report my current version number to you",
+            ),
         })
 
     def configure_commands(
