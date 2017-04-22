@@ -43,7 +43,10 @@ else:
 
 stdout_logger = logging.StreamHandler(sys.stdout)
 stdout_logger.setFormatter(
-    logging.Formatter('%(asctime)s %(levelname)s - %(message)s')
+    logging.Formatter(
+        '{asctime} - {levelname: <8} - {module} - {message}',
+        style='{',
+    )
 )
 stdout_logger.setLevel(log_level)
 
