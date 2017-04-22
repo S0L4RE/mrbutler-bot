@@ -17,7 +17,7 @@ limitations under the License.
 from unittest import TestCase
 from unittest.mock import patch
 
-from mrb import Dice
+from mrb.fun import Dice
 
 
 class TestDice(TestCase):
@@ -112,7 +112,7 @@ class TestRoll(TestCase):
             self.expected_base_message,
         )
 
-    @patch('mrb.dice.Dice.roll_dice')
+    @patch('mrb.fun.Dice.roll_dice')
     def test_roll_call(self, roll_dice_patched):
         full_roll = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         full_roll_sum = 45

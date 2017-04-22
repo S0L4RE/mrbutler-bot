@@ -25,7 +25,9 @@ import discord
 
 import mrb
 import mrb.environment
-
+import mrb.fun
+from mrb.versioning import get_version
+from mrb_common.commanding import ResponseType
 
 # Get the env details
 bot_env = mrb.environment.Environment()
@@ -43,7 +45,10 @@ else:
 
 stdout_logger = logging.StreamHandler(sys.stdout)
 stdout_logger.setFormatter(
-    logging.Formatter('%(asctime)s %(levelname)s - %(message)s')
+    logging.Formatter(
+        '{asctime} - {levelname: <8} - {module} - {message}',
+        style='{',
+    )
 )
 stdout_logger.setLevel(log_level)
 
@@ -53,6 +58,9 @@ logger.addHandler(stdout_logger)
 
 client = discord.Client()
 player = mrb.Player()
+
+
+bot_commands = mrb.BotCommands(logger)
 
 
 def get_help_message(audio_list: List[str]=None) -> str:
@@ -98,20 +106,28 @@ def get_help_message(audio_list: List[str]=None) -> str:
 
 @client.event
 async def on_message(message):
+    # Ignore the bot's own messages
     if message.author == client.user:
         return
 
+    # Ignore private messages
     if message.channel.type == discord.ChannelType.private:
         return
 
-    if message.content.startswith('!version'):
-        await client.send_message(
-            message.channel,
-            "{0} version `{1}`, at your service.".format(
-                client.user.mention,
-                mrb.__version__,
+    # Run commander
+    command_result = bot_commands.parse_message(message)
+    if command_result and command_result.success:
+        send_message_types = {
+            ResponseType.ChannelMessage: message.channel,
+            ResponseType.DirectMessage: message.author,
+        }
+
+        if command_result.response_type in send_message_types:
+            await client.send_message(
+                destination=send_message_types[command_result.response_type],
+                content=command_result.content,
             )
-        )
+
         return
 
     if message.content.startswith('!help'):
@@ -170,7 +186,7 @@ async def on_message(message):
             return
 
         try:
-            roll_result = mrb.Dice.roll(roll_string_input[1])
+            roll_result = mrb.fun.Dice.roll(roll_string_input[1])
 
             msg = "Given a `{0}` {1} rolled".format(
                 roll_string_input[1],
@@ -321,7 +337,7 @@ async def on_ready():
         )
 
     logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, "Version: '{}'".format(mrb.__version__))
+    logger.log(logging.INFO, "Version: '{}'".format(get_version()))
 
     logger.log(logging.INFO, '---')
 

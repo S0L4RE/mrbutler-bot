@@ -14,10 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio.player import Player
-from .bot_commands import BotCommands
+from .dice import Dice
+
 
 __all__ = [
-    'BotCommands',
-    'Player',
+    'Dice',
 ]

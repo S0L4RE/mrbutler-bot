@@ -14,10 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .audio.player import Player
-from .bot_commands import BotCommands
+from unittest import TestCase
 
-__all__ = [
-    'BotCommands',
-    'Player',
-]
+from mrb_common.commanding import CommandResult
+
+
+class TestCommandResult(TestCase):
+    def setUp(self):
+        self.command_result = CommandResult()
+
+    def test_result_create(self):
+        """Verify the proper initial state of a result object"""
+        self.assertFalse(self.command_result.success)
