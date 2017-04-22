@@ -28,7 +28,6 @@ from mrb_common.commanding import (
     Commander,
     CommandResult,
 )
-from .versioning import get_version_command
 
 
 class BotCommands(Commander):
@@ -36,21 +35,23 @@ class BotCommands(Commander):
 
     def __init__(
             self,
+            commands: Dict[
+                str,
+                Tuple[Callable[[Message], CommandResult], str]
+            ]=None,
             logger: logging.Logger=None,
     ):
         super().__init__()
+
+        if not commands:
+            commands = {}
 
         if logger and not isinstance(logger, logging.Logger):
             raise TypeError("You must use a proper logging.Logger type!")
 
         self._logger = logger
 
-        self.configure_commands({
-            '!version': (
-                get_version_command,
-                "I'll report my current version number to you",
-            ),
-        })
+        self.configure_commands(commands)
 
     def _log(self, level: int, msg: str, *args, **kwargs):
         """Internal wrapper for the logger, in case one is not set"""
@@ -61,9 +62,21 @@ class BotCommands(Commander):
 
     def configure_commands(
             self,
-            raw_commands: Dict[str, Tuple[Callable, str]],
+            raw_commands: Dict[
+                str,
+                Tuple[Callable[[Message], CommandResult], str]
+            ],
     ):
-        """Configure the commands for this bot, from a raw structure"""
+        """
+        Configure the commands for this bot, from a raw structure
+
+        If this is called at anytime, it will *erase* all current commands
+        on the bot!
+
+        :param raw_commands: A raw dictionary object, with command details
+        """
+        self.reset()
+
         for trigger, raw_command in raw_commands.items():
             command, help_text = raw_command
             self.add(
