@@ -67,6 +67,36 @@ class TestBotCommands(TestCase):
         """Verify the logger is attached to the object"""
         self.assertEqual(self.bot_commands._logger, self.mock_logger)
 
+    def test_logger_as_none(self):
+        """Verify that we do not have to define a logger"""
+        self.bot_commands = BotCommands()
+        self.assertIsNone(self.bot_commands._logger)
+        self.bot_commands = BotCommands(logger=None)
+        self.assertIsNone(self.bot_commands._logger)
+
+    def test_logger_raises_type_error(self):
+        """Verify that a non logging.Logger object raises a TypeError"""
+        with self.assertRaises(TypeError):
+            # noinspection PyTypeChecker
+            BotCommands(logger='not a logger')
+
+    def test_logging_internal(self):
+        """Verify that we are calling loggers correctly internally"""
+        level = 0
+        message = 'test'
+        self.mock_logger.log = MagicMock()
+
+        self.bot_commands = BotCommands(logger=self.mock_logger)
+        self.bot_commands._log(level, message)
+
+        # noinspection PyUnresolvedReferences
+        self.mock_logger.log.assert_called_with(level, message, ())
+
+    def test_logging_internal_no_logger(self):
+        """Verify that trying to log with no logger does nothing"""
+        self.bot_commands = BotCommands()
+        self.bot_commands._log(0, 'test')
+
     @patch('mrb_common.commanding.commander.Commander.execute')
     def test_parse_message(self, mock_super_execute):
         """
