@@ -24,7 +24,7 @@ from mrb_common.commanding import (
 
 def get_version() -> str:
     """Get the raw version string"""
-    return '0.3.3'
+    return '0.3.4'
 
 
 def get_version_command(message: Message) -> CommandResult:

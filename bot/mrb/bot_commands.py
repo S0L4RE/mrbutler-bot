@@ -28,29 +28,55 @@ from mrb_common.commanding import (
     Commander,
     CommandResult,
 )
-from .versioning import get_version_command
 
 
 class BotCommands(Commander):
     """Customize, and define, the commands for our main commander in the bot"""
 
-    def __init__(self, logger: logging.Logger):
+    def __init__(
+            self,
+            commands: Dict[
+                str,
+                Tuple[Callable[[Message], CommandResult], str]
+            ]=None,
+            logger: logging.Logger=None,
+    ):
         super().__init__()
+
+        if not commands:
+            commands = {}
+
+        if logger and not isinstance(logger, logging.Logger):
+            raise TypeError("You must use a proper logging.Logger type!")
 
         self._logger = logger
 
-        self.configure_commands({
-            '!version': (
-                get_version_command,
-                "I'll report my current version number to you",
-            ),
-        })
+        self.configure_commands(commands)
+
+    def _log(self, level: int, msg: str, *args, **kwargs):
+        """Internal wrapper for the logger, in case one is not set"""
+        if not self._logger:
+            return
+
+        self._logger.log(level, msg, args, **kwargs)
 
     def configure_commands(
             self,
-            raw_commands: Dict[str, Tuple[Callable, str]],
+            raw_commands: Dict[
+                str,
+                Tuple[Callable[[Message], CommandResult], str]
+            ],
     ):
-        """Configure the commands for this bot, from a raw structure"""
+        """
+        Configure the commands for this bot, from a raw structure
+
+        If this is called at anytime, it will *erase* all current commands
+        on the bot!
+
+        :param raw_commands: A raw dictionary object, with command details
+        """
+        self.reset()
+
         for trigger, raw_command in raw_commands.items():
             command, help_text = raw_command
             self.add(
@@ -70,12 +96,9 @@ class BotCommands(Commander):
     def parse_message(self, message: Message) -> Optional[CommandResult]:
         """Parse a given message for a command token and execute"""
         tokens = message.content.split()
-        self._logger.log(logging.DEBUG, "tokens: {}".format(tokens))
+        self._log(logging.DEBUG, "tokens: {}".format(tokens))
 
         command_token = tokens[0] if len(tokens) > 0 else ''
-        self._logger.log(
-            logging.DEBUG,
-            "command_token: {}".format(command_token)
-        )
+        self._log(logging.DEBUG, "command_token: {}".format(command_token))
 
         return super().execute(command_token, message)

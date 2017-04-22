@@ -26,7 +26,7 @@ import discord
 import mrb
 import mrb.environment
 import mrb.fun
-from mrb.versioning import get_version
+import mrb.versioning
 from mrb_common.commanding import ResponseType
 
 # Get the env details
@@ -59,8 +59,17 @@ logger.addHandler(stdout_logger)
 client = discord.Client()
 player = mrb.Player()
 
+bot_raw_commands = {
+    '!version': (
+        mrb.versioning.get_version_command,
+        "I'll report my current version number to you",
+    ),
+}
 
-bot_commands = mrb.BotCommands(logger)
+bot_commands = mrb.BotCommands(
+    commands=bot_raw_commands,
+    logger=logger,
+)
 
 
 def get_help_message(audio_list: List[str]=None) -> str:
@@ -337,7 +346,10 @@ async def on_ready():
         )
 
     logger.log(logging.INFO, '---')
-    logger.log(logging.INFO, "Version: '{}'".format(get_version()))
+    logger.log(
+        logging.INFO,
+        "Version: '{}'".format(mrb.versioning.get_version()),
+    )
 
     logger.log(logging.INFO, '---')
 

@@ -40,13 +40,20 @@ class TestCommander(TestCase):
     def test_execute(self):
         """Verify commands can be executed"""
         mock_function = MagicMock()
+        mock_message = MagicMock(spec=Message)  # type: Message
         self.commander.add('test', mock_function)
-        self.commander.execute('test', MagicMock(spec=Message))
+        self.commander.execute('test', mock_message)
         self.assertEqual(mock_function.call_count, 1)
 
     def test_execute_undefined(self):
         """Verify no-op occurs when an undefined command is executed"""
-        self.commander.execute('test', MagicMock(spec=Message))
+        mock_message = MagicMock(spec=Message)  # type: Message
+        self.commander.execute('test', mock_message)
+
+    def test_init(self):
+        """Verify that init configures the object correctly"""
+        self.assertIsInstance(self.commander._commands, dict)
+        self.assertEqual(len(self.commander._commands), 0)
 
     def test_remove(self):
         """Verify commands can be removed"""
@@ -58,3 +65,10 @@ class TestCommander(TestCase):
         """Verify a KeyError is raised when removing an undefined command"""
         with self.assertRaises(KeyError):
             self.commander.remove('test')
+
+    def test_reset(self):
+        """Verify reset actually resets the commander"""
+        self.commander.add('test', MagicMock())
+        self.assertEqual(len(self.commander._commands), 1)
+        self.commander.reset()
+        self.assertEqual(len(self.commander._commands), 0)
