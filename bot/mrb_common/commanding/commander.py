@@ -27,7 +27,12 @@ from .command_result import CommandResult
 
 class Commander(object):
     def __init__(self):
-        self._commands = {}
+        # Define object attributes to avoid
+        # "Instance attribute defined outside __init__"
+        self._commands = None
+
+        # Actually configure the Commander
+        self.reset()
 
     def add(
             self,
@@ -82,3 +87,7 @@ class Commander(object):
             raise KeyError("Command '{}' not found!".format(trigger))
 
         del self._commands[trigger]
+
+    def reset(self):
+        """Reset the commander to the initial state"""
+        self._commands = {}
