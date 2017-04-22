@@ -15,8 +15,10 @@ limitations under the License.
 """
 
 from .audio.player import Player
+from .bot_commands import BotCommands
 
 __all__ = [
+    'BotCommands',
     'Player',
 ]
 
