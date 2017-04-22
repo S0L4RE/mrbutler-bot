@@ -21,5 +21,3 @@ __all__ = [
     'BotCommands',
     'Player',
 ]
-
-__version__ = "0.3.3"
