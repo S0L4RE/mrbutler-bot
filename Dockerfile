@@ -21,6 +21,7 @@ RUN pip3 install -r ${MRB_ROOT}/requirements.txt
 # COMMON DOCKERFILE ENDS HERE
 
 ADD bot/mrb/ ${MRB_ROOT}/mrb/
+ADD bot/mrb_common/ ${MRB_ROOT}/mrb_common/
 ADD bot/bot.py ${MRB_ROOT}
 
 CMD python3 bot.py
