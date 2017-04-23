@@ -50,6 +50,21 @@ class TestCommander(TestCase):
         mock_message = MagicMock(spec=Message)  # type: Message
         self.commander.execute('test', mock_message)
 
+    def test_help_text_cache_miss(self):
+        """Verify that help_text prop builds the text block on cache miss"""
+        mock_function = MagicMock()
+        mock_trigger = 'trigger'
+        mock_help_text = 'this is some help text'
+        self.commander.add(mock_trigger, mock_function, mock_help_text)
+        self.assertIn(mock_trigger, self.commander.help_text)
+        self.assertIn(mock_help_text, self.commander.help_text)
+
+    def test_help_text_returns_cache(self):
+        """Verify that the help_text prop returns cached values"""
+        test_value = 'this should be cached'
+        self.commander._help_text_block = test_value
+        self.assertEqual(self.commander.help_text, test_value)
+
     def test_init(self):
         """Verify that init configures the object correctly"""
         self.assertIsInstance(self.commander._commands, dict)
@@ -70,5 +85,7 @@ class TestCommander(TestCase):
         """Verify reset actually resets the commander"""
         self.commander.add('test', MagicMock())
         self.assertEqual(len(self.commander._commands), 1)
+        self.assertGreater(len(self.commander.help_text), 0)
         self.commander.reset()
         self.assertEqual(len(self.commander._commands), 0)
+        self.assertIsNone(self.commander._help_text_block)

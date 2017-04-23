@@ -30,9 +30,34 @@ class Commander(object):
         # Define object attributes to avoid
         # "Instance attribute defined outside __init__"
         self._commands = None
+        self._help_text_block = None
 
         # Actually configure the Commander
         self.reset()
+
+    @property
+    def help_text(self) -> str:
+        """
+        Generate a formatted string to display triggers and help text together
+
+        :return: The commands, in a single string, as a help text block
+        """
+        # If the help text block is already set, just return it
+        if self._help_text_block:
+            return self._help_text_block
+
+        # Else, we need to go ahead and compute it from the current commands
+        help_text_block_lines = []
+        for trigger, command in sorted(self._commands.items()):
+            help_text_block_lines.append(
+                "{trigger:.<30} {help_text}".format(
+                    trigger=trigger + " ",
+                    help_text=command.help_text,
+                )
+            )
+
+        self._help_text_block = "\n".join(help_text_block_lines)
+        return self._help_text_block
 
     def add(
             self,
@@ -54,6 +79,9 @@ class Commander(object):
             raise KeyError("Command '{}' already exists!".format(trigger))
 
         self._commands[trigger] = Command(command, help_text)
+
+        # Invalidate help text block
+        self._help_text_block = None
 
     def execute(
             self,
@@ -88,6 +116,10 @@ class Commander(object):
 
         del self._commands[trigger]
 
+        # Invalidate help text block
+        self._help_text_block = None
+
     def reset(self):
         """Reset the commander to the initial state"""
         self._commands = {}
+        self._help_text_block = None
